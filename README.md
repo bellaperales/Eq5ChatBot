@@ -3,6 +3,7 @@
 # Miembros del equipo
 - Bella Elisabet Perales Meléndez y Alcocer
 - Mariel Gisela Perez Ferrusquia
+- Andres Fernando Garza Garcia  
 
 ## Tecnologías a utilizar:
 ### Back-end
