@@ -1,5 +1,8 @@
 # Equipo5_OracleChatBot
 
+# Miembros del equipo
+- Bella Elisabet Perales Meléndez y Alcocer
+
 ## Tecnologías a utilizar:
 ### Back-end
 1. Spring Boot: Framework de desarrollo de aplicaciones Java que nos facilita la creación de aplicaciones basadas en microservicios.  Se utilizará para construir el backend de los microservicios. 
