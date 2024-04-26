@@ -2,7 +2,7 @@
 
 # Miembros del equipo
 - Bella Elisabet Perales Meléndez y Alcocer
-- Mariel Gisela Perez Ferrusquia
+- Mariel Gisela Perez Ferrusquia - A00832811
 - Andres Fernando Garza Garcia  
 
 ## Tecnologías a utilizar:
