@@ -22,3 +22,6 @@
 6. Kubernetes: Servicio de organización de contenedores que nos permite simplificar los procesos de despliegue y gestión de las aplicaciones basadas en contenedores. 
 7. Oracle Container Registry: Servicio de registro Docker que nos permite gestionar, almacenar y compartir imágenes de contenedores de forma segura.
 8. Oracle Container for Kubernetes: Servicio que nos permite realizar la orquestación y gestión de los contenedores. 
+
+### Daniela 
+
