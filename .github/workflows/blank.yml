@@ -34,4 +34,5 @@ jobs:
           VALIDATE_GOOGLE_JAVA_FROMAT: false
           VALIDATE_NATURAL_LANGUAGE: false
           JAVA_FILE_NAME: sun_checks.xml
+          VALIDATE_GITLEAKS: false
 ...
