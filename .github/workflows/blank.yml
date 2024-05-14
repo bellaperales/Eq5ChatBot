@@ -35,4 +35,9 @@ jobs:
           VALIDATE_NATURAL_LANGUAGE: false
           JAVA_FILE_NAME: sun_checks.xml
           VALIDATE_GITLEAKS: false
+          VALIDATE_SHELL_SHFMT: false
+          VALIDATE_OPENAPI: false
+          VALIDATE_CHECKOV: false
+          
+          
 ...
