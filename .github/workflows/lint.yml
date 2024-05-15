@@ -29,7 +29,7 @@ jobs:
       uses: super-linter/super-linter@v6.4.1 # x-release-please-version
       env:
         # To report GitHub Actions status checks
-        GITHUB_TOKEN: ${{ secrets.GITHUB_PAT_11ARLFPNQ0kY6LrE42xcTH_EDsiP5xNiJaoxKI0Q7mgJrIGgfJWo4GfHRgszqWumPX2BAZLMGVbhz9ieOh }} 
+        GITHUB_TOKEN: ${{ secrets.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 }}   
         FILTER_REGEX_EXCLUDE: (.*/(build.sh|deploy.sh|mvnw))
         # Enable Java linting (Checkstyle)
         VALIDATE_JAVA_CHECKSTYLE: true
