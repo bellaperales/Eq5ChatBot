@@ -30,7 +30,7 @@ jobs:
       env:
         # To report GitHub Actions status checks
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FILTER_REGEX_EXCLUDE: .*mvnw
+        FILTER_REGEX_EXCLUDE: (.*/(build.sh|deploy.sh|mvnw))
         # Deshabilitar validaciones
         VALIDATE_BASH: false
         VALIDATE_BASH_EXEC: false
