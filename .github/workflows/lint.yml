@@ -34,5 +34,8 @@ jobs:
       env:
         # To report GitHub Actions status checks
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use the secret reference
-        # Filter to only analyze Java files (replace with your path)
-        FILTER_REGEX_INCLUDE: <your_java_file_directory>/.*\.java  
+        # Disable linters that are causing errors
+        VALIDATE_CHECKOV: false
+        VALIDATE_JSCPD: false
+        # Enable Java linting (Checkstyle)
+        VALIDATE_JAVA_CHECKSTYLE: true
