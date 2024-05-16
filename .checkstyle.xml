@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
-  
+
+  <!-- Suprimir verificaciones específicas -->
   <module name="SuppressionFilter">
     <property name="file" value="src/main/java/com/springboot/MyTodoList/config/DbSettings.java"/>
     <property name="checks" value="JavadocPackage,JavadocVariable,DesignForExtension,MissingJavadocMethod,FinalParameters,HiddenField,MethodName,ParameterName"/>
   </module>
-  
+
   <module name="SuppressionFilter">
     <property name="file" value="src/main/java/com/springboot/MyTodoList/config/OracleConfiguration.java"/>
     <property name="checks" value="LineLength,JavadocVariable,VisibilityModifier"/>
   </module>
-  
+
   <module name="SuppressionFilter">
     <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotHelper.java"/>
     <property name="checks" value="FinalParameters,LineLength"/>
   </module>
-  
+
   <module name="SuppressionFilter">
     <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotLabels.java"/>
     <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable"/>
   </module>
-  
+
   <module name="SuppressionFilter">
     <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotMessages.java"/>
     <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,LineLength"/>
   </module>
-  
+
   <module name="TreeWalker">
     <module name="SuppressionXpathFilter">
       <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotMessages.java"/>
