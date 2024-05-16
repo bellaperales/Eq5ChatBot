@@ -1,4 +1,4 @@
-name: Lint
+kname: Lint
 
 on:
   push:
@@ -34,8 +34,7 @@ jobs:
       env:
         # To report GitHub Actions status checks
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use the secret reference
-        # Disable linters that are causing errors
-        VALIDATE_CHECKOV: false
-        VALIDATE_JSCPD: false
+        # Exclude shell scripts and mvnw files
+        FILTER_REGEX_EXCLUDE: ^.*\.(sh|mvnw)$ 
         # Enable Java linting (Checkstyle)
         VALIDATE_JAVA_CHECKSTYLE: true
