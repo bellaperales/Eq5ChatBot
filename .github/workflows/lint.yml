@@ -15,7 +15,7 @@ jobs:
   build:
     name: Lint
     runs-on: ubuntu-latest
-    
+ 
     steps:
 
     - name: Checkout code
@@ -30,7 +30,10 @@ jobs:
       env:
         # To report GitHub Actions status checks
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        FILTER_REGEX_EXCLUDE: (.*/(build.sh|deploy.sh|mvnw))
+        # Exclude all files except Java files (adjust the regex if needed)
+        FILTER_REGEX_EXCLUDE: ^.*\.(?!java$).*$ 
+        # Enable Java linting (Checkstyle)
+        VALIDATE_JAVA_CHECKSTYLE: true
         # Deshabilitar validaciones
         VALIDATE_BASH: false
         VALIDATE_BASH_EXEC: false
@@ -49,5 +52,3 @@ jobs:
         VALIDATE_SHELL_SHFMT: false
         VALIDATE_TERRAFORM_TFLINT: false
         VALIDATE_YAML: false
-        # Enable Java linting (Checkstyle)
-        VALIDATE_JAVA_CHECKSTYLE: false 
