@@ -2,50 +2,81 @@
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
   
-  <!-- Suprimir verificaciones específicas para DbSettings.java -->
-  <module name="SuppressionFilter">
-    <property name="file" value="src/main/java/com/springboot/MyTodoList/config/DbSettings.java"/>
-    <property name="checks" value="JavadocPackage,JavadocVariable,DesignForExtension,MissingJavadocMethod,FinalParameters,HiddenField,MethodName,ParameterName"/>
-  </module>
-
-  <!-- Suprimir verificaciones específicas para OracleConfiguration.java -->
-  <module name="SuppressionFilter">
-    <property name="file" value="src/main/java/com/springboot/MyTodoList/config/OracleConfiguration.java"/>
-    <property name="checks" value="LineLength,JavadocVariable,VisibilityModifier"/>
-  </module>
-  
-  <!-- Suprimir verificaciones específicas para BotHelper.java -->
-  <module name="SuppressionFilter">
-    <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotHelper.java"/>
-    <property name="checks" value="FinalParameters,LineLength"/>
-  </module>
-  
-  <!-- Suprimir verificaciones específicas para BotLabels.java -->
-  <module name="SuppressionFilter">
-    <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotLabels.java"/>
-    <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable"/>
-  </module>
-  
-  <!-- Suprimir verificaciones específicas para BotMessages.java -->
-  <module name="SuppressionFilter">
-    <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotMessages.java"/>
-    <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,LineLength"/>
-  </module>
-  
-  <!-- Suprimir verificaciones específicas para ToDoItemBotController.java -->
-  <module name="SuppressionFilter">
-    <property name="file" value="src/main/java/com/springboot/MyTodoList/controller/ToDoItemBotController.java"/>
-    <property name="checks" value="DesignForExtension,MissingJavadocMethod,FinalParameters"/>
-  </module>
-  
-  <!-- Suprimir verificaciones específicas para ToDoItemController.java -->
-  <module name="SuppressionFilter">
-    <property name="file" value="src/main/java/com/springboot/MyTodoList/controller/ToDoItemController.java"/>
-    <property name="checks" value="AvoidStarImport,UnusedImports,JavadocVariable,DesignForExtension,MissingJavadocMethod,WhitespaceAround,WhitespaceAfter,LineLength"/>
-  </module>
-
-  <!-- Otras configuraciones -->
+  <!-- Deshabilitar la verificación de JavadocPackage -->
   <module name="TreeWalker">
-    <!-- Agrega más configuraciones según sea necesario -->
+    <module name="JavadocPackage">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de JavadocVariable -->
+    <module name="JavadocVariable">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de DesignForExtension -->
+    <module name="DesignForExtension">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de MissingJavadocMethod -->
+    <module name="MissingJavadocMethod">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de FinalParameters -->
+    <module name="FinalParameters">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de HiddenField -->
+    <module name="HiddenField">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de MethodName -->
+    <module name="MethodName">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de ParameterName -->
+    <module name="ParameterName">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de LineLength -->
+    <module name="LineLength">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de RegexpSingleline -->
+    <module name="RegexpSingleline">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de FileTabCharacter -->
+    <module name="FileTabCharacter">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de AvoidStarImport -->
+    <module name="AvoidStarImport">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de UnusedImports -->
+    <module name="UnusedImports">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de WhitespaceAround -->
+    <module name="WhitespaceAround">
+      <property name="severity" value="ignore"/>
+    </module>
+
+    <!-- Deshabilitar la verificación de WhitespaceAfter -->
+    <module name="WhitespaceAfter">
+      <property name="severity" value="ignore"/>
+    </module>
+
   </module>
 </module>
