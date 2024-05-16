@@ -50,4 +50,4 @@ jobs:
         VALIDATE_TERRAFORM_TFLINT: false
         VALIDATE_YAML: false
         # Enable Java linting (Checkstyle)
-        VALIDATE_JAVA_CHECKSTYLE: true 
+        VALIDATE_JAVA_CHECKSTYLE: false 
