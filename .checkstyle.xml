@@ -43,4 +43,9 @@
     <property name="file" value="src/main/java/com/springboot/MyTodoList/controller/ToDoItemController.java"/>
     <property name="checks" value="AvoidStarImport,UnusedImports,JavadocVariable,DesignForExtension,MissingJavadocMethod,WhitespaceAround,WhitespaceAfter,LineLength"/>
   </module>
+  
+  <!-- Otras configuraciones -->
+  <module name="TreeWalker">
+    <!-- Agrega más configuraciones según sea necesario -->
+  </module>
 </module>
