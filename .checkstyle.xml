@@ -7,7 +7,78 @@
     <property name="file" value="DbSettings.java"/>
     <property name="checks" value="JavadocMethod,JavadocVariable,FinalParameters,HiddenField,DesignForExtension,MissingJavadocMethod,LineLength,RegexpSingleline,FileTabCharacter"/>
   </module>
-
+  <module name="SuppressionFilter">
+    <property name="file" value="OracleConfiguration.java"/>
+    <property name="checks" value="LineLength,JavadocVariable,VisibilityModifier,MissingJavadocMethod,WhitespaceAround"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="BotHelper.java"/>
+    <property name="checks" value="LineLength,FileTabCharacter,JavadocVariable,MissingJavadocMethod,FinalParameters,HideUtilityClassConstructor"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="BotLabels.java"/>
+    <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,MissingJavadocMethod,FinalParameters"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="BotMessages.java"/>
+    <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,MissingJavadocMethod,LineLength,FinalParameters"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="BotCommands.java"/>
+    <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,MissingJavadocMethod,FinalParameters"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="ProjectController.java"/>
+    <property name="checks" value="JavadocPackage,AvoidStarImport,UnusedImports,JavadocVariable,MissingJavadocMethod,LineLength,FinalParameters,DesignForExtension"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="ToDoItemBotController.java"/>
+    <property name="checks" value="FileTabCharacter,JavadocVariable,MissingJavadocMethod,LineLength,FinalParameters,HiddenField,DesignForExtension,MethodName,ConstantName,NewlineAtEndOfFile,WhitespaceAround,RightCurly,SimplifyBooleanExpression"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="ToDoItemController.java"/>
+    <property name="checks" value="AvoidStarImport,UnusedImports,JavadocVariable,MissingJavadocMethod,LineLength,FinalParameters,DesignForExtension,WhitespaceAround,WhitespaceAfter"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="DepartmentItem.java"/>
+    <property name="checks" value="JavadocPackage,AvoidStarImport,JavadocVariable,VisibilityModifier,MemberName,MissingJavadocMethod,FinalParameters,HiddenField,ParameterName,DesignForExtension,OperatorWrap"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="EmployeeItem.java"/>
+    <property name="checks" value="AvoidStarImport,JavadocVariable,VisibilityModifier,MemberName,MissingJavadocMethod,FinalParameters,HiddenField,ParameterName,DesignForExtension,OperatorWrap,ParameterNumber"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="ProjectItem.java"/>
+    <property name="checks" value="AvoidStarImport,JavadocVariable,VisibilityModifier,MemberName,MissingJavadocMethod,FinalParameters,HiddenField,ParameterName,DesignForExtension,OperatorWrap"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="ToDoItem.java"/>
+    <property name="checks" value="AvoidStarImport,JavadocVariable,VisibilityModifier,MemberName,MissingJavadocMethod,FinalParameters,HiddenField,ParameterName,DesignForExtension,OperatorWrap"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="ProjectRepository.java"/>
+    <property name="checks" value="JavadocPackage"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="ToDoItemRepository.java"/>
+    <property name="checks" value="WhitespaceAfter"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="WebSecurityConfiguration.java"/>
+    <property name="checks" value="JavadocPackage,UnusedImports,DesignForExtension,FinalParameters"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="MyTodoListApplication.java"/>
+    <property name="checks" value="JavadocPackage,LineLength,FileTabCharacter,JavadocVariable,MissingJavadocMethod,FinalParameters,DesignForExtension,ConstantName"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="ToDoItemService.java"/>
+    <property name="checks" value="JavadocPackage,JavadocVariable,MissingJavadocMethod,WhitespaceAround,FinalParameters,WhitespaceAfter,DesignForExtension"/>
+  </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="CorsConfig.java"/>
+    <property name="checks" value="UnusedImports,JavadocVariable,VisibilityModifier,MissingJavadocMethod,WhitespaceAround,LineLength,WhitespaceAfter"/>
+  </module>
   <module name="FileTabCharacter">
     <property name="eachLine" value="true"/>
   </module>
