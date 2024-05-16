@@ -1,174 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
-
-  <!-- Disable specific Checkstyle rules -->
+  
   <module name="SuppressionFilter">
-    <property name="file" value="DbSettings.java"/>
-    <property name="checks" value="JavadocMethod,JavadocVariable,FinalParameters,HiddenField,DesignForExtension,MissingJavadocMethod,LineLength,RegexpSingleline,FileTabCharacter"/>
+    <property name="file" value="src/main/java/com/springboot/MyTodoList/config/DbSettings.java"/>
+    <property name="checks" value="JavadocPackage,JavadocVariable,DesignForExtension,MissingJavadocMethod,FinalParameters,HiddenField,MethodName,ParameterName"/>
   </module>
+  
   <module name="SuppressionFilter">
-    <property name="file" value="OracleConfiguration.java"/>
-    <property name="checks" value="LineLength,JavadocVariable,VisibilityModifier,MissingJavadocMethod,WhitespaceAround"/>
+    <property name="file" value="src/main/java/com/springboot/MyTodoList/config/OracleConfiguration.java"/>
+    <property name="checks" value="LineLength,JavadocVariable,VisibilityModifier"/>
   </module>
+  
   <module name="SuppressionFilter">
-    <property name="file" value="BotHelper.java"/>
-    <property name="checks" value="LineLength,FileTabCharacter,JavadocVariable,MissingJavadocMethod,FinalParameters,HideUtilityClassConstructor"/>
+    <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotHelper.java"/>
+    <property name="checks" value="FinalParameters,LineLength"/>
   </module>
+  
   <module name="SuppressionFilter">
-    <property name="file" value="BotLabels.java"/>
-    <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,MissingJavadocMethod,FinalParameters"/>
+    <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotLabels.java"/>
+    <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable"/>
   </module>
+  
   <module name="SuppressionFilter">
-    <property name="file" value="BotMessages.java"/>
-    <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,MissingJavadocMethod,LineLength,FinalParameters"/>
+    <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotMessages.java"/>
+    <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,LineLength"/>
   </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="BotCommands.java"/>
-    <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,MissingJavadocMethod,FinalParameters"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="ProjectController.java"/>
-    <property name="checks" value="JavadocPackage,AvoidStarImport,UnusedImports,JavadocVariable,MissingJavadocMethod,LineLength,FinalParameters,DesignForExtension"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="ToDoItemBotController.java"/>
-    <property name="checks" value="FileTabCharacter,JavadocVariable,MissingJavadocMethod,LineLength,FinalParameters,HiddenField,DesignForExtension,MethodName,ConstantName,NewlineAtEndOfFile,WhitespaceAround,RightCurly,SimplifyBooleanExpression"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="ToDoItemController.java"/>
-    <property name="checks" value="AvoidStarImport,UnusedImports,JavadocVariable,MissingJavadocMethod,LineLength,FinalParameters,DesignForExtension,WhitespaceAround,WhitespaceAfter"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="DepartmentItem.java"/>
-    <property name="checks" value="JavadocPackage,AvoidStarImport,JavadocVariable,VisibilityModifier,MemberName,MissingJavadocMethod,FinalParameters,HiddenField,ParameterName,DesignForExtension,OperatorWrap"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="EmployeeItem.java"/>
-    <property name="checks" value="AvoidStarImport,JavadocVariable,VisibilityModifier,MemberName,MissingJavadocMethod,FinalParameters,HiddenField,ParameterName,DesignForExtension,OperatorWrap,ParameterNumber"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="ProjectItem.java"/>
-    <property name="checks" value="AvoidStarImport,JavadocVariable,VisibilityModifier,MemberName,MissingJavadocMethod,FinalParameters,HiddenField,ParameterName,DesignForExtension,OperatorWrap"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="ToDoItem.java"/>
-    <property name="checks" value="AvoidStarImport,JavadocVariable,VisibilityModifier,MemberName,MissingJavadocMethod,FinalParameters,HiddenField,ParameterName,DesignForExtension,OperatorWrap"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="ProjectRepository.java"/>
-    <property name="checks" value="JavadocPackage"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="ToDoItemRepository.java"/>
-    <property name="checks" value="WhitespaceAfter"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="WebSecurityConfiguration.java"/>
-    <property name="checks" value="JavadocPackage,UnusedImports,DesignForExtension,FinalParameters"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="MyTodoListApplication.java"/>
-    <property name="checks" value="JavadocPackage,LineLength,FileTabCharacter,JavadocVariable,MissingJavadocMethod,FinalParameters,DesignForExtension,ConstantName"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="ToDoItemService.java"/>
-    <property name="checks" value="JavadocPackage,JavadocVariable,MissingJavadocMethod,WhitespaceAround,FinalParameters,WhitespaceAfter,DesignForExtension"/>
-  </module>
-  <module name="SuppressionFilter">
-    <property name="file" value="CorsConfig.java"/>
-    <property name="checks" value="UnusedImports,JavadocVariable,VisibilityModifier,MissingJavadocMethod,WhitespaceAround,LineLength,WhitespaceAfter"/>
-  </module>
-  <module name="FileTabCharacter">
-    <property name="eachLine" value="true"/>
-  </module>
-  <module name="FileLength">
-    <property name="maxLineLength" value="120"/>
-  </module>
-  <module name="JavadocType">
-    <property name="authorFormat" value=".*"/>
-  </module>
-  <module name="JavadocMethod">
-    <property name="authorFormat" value=".*"/>
-  </module>
-  <module name="RedundantImport">
-    <property name="importsOrder" value="static - java - javax - org"/>
-  </module>
-  <module name="MethodLength">
-    <property name="maxLineLength" value="120"/>
-    <property name="maxMethodLength" value="200"/>
-  </module>
-  <module name="ClassDataAbstractionCoupling">
-    <property name="max" value="10"/>
-  </module>
-  <module name="ClassFanOutComplexity">
-    <property name="max" value="10"/>
-  </module>
-  <module name="ConstantName">
-    <property name="format" value="^CONSTANT$"/>
-  </module>
-  <module name="TypeName">
-    <property name="format" value="^[A-Z][a-zA-Z0-9]*$"/>
-  </module>
-  <module name="MethodName">
-    <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-  </module>
-  <module name="PackageName">
-    <property name="format" value="^[a-z]+(\.[a-z]+)*$"/>
-  </module>
-  <module name="VariableName">
-    <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-  </module>
-  <module name="EmptyBlock">
-    <property name="option" value="noempty"/>
-  </module>
-  <module name="EmptyForIteratorPad">
-    <property name="option" value="yes"/>
-  </module>
-  <module name="EmptyLineSeparator">
-    <property name="allowNoEmptyLineBeforeFirstMethod" value="true"/>
-    <property name="allowOneLineMethod" value="true"/>
-  </module>
-  <module name="LineLength">
-    <property name="maxLineLength" value="120"/>
-  </module>
-  <module name="MagicNumber">
-    <property name="ignoreNumbers" value="1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0"/>
-    <property name="ignoreHashCode" value="true"/>
-    <property name="ignoreAnnotations" value="true"/>
-    <property name="ignoreSigned" value="true"/>
-    <property name="ignoreConstants" value="true"/>
-    <property name="ignoreDefaultValues" value="true"/>
-  </module>
-  <module name="OperatorWrap">
-    <property name="option" value="eol"/>
-  </module>
-  <module name="ParenPad">
-    <property name="option" value="nospace"/>
-  </module>
-  <module name="WhitespaceAround">
-    <property name="allowEmptyConstructors" value="false"/>
-    <property name="allowEmptyMethods" value="false"/>
-    <property name="allowEmptyTypes" value="false"/>
-    <property name="aroundMethodCalls" value="true"/>
-    <property name="aroundMethodDeclaration" value="true"/>
-    <property name="aroundOperators" value="true"/>
-    <property name="aroundVariableDeclaration" value="true"/>
-    <property name="aroundMethodParameters" value="true"/>
-    <property name="aroundPostfixOperators" value="true"/>
-    <property name="aroundPrefixOperators" value="true"/>
-    <property name="beforeArrayInit" value="true"/>
-    <property name="beforeBitwiseOperator" value="true"/>
-    <property name="beforeClassBody" value="true"/>
-    <property name="beforeConditional" value="true"/>
-    <property name="beforeComma" value="true"/>
-    <property name="beforeDot" value="true"/>
-    <property name="beforeFor" value="true"/>
-    <property name="beforeIf" value="true"/>
-    <property name="beforeMethodDeclaration" value="true"/>
-    <property name="beforeWhile" value="true"/>
-    <property name="insideClassDefinition" value="true"/>
-    <property name="insideMethodDefinition" value="true"/>
-    <property name="insideParentheses" value="true"/>
+  
+  <module name="TreeWalker">
+    <module name="SuppressionXpathFilter">
+      <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotMessages.java"/>
+      <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,LineLength"/>
+    </module>
   </module>
 </module>
