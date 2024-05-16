@@ -2,10 +2,12 @@
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 <module name="Checker">
 
+  <!-- Disable specific Checkstyle rules -->
   <module name="SuppressionFilter">
     <property name="file" value="DbSettings.java"/>
     <property name="checks" value="JavadocMethod,JavadocVariable,FinalParameters,HiddenField,DesignForExtension,MissingJavadocMethod,LineLength,RegexpSingleline,FileTabCharacter"/>
   </module>
+
   <module name="FileTabCharacter">
     <property name="eachLine" value="true"/>
   </module>
