@@ -7,7 +7,7 @@
     <property name="file" value="src/main/java/com/springboot/MyTodoList/config/DbSettings.java"/>
     <property name="checks" value="JavadocPackage,JavadocVariable,DesignForExtension,MissingJavadocMethod,FinalParameters,HiddenField,MethodName,ParameterName"/>
   </module>
-  
+
   <!-- Suprimir verificaciones específicas para OracleConfiguration.java -->
   <module name="SuppressionFilter">
     <property name="file" value="src/main/java/com/springboot/MyTodoList/config/OracleConfiguration.java"/>
@@ -43,7 +43,7 @@
     <property name="file" value="src/main/java/com/springboot/MyTodoList/controller/ToDoItemController.java"/>
     <property name="checks" value="AvoidStarImport,UnusedImports,JavadocVariable,DesignForExtension,MissingJavadocMethod,WhitespaceAround,WhitespaceAfter,LineLength"/>
   </module>
-  
+
   <!-- Otras configuraciones -->
   <module name="TreeWalker">
     <!-- Agrega más configuraciones según sea necesario -->
