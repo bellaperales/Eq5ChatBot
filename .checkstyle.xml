@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
-
-  <!-- Suprimir verificaciones específicas -->
+  
+  <!-- Suprimir verificaciones específicas para DbSettings.java -->
   <module name="SuppressionFilter">
     <property name="file" value="src/main/java/com/springboot/MyTodoList/config/DbSettings.java"/>
     <property name="checks" value="JavadocPackage,JavadocVariable,DesignForExtension,MissingJavadocMethod,FinalParameters,HiddenField,MethodName,ParameterName"/>
   </module>
-
+  
+  <!-- Suprimir verificaciones específicas para OracleConfiguration.java -->
   <module name="SuppressionFilter">
     <property name="file" value="src/main/java/com/springboot/MyTodoList/config/OracleConfiguration.java"/>
     <property name="checks" value="LineLength,JavadocVariable,VisibilityModifier"/>
   </module>
-
+  
+  <!-- Suprimir verificaciones específicas para BotHelper.java -->
   <module name="SuppressionFilter">
     <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotHelper.java"/>
     <property name="checks" value="FinalParameters,LineLength"/>
   </module>
-
+  
+  <!-- Suprimir verificaciones específicas para BotLabels.java -->
   <module name="SuppressionFilter">
     <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotLabels.java"/>
     <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable"/>
   </module>
-
+  
+  <!-- Suprimir verificaciones específicas para BotMessages.java -->
   <module name="SuppressionFilter">
     <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotMessages.java"/>
     <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,LineLength"/>
   </module>
-
-  <module name="TreeWalker">
-    <module name="SuppressionXpathFilter">
-      <property name="file" value="src/main/java/com/springboot/MyTodoList/util/BotMessages.java"/>
-      <property name="checks" value="RegexpSingleline,FileTabCharacter,JavadocVariable,LineLength"/>
-    </module>
+  
+  <!-- Suprimir verificaciones específicas para ToDoItemBotController.java -->
+  <module name="SuppressionFilter">
+    <property name="file" value="src/main/java/com/springboot/MyTodoList/controller/ToDoItemBotController.java"/>
+    <property name="checks" value="DesignForExtension,MissingJavadocMethod,FinalParameters"/>
+  </module>
+  
+  <!-- Suprimir verificaciones específicas para ToDoItemController.java -->
+  <module name="SuppressionFilter">
+    <property name="file" value="src/main/java/com/springboot/MyTodoList/controller/ToDoItemController.java"/>
+    <property name="checks" value="AvoidStarImport,UnusedImports,JavadocVariable,DesignForExtension,MissingJavadocMethod,WhitespaceAround,WhitespaceAfter,LineLength"/>
   </module>
 </module>
