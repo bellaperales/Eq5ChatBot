@@ -1,4 +1,4 @@
-´´´´yaml name: Lint
+name: Lint
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
       env:
         # To report GitHub Actions status checks
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-	FILTER_REGEX_EXCLUDE: ^.*\.(sh|js|yml|md|py|sql|xml|go|ts|json|dockerfile|terraform|yaml|kt|dart|cs|rs|html|c|cpp|rb|h|hpp|swift|swift|m|mm|properties|txt|csv)$ 
+        FILTER_REGEX_EXCLUDE: (.*/(build.sh|deploy.sh|mvnw))
         # Deshabilitar validaciones
         VALIDATE_BASH: false
         VALIDATE_BASH_EXEC: false
@@ -49,4 +49,5 @@ jobs:
         VALIDATE_SHELL_SHFMT: false
         VALIDATE_TERRAFORM_TFLINT: false
         VALIDATE_YAML: false
-'''
+        # Enable Java linting (Checkstyle)
+        VALIDATE_JAVA_CHECKSTYLE: false
