@@ -31,7 +31,7 @@ jobs:
         # To report GitHub Actions status checks
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # Exclude all files except Java files (adjust the regex if needed)
-        FILTER_REGEX_EXCLUDE: ^.*\.(?!java$).*$ 
+	FILTER_REGEX_EXCLUDE: ^.*\.(sh|js|yml|md|py|sql|xml|go|ts|json|dockerfile|terraform|yaml|kt|dart|cs|rs|html|c|cpp|rb|h|hpp|swift|swift|m|mm)$ 
         # Enable Java linting (Checkstyle)
         VALIDATE_JAVA_CHECKSTYLE: true
         # Deshabilitar validaciones
