@@ -1,16 +1,15 @@
 package com.springboot.MyTodoList.service;
 
-import com.springboot.MyTodoList.model.EmployeeItem;
-import com.springboot.MyTodoList.repository.EmployeeItemRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import static org.mockito.ArgumentMatchers.eq;
-
-import java.util.List;
-import java.util.Optional;
+import com.springboot.MyTodoList.model.EmployeeItem;
+import com.springboot.MyTodoList.repository.EmployeeItemRepository;
 
 @Service
 public class EmployeeItemService {
@@ -48,6 +47,10 @@ public class EmployeeItemService {
     public boolean isManagerByMynumber(int mynumber) {
         Optional<EmployeeItem> employee = employeeItemRepository.findByMynumber(mynumber);
         return employee.map(EmployeeItem::getManager).orElse(false);
+    }
+
+    public Optional<EmployeeItem> getEmployeeItemByMynumber(int mynumber) {
+        return employeeItemRepository.findByMynumber(mynumber);
     }
 
     public EmployeeItem updateEmployeeItem(int id, EmployeeItem td) {

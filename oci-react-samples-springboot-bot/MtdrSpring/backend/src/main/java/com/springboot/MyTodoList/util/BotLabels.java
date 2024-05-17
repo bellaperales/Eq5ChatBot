@@ -17,6 +17,7 @@ public enum BotLabels {
 	DELETE_PROJECT(" Eliminar proyecto"),
 	MY_TODO_LIST("Mis Tareas de Hoy"),
 	MY_PROJECT_LIST("Mis Proyectos"),
+	LIST_EMPLOYEES("Lista de Empleados"),
 	// EMOJI_UNCOMPLETED("\uD83D\uDD34"),
 	EMOJI_DELETE("\uD83D\uDDD1 "),
 	EMOJI_DONE("\u2705 "),

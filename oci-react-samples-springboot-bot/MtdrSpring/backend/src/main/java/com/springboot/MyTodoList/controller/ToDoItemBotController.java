@@ -1,13 +1,12 @@
 package com.springboot.MyTodoList.controller;
 
-import java.time.OffsetDateTime;
+import java.net.http.HttpHeaders;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,12 +19,12 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRem
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import com.springboot.MyTodoList.model.ToDoItem;
-import com.springboot.MyTodoList.model.ProjectItem;
 import com.springboot.MyTodoList.model.EmployeeItem;
+import com.springboot.MyTodoList.model.ProjectItem;
+import com.springboot.MyTodoList.model.ToDoItem;
+import com.springboot.MyTodoList.service.EmployeeItemService;
 import com.springboot.MyTodoList.service.ProjectItemService;
 import com.springboot.MyTodoList.service.ToDoItemService;
-import com.springboot.MyTodoList.service.EmployeeItemService;
 import com.springboot.MyTodoList.util.BotCommands;
 import com.springboot.MyTodoList.util.BotHelper;
 import com.springboot.MyTodoList.util.BotLabels;
@@ -42,6 +41,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 	private Boolean isTask = false;
 	private boolean isWaitingForRole = false;
 	private int userRole = 0;
+	private EmployeeItem currentEmployee;
 
 	public ToDoItemBotController(String botToken, String botName, ToDoItemService toDoItemService,
 			ProjectItemService projectItemService, EmployeeItemService employeeItemService) {
@@ -77,15 +77,18 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 			else if (isWaitingForRole) {
 				try {
 					int mynumber = Integer.parseInt(messageTextFromTelegram);
-					boolean isManager = employeeItemService.isManagerByMynumber(mynumber);
+					Optional<EmployeeItem> employee = employeeItemService.getEmployeeItemByMynumber(mynumber);
+
+					currentEmployee = employee.get();
+					boolean isManager = currentEmployee.getManager();
 
 					if (isManager) {
 						userRole = 2;
 						isWaitingForRole = false;
 						SendMessage messageToTelegram = new SendMessage();
 						messageToTelegram.setChatId(chatId);
-						messageToTelegram
-								.setText("Bienvenido gerente al Chat Bot de Oracle. Selecciona /start para comenzar.");
+						messageToTelegram.setText(
+								"Bienvenido gerente al Chat Bot de Oracle. Selecciona /start para comenzar.");
 						execute(messageToTelegram);
 					} else {
 						userRole = 1;
@@ -111,7 +114,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					// Handle any other exceptions, e.g., if the mynumber is not found
 					SendMessage messageToTelegram = new SendMessage();
 					messageToTelegram.setChatId(chatId);
-					messageToTelegram.setText("Mynumber no encontrado.");
+					messageToTelegram.setText("Usuario no encontrado.");
 					try {
 						execute(messageToTelegram);
 					} catch (TelegramApiException ex) {
@@ -387,7 +390,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					|| userRole == 1 && messageTextFromTelegram.equals(BotLabels.LIST_ALL_ITEMS.getLabel())
 					|| userRole == 1 && messageTextFromTelegram.equals(BotLabels.MY_TODO_LIST.getLabel())) {
 
-				List<ToDoItem> allItems = getAllToDoItems();
+				List<ToDoItem> allItems = getAllToDoItems(currentEmployee.getID());
 				ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 				List<KeyboardRow> keyboard = new ArrayList<>();
 
@@ -400,7 +403,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				firstRow.add(BotLabels.ADD_NEW_ITEM.getLabel());
 				keyboard.add(firstRow);
 
-				List<ToDoItem> activeItems = allItems.stream().filter(item -> item.getStatus() == false)
+				List<ToDoItem> activeItems = allItems.stream()
+						.filter(item -> item.getStatus() == false)
 						.collect(Collectors.toList());
 
 				for (ToDoItem item : activeItems) {
@@ -411,7 +415,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					keyboard.add(currentRow);
 				}
 
-				List<ToDoItem> doneItems = allItems.stream().filter(item -> item.getStatus() == true)
+				List<ToDoItem> doneItems = allItems.stream()
+						.filter(item -> item.getStatus() == true)
 						.collect(Collectors.toList());
 
 				for (ToDoItem item : doneItems) {
@@ -594,8 +599,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 	}
 
 	// GET /todolist
-	public List<ToDoItem> getAllToDoItems() {
-		return toDoItemService.findAll();
+	public List<ToDoItem> getAllToDoItems(int employeeid) {
+		return toDoItemService.findByEmployeeid(employeeid);
 	}
 
 	// GET BY ID /todolist/{id}

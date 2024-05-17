@@ -1,15 +1,21 @@
 package com.springboot.MyTodoList.controller;
 
-import com.springboot.MyTodoList.model.EmployeeItem;
-import com.springboot.MyTodoList.service.EmployeeItemService;
+import java.net.http.HttpHeaders;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
-import java.util.List;
+import com.springboot.MyTodoList.model.EmployeeItem;
+import com.springboot.MyTodoList.service.EmployeeItemService;
 
 @RestController
 public class EmployeeItemController {
@@ -71,10 +77,17 @@ public class EmployeeItemController {
     }
 
     // @CrossOrigin
-    @GetMapping(value = "/employeelist/{mynumber}")
+    @GetMapping(value = "/employee/isManager/{mynumber}")
     public ResponseEntity<Boolean> isManagerByMynumber(@PathVariable int mynumber) {
         boolean isManager = employeeItemService.isManagerByMynumber(mynumber);
         return new ResponseEntity<>(isManager, HttpStatus.OK);
+    }
+
+    // @CrossOrigin
+    @GetMapping(value = "/employeelist/{mynumber}")
+    public ResponseEntity<EmployeeItem> getEmployeeItemByMynumber(@PathVariable int mynumber) {
+        EmployeeItem employeeItem = employeeItemService.getEmployeeItemByMynumber(mynumber).orElse(null);
+        return new ResponseEntity<>(employeeItem, HttpStatus.OK);
     }
 
 }

@@ -6,6 +6,13 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "com.springboot.MyTodoList.MyTodoListApplication",
+            "classpath": [
+                "${workspaceFolder}/target/classes",
+                "${workspaceFolder}/target/test-classes",
+                "${workspaceFolder}/target/lib/*",
+                "${workspaceFolder}/target/dependency/*"
+                "$HOME/bin/some.jar"
+            ],
             "projectName": "MyTodoList",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
