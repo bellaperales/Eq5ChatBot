@@ -1,5 +1,6 @@
 package com.springboot.MyTodoList.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -16,5 +17,7 @@ import com.springboot.MyTodoList.model.EmployeeItem;
 public interface EmployeeItemRepository extends JpaRepository<EmployeeItem, Integer> {
 
     Optional<EmployeeItem> findByMynumber(int mynumber);
+
+    List<EmployeeItem> findByProjectid(int projectid);
 
 }

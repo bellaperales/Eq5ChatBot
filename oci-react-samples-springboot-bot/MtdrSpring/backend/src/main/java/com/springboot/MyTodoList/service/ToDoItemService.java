@@ -26,6 +26,10 @@ public class ToDoItemService {
         return toDoItemRepository.findByEmployeeid(employeeid);
     }
 
+    public List<ToDoItem> findByProjectid(int projectid) {
+        return toDoItemRepository.findByProjectid(projectid);
+    }
+
     public ResponseEntity<ToDoItem> getItemById(int id) {
         Optional<ToDoItem> todoData = toDoItemRepository.findById(id);
         if (todoData.isPresent()) {

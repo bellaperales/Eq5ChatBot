@@ -44,13 +44,12 @@ public class EmployeeItemService {
         }
     }
 
-    public boolean isManagerByMynumber(int mynumber) {
-        Optional<EmployeeItem> employee = employeeItemRepository.findByMynumber(mynumber);
-        return employee.map(EmployeeItem::getManager).orElse(false);
-    }
-
     public Optional<EmployeeItem> getEmployeeItemByMynumber(int mynumber) {
         return employeeItemRepository.findByMynumber(mynumber);
+    }
+
+    public List<EmployeeItem> findByProjectid(int projectid) {
+        return employeeItemRepository.findByProjectid(projectid);
     }
 
     public EmployeeItem updateEmployeeItem(int id, EmployeeItem td) {
@@ -67,6 +66,7 @@ public class EmployeeItemService {
             employeeItem.setManager(td.getManager());
             employeeItem.setMynumber(td.getMynumber());
             employeeItem.setDepartamentid(td.getDepartamentid());
+            employeeItem.setProjectid(td.getProjectid());
 
             return employeeItemRepository.save(employeeItem);
         } else {

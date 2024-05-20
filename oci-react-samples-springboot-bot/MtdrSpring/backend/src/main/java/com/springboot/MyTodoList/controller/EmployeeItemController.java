@@ -77,17 +77,16 @@ public class EmployeeItemController {
     }
 
     // @CrossOrigin
-    @GetMapping(value = "/employee/isManager/{mynumber}")
-    public ResponseEntity<Boolean> isManagerByMynumber(@PathVariable int mynumber) {
-        boolean isManager = employeeItemService.isManagerByMynumber(mynumber);
-        return new ResponseEntity<>(isManager, HttpStatus.OK);
-    }
-
-    // @CrossOrigin
     @GetMapping(value = "/employeelist/{mynumber}")
     public ResponseEntity<EmployeeItem> getEmployeeItemByMynumber(@PathVariable int mynumber) {
         EmployeeItem employeeItem = employeeItemService.getEmployeeItemByMynumber(mynumber).orElse(null);
         return new ResponseEntity<>(employeeItem, HttpStatus.OK);
+    }
+
+    // @CrossOrigin
+    @GetMapping(value = "/employeelist/{projectid}")
+    public List<EmployeeItem> findByProjectid(int projectid) {
+        return employeeItemService.findByProjectid(projectid);
     }
 
 }
