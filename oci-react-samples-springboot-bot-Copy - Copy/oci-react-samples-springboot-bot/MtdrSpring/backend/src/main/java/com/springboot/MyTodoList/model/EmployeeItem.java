@@ -1,9 +1,11 @@
 package com.springboot.MyTodoList.model;
 
-import javax.persistence.*;
-
-import java.sql.Timestamp;
-import java.time.OffsetDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /*
     representation of the TODOITEM table that exists already
@@ -33,13 +35,15 @@ public class EmployeeItem {
     int mynumber;
     @Column(name = "departamentid")
     int departamentid;
+    @Column(name = "projectid")
+    int projectid;
 
     public EmployeeItem() {
 
     }
 
     public EmployeeItem(int ID, String name, String lastname, String mail, String cellphone, String address,
-            boolean status, boolean manager, int mynumber, int departamentid) {
+            boolean status, boolean manager, int mynumber, int departamentid, int projectid) {
         this.ID = ID;
         this.name = name;
         this.lastname = lastname;
@@ -50,6 +54,8 @@ public class EmployeeItem {
         this.manager = manager;
         this.mynumber = mynumber;
         this.departamentid = departamentid;
+        this.projectid = projectid;
+
     }
 
     public int getID() {
@@ -132,6 +138,14 @@ public class EmployeeItem {
         this.departamentid = departamentid;
     }
 
+    public int getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(int projectid) {
+        this.projectid = projectid;
+    }
+
     @Override
     public String toString() {
         return "ToDoItem{" +
@@ -145,6 +159,7 @@ public class EmployeeItem {
                 ", manager=" + manager +
                 ", mynumber=" + mynumber +
                 ", departamentid=" + departamentid +
+                ", projectid=" + projectid +
                 '}';
     }
 }

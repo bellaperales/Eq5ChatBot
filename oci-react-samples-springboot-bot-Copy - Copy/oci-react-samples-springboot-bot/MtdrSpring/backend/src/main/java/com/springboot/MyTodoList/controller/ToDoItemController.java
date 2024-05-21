@@ -1,9 +1,9 @@
 package com.springboot.MyTodoList.controller;
 
-import java.net.http.HttpHeaders;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,35 +14,36 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.MyTodoList.model.ProjectItem;
-import com.springboot.MyTodoList.service.ProjectItemService;
+import com.springboot.MyTodoList.model.ToDoItem;
+import com.springboot.MyTodoList.service.ToDoItemService;
 
 @RestController
-public class ProjectItemController {
+public class ToDoItemController {
     @Autowired
-    private ProjectItemService projectItemService;
+    private ToDoItemService toDoItemService;
 
     // @CrossOrigin
-    @GetMapping(value = "/projectlist")
-    public List<ProjectItem> getAllProjectItems() {
-        return projectItemService.findAll();
+    @GetMapping(value = "/todolist")
+    public List<ToDoItem> getAllToDoItems(int employeeid) {
+        return toDoItemService.findByEmployeeid(employeeid);
+
     }
 
     // @CrossOrigin
-    @GetMapping(value = "/projectlist/{id}")
-    public ResponseEntity<ProjectItem> getProjectItemById(@PathVariable int id) {
+    @GetMapping(value = "/todolist/{id}")
+    public ResponseEntity<ToDoItem> getToDoItemById(@PathVariable int id) {
         try {
-            ResponseEntity<ProjectItem> responseEntity = projectItemService.getProjectItemById(id);
-            return new ResponseEntity<ProjectItem>(responseEntity.getBody(), HttpStatus.OK);
+            ResponseEntity<ToDoItem> responseEntity = toDoItemService.getItemById(id);
+            return new ResponseEntity<ToDoItem>(responseEntity.getBody(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     // @CrossOrigin
-    @PostMapping(value = "/projectlist")
-    public ResponseEntity addProjectItem(@RequestBody ProjectItem projectItem) throws Exception {
-        ProjectItem td = projectItemService.addProjectItem(projectItem);
+    @PostMapping(value = "/todolist")
+    public ResponseEntity addToDoItem(@RequestBody ToDoItem todoItem) throws Exception {
+        ToDoItem td = toDoItemService.addToDoItem(todoItem);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("location", "" + td.getID());
         responseHeaders.set("Access-Control-Expose-Headers", "location");
@@ -53,23 +54,23 @@ public class ProjectItemController {
     }
 
     // @CrossOrigin
-    @PutMapping(value = "project/{id}")
-    public ResponseEntity updateToDoItem(@RequestBody ProjectItem projectItem, @PathVariable int id) {
+    @PutMapping(value = "todolist/{id}")
+    public ResponseEntity updateToDoItem(@RequestBody ToDoItem toDoItem, @PathVariable int id) {
         try {
-            ProjectItem projectItem1 = projectItemService.updateProjectItem(id, projectItem);
-            System.out.println(projectItem1.toString());
-            return new ResponseEntity<>(projectItem1, HttpStatus.OK);
+            ToDoItem toDoItem1 = toDoItemService.updateToDoItem(id, toDoItem);
+            System.out.println(toDoItem1.toString());
+            return new ResponseEntity<>(toDoItem1, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
     // @CrossOrigin
-    @DeleteMapping(value = "project/{id}")
-    public ResponseEntity<Boolean> deleteProjectItem(@PathVariable("id") int id) {
+    @DeleteMapping(value = "todolist/{id}")
+    public ResponseEntity<Boolean> deleteToDoItem(@PathVariable("id") int id) {
         Boolean flag = false;
         try {
-            flag = projectItemService.deleteProjectItem(id);
+            flag = toDoItemService.deleteToDoItem(id);
             return new ResponseEntity<>(flag, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(flag, HttpStatus.NOT_FOUND);
