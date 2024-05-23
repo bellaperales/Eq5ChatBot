@@ -23,5 +23,4 @@
 7. Oracle Container Registry: Servicio de registro Docker que nos permite gestionar, almacenar y compartir imágenes de contenedores de forma segura.
 8. Oracle Container for Kubernetes: Servicio que nos permite realizar la orquestación y gestión de los contenedores. 
 
-### Daniela 
 
