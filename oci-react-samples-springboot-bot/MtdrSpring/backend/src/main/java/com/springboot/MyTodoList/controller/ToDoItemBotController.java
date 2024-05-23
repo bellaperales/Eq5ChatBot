@@ -595,6 +595,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				for (ToDoItem item : allTodoItems) {
 					KeyboardRow currentRow = new KeyboardRow();
 					currentRow.add(item.getDescription());
+					EmployeeItem employee = employeeItemService.getEmployeeItemById(item.getEmployeeID()).getBody();
+					currentRow.add(employee.getName() + " " + employee.getLastname());
 					keyboard.add(currentRow);
 				}
 
