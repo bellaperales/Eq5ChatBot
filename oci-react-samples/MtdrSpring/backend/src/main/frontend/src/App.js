@@ -1,4 +1,4 @@
-          /*
+/*
 ## MyToDoReact version 1.0.
 ##
 ## Copyright (c) 2022 Oracle, Inc.
@@ -36,10 +36,17 @@ function App() {
     // In case of an error during the API call:
     const [error, setError] = useState();
 
+    // Example using a simple CSRF token implementation:
+    let csrfToken = 'your_csrf_token'; // Replace with a unique and secure token
+
     function deleteItem(deleteId) {
       // console.log("deleteItem("+deleteId+")")
       fetch(API_LIST+"/"+deleteId, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        }
       })
       .then(response => {
         // console.log("response=");
@@ -97,7 +104,8 @@ function App() {
       return fetch(API_LIST+"/"+id, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify(data)
       })
@@ -156,7 +164,8 @@ function App() {
         method: 'POST',
         // We convert the React state to JSON and send it as the POST body
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify(data),
       }).then((response) => {
