@@ -1,4 +1,4 @@
-          /*
+/*
 ## MyToDoReact version 1.0.
 ##
 ## Copyright (c) 2022 Oracle, Inc.
@@ -48,7 +48,7 @@ function App() {
           // console.log("deleteItem FETCH call is ok");
           return response;
         } else {
-          throw new Error('Something went wrong ...');
+          throw new Error('This is how we are going to edit...');
         }
       })
       .then(
@@ -74,7 +74,7 @@ function App() {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error('Something went wrong ...');
+            throw new Error('This is how we are going to edit...');
           }
         })
         .then(
@@ -108,7 +108,8 @@ function App() {
           // console.log("deleteItem FETCH call is ok");
           return response;
         } else {
-          throw new Error('Something went wrong ...');
+         // throw new Error('Something went wrong ...');
+         throw new Error('This is how we are going to edit...');
         }
       });
     }
@@ -126,7 +127,7 @@ function App() {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error('Something went wrong ...');
+            throw new Error('This is how we are going to edit...');
           }
         })
         .then(
@@ -137,6 +138,12 @@ function App() {
           (error) => {
             setLoading(false);
             setError(error);
+            // Use mock data when an error occurs
+            const mockData = [
+              { id: 1, description: "Mock Task 1", done: false, createdAt: new Date() },
+              { id: 2, description: "Mock Task 2", done: true, createdAt: new Date() },
+            ];
+            setItems(mockData);
           });
 
       //})
@@ -168,7 +175,7 @@ function App() {
         if (response.ok) {
           return response;
         } else {
-          throw new Error('Something went wrong ...');
+          throw new Error('This is how we are going to edit...');
         }
       }).then(
         (result) => {
@@ -217,7 +224,6 @@ function App() {
           <TableBody>
           {items.map(item => (
             item.done && (
-
             <tr key={item.id}>
               <td className="description">{item.description}</td>
               <td className="date"><Moment format="MMM Do hh:mm:ss">{item.createdAt}</Moment></td>
