@@ -47,8 +47,7 @@ public class MyTodoListApplication implements CommandLineRunner {
 		try {
 			TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
 			telegramBotsApi.registerBot(
-					new ToDoItemBotController(telegramBotToken, botName, toDoItemService, projectItemService,
-							employeeItemService));
+					new ToDoItemBotController(telegramBotToken, botName, toDoItemService));
 			logger.info(BotMessages.BOT_REGISTERED_STARTED.getMessage());
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
