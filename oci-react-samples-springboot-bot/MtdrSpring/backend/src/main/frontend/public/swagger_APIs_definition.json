@@ -1,245 +1,803 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "description": "Simple REST APIs for My ToDo React application. The backend implements these APIs.",
-      "version": "1.0.0",
-      "title": "My Todo React app",
-      "contact": {
-        "email": "jean.de.lavarene@oracle.com"
-      },
-      "license": {
-        "name": "The Universal Permissive License (UPL), Version 1.0",
-        "url": "https://oss.oracle.com/licenses/upl/"
-      }
+  "swagger": "2.0",
+  "info": {
+    "description": "REST APIs for the Todo List application. The backend implements these APIs.",
+    "version": "1.0.0",
+    "title": "Todo List API",
+    "contact": {
+      "email": "your.email@example.com"
     },
-    "host": "di2eyonlz5s7kmuektcddaw5zq.apigateway.eu-frankfurt-1.oci.customer-oci.com",
-    "basePath": "/",
-    "tags": [
-      {
-        "name": "todolist",
-        "description": "Everything about your todo list",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "http://swagger.io"
-        }
-      }
-    ],
-    "schemes": [
-      "https"
-    ],
-    "paths": {
-      "/todolist": {
-        "get": {
-          "tags": [
-            "todolist"
-          ],
-          "summary": "Returns current list of todo items",
-          "description": "",
-          "operationId": "getItems",
-          "produces": [
-            "application/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "schema": {
-                "$ref": "#/definitions/AllItems"
-              }
-            }
-          }
-        },
-        "post": {
-          "tags": [
-            "todolist"
-          ],
-          "summary": "Add a new item to the todolist",
-          "description": "",
-          "operationId": "addItem",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Todo item object that needs to be added to the list",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/NewItem"
-              }
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "Success"
-            },
-            "405": {
-              "description": "Invalid input"
-            }
-          }
-        }
-      },
-      "/todolist/{itemId}": {
-        "get": {
-          "tags": [
-            "todolist"
-          ],
-          "summary": "Find todo item by ID",
-          "description": "Returns a single todo item",
-          "operationId": "getTodoById",
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "itemId",
-              "in": "path",
-              "description": "ID of todo item to return",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "schema": {
-                "$ref": "#/definitions/Item"
-              }
-            },
-            "400": {
-              "description": "Invalid ID supplied"
-            },
-            "404": {
-              "description": "Item not found"
-            }
-          }
-        },
-        "put": {
-          "tags": [
-            "todolist"
-          ],
-          "summary": "Updates an existing item",
-          "description": "",
-          "operationId": "updateItem",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "itemId",
-              "in": "path",
-              "description": "Item id to update",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            },
-            {
-              "in": "body",
-              "name": "body",
-              "description": "Pet object that needs to be added to the store",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/UpdateItem"
-              }
-            }
-          ],
-          "responses": {
-            "400": {
-              "description": "Invalid ID supplied"
-            },
-            "404": {
-              "description": "Item not found"
-            },
-            "405": {
-              "description": "Validation exception"
-            }
-          }
-        },
-        "delete": {
-          "tags": [
-            "todolist"
-          ],
-          "summary": "Deletes an item from the list",
-          "description": "",
-          "operationId": "deleteItem",
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "itemId",
-              "in": "path",
-              "description": "Item id to delete",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "204": {
-              "description": "Success"
-            },
-            "400": {
-              "description": "Invalid ID supplied"
-            },
-            "404": {
-              "description": "Item not found"
-            }
-          }
-        }
-      }
+    "license": {
+      "name": "The Universal Permissive License (UPL), Version 1.0",
+      "url": "https://oss.oracle.com/licenses/upl/"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "tasks",
+      "description": "Operations related to tasks"
     },
-    "definitions": {
-      "AllItems": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/Item"
-        }
-      },
-      "NewItem": {
-        "type": "object",
-        "properties": {
-          "description": {
-            "type": "string"
+    {
+      "name": "employees",
+      "description": "Operations related to employees"
+    },
+    {
+      "name": "projects",
+      "description": "Operations related to projects"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/tasks": {
+      "get": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Get all tasks",
+        "description": "Retrieves a list of all tasks",
+        "operationId": "getAllTasks",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Task"
+              }
+            }
           }
         }
       },
-      "UpdateItem": {
-        "type": "object",
-        "properties": {
-          "description": {
-            "type": "string"
+      "post": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Create a new task",
+        "description": "Creates a new task",
+        "operationId": "createTask",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Task object to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewTask"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Task created successfully",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
           },
-          "done": {
-            "type": "boolean"
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}": {
+      "get": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Get a task by ID",
+        "description": "Retrieves a task by its ID",
+        "operationId": "getTaskById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "ID of the task to retrieve",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "404": {
+            "description": "Task not found"
           }
         }
       },
-      "Item": {
-        "type": "object",
-        "properties": {
-          "id": {
+      "put": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Update a task",
+        "description": "Updates an existing task",
+        "operationId": "updateTask",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "ID of the task to update",
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
-          "description": {
-            "type": "string"
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Task object with updated information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateTask"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task updated successfully",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
+          "400": {
+            "description": "Invalid input"
           },
-          "done": {
-            "type": "boolean"
+          "404": {
+            "description": "Task not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Delete a task",
+        "description": "Deletes a task by its ID",
+        "operationId": "deleteTask",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "ID of the task to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Task deleted successfully"
+          },
+          "404": {
+            "description": "Task not found"
+          }
+        }
+      }
+    },
+    "/employees": {
+      "get": {
+        "tags": [
+          "employees"
+        ],
+        "summary": "Get all employees",
+        "description": "Retrieves a list of all employees",
+        "operationId": "getAllEmployees",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Employee"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "employees"
+        ],
+        "summary": "Create a new employee",
+        "description": "Creates a new employee",
+        "operationId": "createEmployee",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Employee object to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewEmployee"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Employee created successfully",
+            "schema": {
+              "$ref": "#/definitions/Employee"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/employees/{employeeId}": {
+      "get": {
+        "tags": [
+          "employees"
+        ],
+        "summary": "Get an employee by ID",
+        "description": "Retrieves an employee by their ID",
+        "operationId": "getEmployeeById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "path",
+            "description": "ID of the employee to retrieve",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Employee"
+            }
+          },
+          "404": {
+            "description": "Employee not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "employees"
+        ],
+        "summary": "Update an employee",
+        "description": "Updates an existing employee",
+        "operationId": "updateEmployee",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "path",
+            "description": "ID of the employee to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Employee object with updated information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateEmployee"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employee updated successfully",
+            "schema": {
+              "$ref": "#/definitions/Employee"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Employee not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "employees"
+        ],
+        "summary": "Delete an employee",
+        "description": "Deletes an employee by their ID",
+        "operationId": "deleteEmployee",
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "path",
+            "description": "ID of the employee to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Employee deleted successfully"
+          },
+          "404": {
+            "description": "Employee not found"
+          }
+        }
+      }
+    },
+    "/projects": {
+      "get": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Get all projects",
+        "description": "Retrieves a list of all projects",
+        "operationId": "getAllProjects",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Project"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Create a new project",
+        "description": "Creates a new project",
+        "operationId": "createProject",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Project object to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewProject"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Project created successfully",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/projects/{projectId}": {
+      "get": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Get a project by ID",
+        "description": "Retrieves a project by its ID",
+        "operationId": "getProjectById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "ID of the project to retrieve",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Update a project",
+        "description": "Updates an existing project",
+        "operationId": "updateProject",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "ID of the project to update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Project object with updated information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateProject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project updated successfully",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Delete a project",
+        "description": "Deletes a project by its ID",
+        "operationId": "deleteProject",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "ID of the project to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Project deleted successfully"
+          },
+          "404": {
+            "description": "Project not found"
           }
         }
       }
     }
-  }
+  },
+  "definitions": {
+    "NewTask": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "datelimit": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "type": {
+          "type": "string"
+        },
+        "employeeid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "projectid": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "UpdateTask": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "datelimit": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "type": {
+          "type": "string"
+        },
+        "employeeid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "projectid": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Task": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "datecreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "datelimit": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "type": {
+          "type": "string"
+        },
+        "employeeid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "projectid": {
+          "type": "integer",
+          "format": "int64"
+        }},
+        "NewEmployee": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "mail": {
+              "type": "string"
+            },
+            "cellphone": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "manager": {
+              "type": "boolean"
+            },
+            "mynumber": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "departamentid": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "UpdateEmployee": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "mail": {
+              "type": "string"
+            },
+            "cellphone": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "status": {
+              "type": "boolean"
+            },
+            "manager": {
+              "type": "boolean"
+            },
+            "mynumber": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "departamentid": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "Employee": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "name": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "mail": {
+              "type": "string"
+            },
+            "cellphone": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "status": {
+              "type": "boolean"
+            },
+            "manager": {
+              "type": "boolean"
+            },
+            "mynumber": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "departamentid": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "NewProject": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "datestart": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "dateend": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "departamentid": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "UpdateProject": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "datestart": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "dateend": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "status": {
+              "type": "boolean"
+            },
+            "departamentid": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "Project": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "name": {
+              "type": "string"
+            },
+            "datestart": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "dateend": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "status": {
+              "type": "boolean"
+            },
+            "departamentid": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        }
+      }
+     }
+
