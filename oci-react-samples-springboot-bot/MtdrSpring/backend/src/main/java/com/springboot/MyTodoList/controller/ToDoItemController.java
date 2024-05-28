@@ -30,6 +30,12 @@ public class ToDoItemController {
     }
 
     // @CrossOrigin
+    @GetMapping(value = "/todolist/project/{projectid}")
+    public List<ToDoItem> getAllToDoItemsbyProjectid(int projectid) {
+        return toDoItemService.findByProjectid(projectid);
+    }
+
+    // @CrossOrigin
     @GetMapping(value = "/todolist/{id}")
     public ResponseEntity<ToDoItem> getToDoItemById(@PathVariable int id) {
         try {

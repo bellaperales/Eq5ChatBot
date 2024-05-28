@@ -22,6 +22,15 @@ public class ToDoItemService {
         return todoItems;
     }
 
+    public ToDoItem findById(int id) {
+        Optional<ToDoItem> todoData = toDoItemRepository.findById(id);
+        if (todoData.isPresent()) {
+            return todoData.get();
+        } else {
+            return null;
+        }
+    }
+
     public List<ToDoItem> findByEmployeeid(int employeeid) {
         return toDoItemRepository.findByEmployeeid(employeeid);
     }
@@ -30,12 +39,26 @@ public class ToDoItemService {
         return toDoItemRepository.findByProjectid(projectid);
     }
 
+    public List<ToDoItem> findByProjectidOrderByDatelimitDesc(int projectid) {
+        return toDoItemRepository.findByProjectidOrderByDatelimitDesc(projectid);
+    }
+
     public ResponseEntity<ToDoItem> getItemById(int id) {
         Optional<ToDoItem> todoData = toDoItemRepository.findById(id);
         if (todoData.isPresent()) {
             return new ResponseEntity<>(todoData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //getItemById
+    public ToDoItem getToDoItemById(int id) {
+        Optional<ToDoItem> todoData = toDoItemRepository.findById(id);
+        if (todoData.isPresent()) {
+            return todoData.get();
+        } else {
+            return null;
         }
     }
 

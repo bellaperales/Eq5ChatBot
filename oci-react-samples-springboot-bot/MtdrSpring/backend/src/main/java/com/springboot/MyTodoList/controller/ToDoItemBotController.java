@@ -349,6 +349,14 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					ProjectItem project = getProjectItemById(id).getBody();
 					project.setStatus(true);
 					updateProjectItem(project, id);
+					List<ToDoItem> allItems = getAllToDoItemsbyProjectid(id);
+					List<ToDoItem> activeItems = allItems.stream()
+							.filter(item -> item.getProjectID() == id)
+							.collect(Collectors.toList());
+					for (ToDoItem item : activeItems) {
+						item.setStatus(true);
+						updateToDoItem(item, item.getID());
+					}
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.PROJECT_DONE.getMessage(), this);
 
 				} catch (Exception e) {
@@ -373,6 +381,14 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					ProjectItem project = getProjectItemById(id).getBody();
 					project.setStatus(false);
 					updateProjectItem(project, id);
+					List<ToDoItem> allItems = getAllToDoItemsbyProjectid(id);
+					List<ToDoItem> activeItems = allItems.stream()
+							.filter(item -> item.getProjectID() == id)
+							.collect(Collectors.toList());
+					for (ToDoItem item : activeItems) {
+						item.setStatus(false);
+						updateToDoItem(item, item.getID());
+					}
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.PROJECT_UNDONE.getMessage(), this);
 
 				} catch (Exception e) {
@@ -583,7 +599,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 			}
 
 			else if (userRole == 2 && messageTextFromTelegram.equals(BotLabels.LIST_ALL_EMPLOYEES_ITEMS.getLabel())) {
-				List<ToDoItem> allTodoItems = toDoItemService.findByProjectid(currentEmployee.getProjectid());
+				List<ToDoItem> allTodoItems = toDoItemService.findByProjectidOrderByDatelimitDesc(currentEmployee.getProjectid());
 				ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 				List<KeyboardRow> keyboard = new ArrayList<>();
 
@@ -595,8 +611,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				for (ToDoItem item : allTodoItems) {
 					KeyboardRow currentRow = new KeyboardRow();
 					currentRow.add(item.getDescription());
-					EmployeeItem employee = employeeItemService.getEmployeeItemById(item.getEmployeeID()).getBody();
-					currentRow.add(employee.getName() + " " + employee.getLastname());
+					//EmployeeItem employee = employeeItemService.getEmployeeItemByToDoItem(item);
+					//currentRow.add(employee.getName() + " " + employee.getLastname());
 					keyboard.add(currentRow);
 				}
 
@@ -793,6 +809,11 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 	public List<ToDoItem> getAllToDoItems(int employeeid) {
 		return toDoItemService.findByEmployeeid(employeeid);
 	}
+
+	// GET /employee/{projectid}
+    public List<ToDoItem> getAllToDoItemsbyProjectid(int projectid) {
+        return toDoItemService.findByProjectid(projectid);
+    }
 
 	public List<EmployeeItem> findByProjectid(int projectid) {
 		return employeeItemService.findByProjectid(projectid);
