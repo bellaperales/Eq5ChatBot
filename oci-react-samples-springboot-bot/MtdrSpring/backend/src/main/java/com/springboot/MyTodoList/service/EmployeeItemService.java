@@ -22,6 +22,10 @@ public class EmployeeItemService {
         return employeeItems;
     }
 
+    /*public List<EmployeeItem> findByEmployeeid(int employeeid) {
+        return employeeItemRepository.findByEmployeeid(employeeid);
+    }*/
+
     public ResponseEntity<EmployeeItem> getEmployeeItemById(int id) {
         Optional<EmployeeItem> employeeData = employeeItemRepository.findById(id);
         if (employeeData.isPresent()) {
@@ -51,6 +55,7 @@ public class EmployeeItemService {
     public List<EmployeeItem> findByProjectid(int projectid) {
         return employeeItemRepository.findByProjectid(projectid);
     }
+
 
     public EmployeeItem updateEmployeeItem(int id, EmployeeItem td) {
         Optional<EmployeeItem> employeeItemData = employeeItemRepository.findById(id);

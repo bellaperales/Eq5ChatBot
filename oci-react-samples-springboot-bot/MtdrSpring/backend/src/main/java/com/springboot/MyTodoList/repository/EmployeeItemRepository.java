@@ -20,4 +20,6 @@ public interface EmployeeItemRepository extends JpaRepository<EmployeeItem, Inte
 
     List<EmployeeItem> findByProjectid(int projectid);
 
+    //List<EmployeeItem> findByEmployeeid(int employeeid);
+
 }

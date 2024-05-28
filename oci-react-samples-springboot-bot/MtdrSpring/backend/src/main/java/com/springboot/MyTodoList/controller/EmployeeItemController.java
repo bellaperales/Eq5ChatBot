@@ -28,6 +28,12 @@ public class EmployeeItemController {
         return employeeItemService.findAll();
     }
 
+        // @CrossOrigin
+    /*@GetMapping(value = "/todolist")
+    public List<EmployeeItem> getAllProjectItems(int employeeid) {
+        return employeeItemService.findByEmployeeid(employeeid);
+    }*/
+
     // @CrossOrigin
     @GetMapping(value = "/employeelist/{id}")
     public ResponseEntity<EmployeeItem> getEmployeeItemById(@PathVariable int id) {

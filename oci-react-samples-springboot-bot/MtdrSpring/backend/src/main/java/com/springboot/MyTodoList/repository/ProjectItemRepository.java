@@ -13,4 +13,9 @@ import com.springboot.MyTodoList.model.ProjectItem;
 @EnableTransactionManagement
 public interface ProjectItemRepository extends JpaRepository<ProjectItem, Integer> {
 
+    //List<ProjectItem> findByEmployeeid(int employeeid);
+
+    // List<ProjectItem> findByProjectid(int projectid);
+
+     //List<ProjectItem> findByProjectidOrderByDatelimitDesc(int projectid);
 }

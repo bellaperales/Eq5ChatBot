@@ -1,7 +1,5 @@
 package com.springboot.MyTodoList.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,11 +20,6 @@ public class ProjectItemController {
     @Autowired
     private ProjectItemService projectItemService;
 
-    // @CrossOrigin
-    @GetMapping(value = "/projectlist")
-    public List<ProjectItem> getAllProjectItems() {
-        return projectItemService.findAll();
-    }
 
     // @CrossOrigin
     @GetMapping(value = "/projectlist/{id}")
