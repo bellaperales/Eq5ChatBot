@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.springboot.MyTodoList.model.EmployeeItem;
+import com.springboot.MyTodoList.model.ToDoItem;
 import com.springboot.MyTodoList.repository.EmployeeItemRepository;
 
 @Service
@@ -21,10 +22,6 @@ public class EmployeeItemService {
         List<EmployeeItem> employeeItems = employeeItemRepository.findAll();
         return employeeItems;
     }
-
-    /*public List<EmployeeItem> findByEmployeeid(int employeeid) {
-        return employeeItemRepository.findByEmployeeid(employeeid);
-    }*/
 
     public ResponseEntity<EmployeeItem> getEmployeeItemById(int id) {
         Optional<EmployeeItem> employeeData = employeeItemRepository.findById(id);
@@ -55,6 +52,10 @@ public class EmployeeItemService {
     public List<EmployeeItem> findByProjectid(int projectid) {
         return employeeItemRepository.findByProjectid(projectid);
     }
+
+    public EmployeeItem getEmployeeItemByToDoItem(ToDoItem toDoItem) {
+    return employeeItemRepository.findByID(toDoItem.getEmployeeID());
+}
 
 
     public EmployeeItem updateEmployeeItem(int id, EmployeeItem td) {
