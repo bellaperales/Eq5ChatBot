@@ -9,6 +9,7 @@ public enum BotMessages {
 			"Selecciona una opción a continuacion: "),
 	BOT_REGISTERED_STARTED(" ¡Se registró correctamente el Bot!"),
 	MAIN_SCREEN("Selecciona una opción a continuación:"),
+	EMPLOYEE_PROJECT("Empleado agregado al proyecto."),
 	ITEM_DONE(
 			"¡Tarea lista! Selecciona /todolist para desplegar todas las tareas o selecciona /mainscreen para ir a la pantalla principal."),
 	ITEM_UNDONE(

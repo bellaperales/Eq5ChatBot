@@ -22,8 +22,6 @@ public class ProjectItemService {
         return projectItems;
     }
 
-    //find project by id 
-
     public ResponseEntity<ProjectItem> getProjectItemById(int id) {
         Optional<ProjectItem> projectData = projectItemRepository.findById(id);
         if (projectData.isPresent()) {
