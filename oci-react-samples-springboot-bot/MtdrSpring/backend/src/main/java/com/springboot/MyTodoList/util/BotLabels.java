@@ -11,6 +11,7 @@ public enum BotLabels {
 	ADD_NEW_PROJECT("Agregar Proyecto"),
 	ADD_EMPLOYEE_TO_PROJECT("Agregar Empleado a Proyecto"),
 	DONE_TASK(" COMPLETADA"),
+	TASK_INDICATOR(" "),
 	UNDO_TASK(" Reactivar tarea"),
 	DELETE_TASK(" Eliminar tarea"),
 	DONE_PROJECT(" COMPLETADO"),
