@@ -20,6 +20,9 @@ public interface ToDoItemRepository extends JpaRepository<ToDoItem, Integer> {
 
     List<ToDoItem> findByProjectidOrderByDatelimitDesc(int projectid);
 
+    				//get all items in descending order by datelimit
+    List<ToDoItem> findByEmployeeidOrderByDatelimitDesc(int employeeid);
+
     
     
 
