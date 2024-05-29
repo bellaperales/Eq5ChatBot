@@ -562,7 +562,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 						// send message
 						execute(messageToTelegram);
 					} else {
-						BotHelper.sendMessageToTelegram(chatId, BotMessages.PROJECT_ALREADY.getMessage(), this);
+						BotHelper.sendMessageToTelegram(chatId, BotMessages.PROJECT_ADD_ERROR.getMessage(), this);
 					}
 
 				} catch (Exception e) {
@@ -572,86 +572,99 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 			}
 
 			else if (userRole == 2 && messageTextFromTelegram.equals(BotLabels.LIST_EMPLOYEES.getLabel())) {
-				List<EmployeeItem> allEmployees = findByProjectid(currentEmployee.getProjectid());
-				allEmployees = allEmployees.stream().filter(item -> item.getID() != currentEmployee.getID()).collect(Collectors.toList());
-				ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
-				List<KeyboardRow> keyboard = new ArrayList<>();
-
-				// command back to main screen
-				KeyboardRow mainScreenRowTop = new KeyboardRow();
-				mainScreenRowTop.add(BotLabels.EMOJI_HOUSE.getLabel() + BotLabels.MAIN_SCREEN.getLabel());
-				keyboard.add(mainScreenRowTop);
-
-				for (EmployeeItem item : allEmployees) {
-					KeyboardRow currentRow = new KeyboardRow();
-					currentRow.add(item.getName() + " " + item.getLastname());
-					keyboard.add(currentRow);
+				if (currentEmployee.getProjectid() == 0) {
+					BotHelper.sendMessageToTelegram(chatId, BotMessages.LIST_EMPLOYEES_ERROR.getMessage(), this);
 				}
 
-				// command back to main screen
-				keyboardMarkup.setKeyboard(keyboard);
+				else {
+					List<EmployeeItem> allEmployees = findByProjectid(currentEmployee.getProjectid());
+					allEmployees = allEmployees.stream().filter(item -> item.getID() != currentEmployee.getID()).collect(Collectors.toList());
+					ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+					List<KeyboardRow> keyboard = new ArrayList<>();
 
-				SendMessage messageToTelegram = new SendMessage();
-				messageToTelegram.setChatId(chatId);
-				messageToTelegram.setText(BotLabels.LIST_EMPLOYEES.getLabel());
-				messageToTelegram.setReplyMarkup(keyboardMarkup);
+					// command back to main screen
+					KeyboardRow mainScreenRowTop = new KeyboardRow();
+					mainScreenRowTop.add(BotLabels.EMOJI_HOUSE.getLabel() + BotLabels.MAIN_SCREEN.getLabel());
+					keyboard.add(mainScreenRowTop);
 
-				try {
-					execute(messageToTelegram);
-				} catch (TelegramApiException e) {
-					logger.error(e.getLocalizedMessage(), e);
+					for (EmployeeItem item : allEmployees) {
+						KeyboardRow currentRow = new KeyboardRow();
+						currentRow.add(item.getName() + " " + item.getLastname());
+						keyboard.add(currentRow);
+					}
+
+					// command back to main screen
+					keyboardMarkup.setKeyboard(keyboard);
+
+					SendMessage messageToTelegram = new SendMessage();
+					messageToTelegram.setChatId(chatId);
+					messageToTelegram.setText(BotLabels.LIST_EMPLOYEES.getLabel());
+					messageToTelegram.setReplyMarkup(keyboardMarkup);
+
+					try {
+						execute(messageToTelegram);
+					} catch (TelegramApiException e) {
+						logger.error(e.getLocalizedMessage(), e);
+					}
 				}
 
 			}
 
 			else if (userRole == 2 && messageTextFromTelegram.equals(BotLabels.LIST_ALL_EMPLOYEES_ITEMS.getLabel())) {
-				List<ToDoItem> allTodoItems = toDoItemService.findByProjectidOrderByDatelimitDesc(currentEmployee.getProjectid());
-				ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
-				List<KeyboardRow> keyboard = new ArrayList<>();
 
-				// command back to main screen
-				KeyboardRow mainScreenRowTop = new KeyboardRow();
-				mainScreenRowTop.add(BotLabels.EMOJI_HOUSE.getLabel() + BotLabels.MAIN_SCREEN.getLabel());
-				keyboard.add(mainScreenRowTop);
-
-				KeyboardRow secondScreenRowTop = new KeyboardRow();
-				secondScreenRowTop.add(BotLabels.EMOJI_PENDING.getLabel()+ BotLabels.TASKS_UNCOMPLETED.getLabel());
-				keyboard.add(secondScreenRowTop);
-
-				List<ToDoItem> activeItems = allTodoItems.stream().filter(item -> item.getStatus() == false).collect(Collectors.toList());
-				for (ToDoItem item : activeItems) {
-					KeyboardRow currentRow = new KeyboardRow();
-					currentRow.add(item.getDescription());
-					//EmployeeItem employee = employeeItemService.getEmployeeItemByToDoItem(item);
-					//currentRow.add(employee.getName() + " " + employee.getLastname());
-					keyboard.add(currentRow);
+				if (currentEmployee.getProjectid() == 0) {
+					BotHelper.sendMessageToTelegram(chatId, BotMessages.LIST_EMPLOYEES_ITEMS_ERROR.getMessage(), this);
 				}
 
-				KeyboardRow middleRowTop = new KeyboardRow();
-				middleRowTop.add(BotLabels.EMOJI_DONE.getLabel() + BotLabels.TASKS_COMPLETED.getLabel());
-				keyboard.add(middleRowTop);
+				else {
+					List<ToDoItem> allTodoItems = toDoItemService.findByProjectidOrderByDatelimitDesc(currentEmployee.getProjectid());
+					ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+					List<KeyboardRow> keyboard = new ArrayList<>();
 
-				List<ToDoItem> doneItems = allTodoItems.stream().filter(item -> item.getStatus() == true).collect(Collectors.toList());
-				for (ToDoItem item : doneItems) {
-					KeyboardRow currentRow = new KeyboardRow();
-					currentRow.add(item.getDescription());
-					//EmployeeItem employee = employeeItemService.getEmployeeItemByToDoItem(item);
-					//currentRow.add(employee.getName() + " " + employee.getLastname());
-					keyboard.add(currentRow);
-				}
+					// command back to main screen
+					KeyboardRow mainScreenRowTop = new KeyboardRow();
+					mainScreenRowTop.add(BotLabels.EMOJI_HOUSE.getLabel() + BotLabels.MAIN_SCREEN.getLabel());
+					keyboard.add(mainScreenRowTop);
 
-				// command back to main screen
-				keyboardMarkup.setKeyboard(keyboard);
+					KeyboardRow secondScreenRowTop = new KeyboardRow();
+					secondScreenRowTop.add(BotLabels.EMOJI_PENDING.getLabel()+ BotLabels.TASKS_UNCOMPLETED.getLabel());
+					keyboard.add(secondScreenRowTop);
 
-				SendMessage messageToTelegram = new SendMessage();
-				messageToTelegram.setChatId(chatId);
-				messageToTelegram.setText(BotLabels.LIST_ALL_EMPLOYEES_ITEMS.getLabel());
-				messageToTelegram.setReplyMarkup(keyboardMarkup);
+					List<ToDoItem> activeItems = allTodoItems.stream().filter(item -> item.getStatus() == false).collect(Collectors.toList());
+					for (ToDoItem item : activeItems) {
+						KeyboardRow currentRow = new KeyboardRow();
+						currentRow.add(item.getDescription());
+						//EmployeeItem employee = employeeItemService.getEmployeeItemByToDoItem(item);
+						//currentRow.add(employee.getName() + " " + employee.getLastname());
+						keyboard.add(currentRow);
+					}
 
-				try {
-					execute(messageToTelegram);
-				} catch (TelegramApiException e) {
-					logger.error(e.getLocalizedMessage(), e);
+					KeyboardRow middleRowTop = new KeyboardRow();
+					middleRowTop.add(BotLabels.EMOJI_DONE.getLabel() + BotLabels.TASKS_COMPLETED.getLabel());
+					keyboard.add(middleRowTop);
+
+					List<ToDoItem> doneItems = allTodoItems.stream().filter(item -> item.getStatus() == true).collect(Collectors.toList());
+					for (ToDoItem item : doneItems) {
+						KeyboardRow currentRow = new KeyboardRow();
+						currentRow.add(item.getDescription());
+						//EmployeeItem employee = employeeItemService.getEmployeeItemByToDoItem(item);
+						//currentRow.add(employee.getName() + " " + employee.getLastname());
+						keyboard.add(currentRow);
+					}
+
+					// command back to main screen
+					keyboardMarkup.setKeyboard(keyboard);
+
+					SendMessage messageToTelegram = new SendMessage();
+					messageToTelegram.setChatId(chatId);
+					messageToTelegram.setText(BotLabels.LIST_ALL_EMPLOYEES_ITEMS.getLabel());
+					messageToTelegram.setReplyMarkup(keyboardMarkup);
+
+					try {
+						execute(messageToTelegram);
+					} catch (TelegramApiException e) {
+						logger.error(e.getLocalizedMessage(), e);
+					}
 				}
 			}
 

@@ -23,7 +23,9 @@ public enum BotMessages {
 			"¡Proyecto deshecho! Selecciona /projectlist para desplegar todos los proyectos o selecciona /mainscreen para ir a la pantalla principal."),
 	PROJECT_DELETED(
 			"¡Proyecto eliminado! Selecciona /projectlist para desplegar todos los proyectos o selecciona /mainscreen para ir a la pantalla principal."),
-	PROJECT_ALREADY("Error. No puedes agregar un nuevo proyecto. Ya tienes un proyecto activo. Selecciona /mainscreen para ir a la pantalla principal."),
+	PROJECT_ADD_ERROR("Error. No puedes agregar un nuevo proyecto. Ya tienes un proyecto activo. Selecciona /mainscreen para ir a la pantalla principal."),
+	LIST_EMPLOYEES_ERROR("Error. No puedes ver la lista de empleados. No tienes un proyecto activo. Selecciona /mainscreen para ir a la pantalla principal."),
+	LIST_EMPLOYEES_ITEMS_ERROR("Error. No puedes ver la lista de tareas de los empleados. No tienes un proyecto activo. Selecciona /mainscreen para ir a la pantalla principal."),
 	TYPE_NEW_TODO_ITEM("Escribe el nombre de la tarea y presiona el botón para agregarla a la lista de tareas."),
 	TYPE_NEW_PROJECT("Escribe un nuevo proyecto y presiona el botón para agregarlo a la lista de proyectos."),
 	NEW_ITEM_ADDED("¡Nueva tarea agregada! Selecciona /mainscreen para ir a la pantalla principal."),
