@@ -49,13 +49,22 @@ public class EmployeeItemService {
         return employeeItemRepository.findByMynumber(mynumber);
     }
 
+    public EmployeeItem  getEmployeeItemByNameAndLastname(String name, String lastname) {
+        return employeeItemRepository.findByNameAndLastname(name, lastname);
+    }
+
     public List<EmployeeItem> findByProjectid(int projectid) {
         return employeeItemRepository.findByProjectid(projectid);
     }
 
     public EmployeeItem getEmployeeItemByToDoItem(ToDoItem toDoItem) {
     return employeeItemRepository.findByID(toDoItem.getEmployeeID());
-}
+    }
+
+    //findByDepartamentid(int)
+    public List<EmployeeItem> findByDepartamentid(int departamentid) {
+        return employeeItemRepository.findByDepartamentid(departamentid);
+    }
 
 
     public EmployeeItem updateEmployeeItem(int id, EmployeeItem td) {

@@ -10,6 +10,7 @@ public enum BotMessages {
 	BOT_REGISTERED_STARTED(" ¡Se registró correctamente el Bot!"),
 	MAIN_SCREEN("Selecciona una opción a continuación:"),
 	EMPLOYEE_PROJECT("Empleado agregado al proyecto."),
+	EMPLOYEE_ADDED("¡Empleado agregado! Si deseas agregar a mas empleados selecciona /addemployee o selecciona /mainscreen para ir a la pantalla principal."),
 	ITEM_DONE(
 			"¡Tarea lista! Selecciona /todolist para desplegar todas las tareas o selecciona /mainscreen para ir a la pantalla principal."),
 	ITEM_UNDONE(
@@ -22,10 +23,11 @@ public enum BotMessages {
 			"¡Proyecto deshecho! Selecciona /projectlist para desplegar todos los proyectos o selecciona /mainscreen para ir a la pantalla principal."),
 	PROJECT_DELETED(
 			"¡Proyecto eliminado! Selecciona /projectlist para desplegar todos los proyectos o selecciona /mainscreen para ir a la pantalla principal."),
+	PROJECT_ALREADY("Error. No puedes agregar un nuevo proyecto. Ya tienes un proyecto activo. Selecciona /mainscreen para ir a la pantalla principal."),
 	TYPE_NEW_TODO_ITEM("Escribe el nombre de la tarea y presiona el botón para agregarla a la lista de tareas."),
 	TYPE_NEW_PROJECT("Escribe un nuevo proyecto y presiona el botón para agregarlo a la lista de proyectos."),
 	NEW_ITEM_ADDED("¡Nueva tarea agregada! Selecciona /mainscreen para ir a la pantalla principal."),
-	NEW_PROJECT_ADDED("¡Nuevo proyecto agregado! Selecciona /mainscreen para ir a la pantalla principal."),
+	NEW_PROJECT_ADDED("¡Nuevo proyecto agregado! Selecciona /addemployee para agregar personas al proyecto."),
 	ERROR("¡Ups! Algo salió mal. Por favor, inténtalo de nuevo. Seleccione /start para comenzar de nuevo."),
 	TYPE_DESCRIPTION("Escribe una descripción para la tarea y presiona el botón para agregarla a la lista de tareas."),
 	TYPE_DATE_LIMIT(

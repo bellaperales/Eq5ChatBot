@@ -18,9 +18,15 @@ public interface EmployeeItemRepository extends JpaRepository<EmployeeItem, Inte
 
     Optional<EmployeeItem> findByMynumber(int mynumber);
 
+    EmployeeItem findByNameAndLastname(String name, String lastname);
+
     List<EmployeeItem> findByProjectid(int projectid);
 
     EmployeeItem findByID (int id);
+
+    //findByDepartamentid(int)
+
+    List<EmployeeItem> findByDepartamentid (int departamentid);
 
 
 }

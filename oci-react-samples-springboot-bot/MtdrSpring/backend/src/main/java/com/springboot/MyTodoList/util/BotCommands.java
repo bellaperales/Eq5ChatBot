@@ -7,6 +7,7 @@ public enum BotCommands {
 	TODO_LIST("/todolist"),
 	ADD_ITEM("/additem"),
 	ADD_PROJECT("/addproject"),
+	ADD_EMPLOYEE_TO_PROJECT("/addemployee"),
 	PROJECT_LIST("/projectlist"),
 	START("/iniciar"),
 	BACK_COMMAND("/mainscreen");
