@@ -1,9 +1,13 @@
 package com.springboot.MyTodoList.model;
 
-import javax.persistence.*;
-
 import java.sql.Timestamp;
-import java.time.OffsetDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /*
     representation of the TODOITEM table that exists already
@@ -22,7 +26,7 @@ public class ToDoItem {
     @Column(name = "datecreated")
     Timestamp datecreated;
     @Column(name = "status")
-    boolean status;
+    int status;
     @Column(name = "datelimit")
     Timestamp datelimit;
     @Column(name = "type")
@@ -36,7 +40,7 @@ public class ToDoItem {
 
     }
 
-    public ToDoItem(int ID, String name, String description, Timestamp datecreated, boolean status, Timestamp datelimit,
+    public ToDoItem(int ID, String name, String description, Timestamp datecreated, int status, Timestamp datelimit,
             String type, int employeeid, int projectid) {
         this.ID = ID;
         this.name = name;
@@ -81,11 +85,11 @@ public class ToDoItem {
         this.datecreated = datecreated;
     }
 
-    public boolean getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

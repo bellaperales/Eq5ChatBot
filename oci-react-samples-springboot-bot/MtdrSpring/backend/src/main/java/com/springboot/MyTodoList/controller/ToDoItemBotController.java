@@ -278,7 +278,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 				try {
 					ToDoItem item = getToDoItemById(id).getBody();
-					item.setStatus(true);
+					item.setStatus(1);
 					updateToDoItem(item, id);
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.ITEM_DONE.getMessage(), this);
 				} catch (Exception e) {
@@ -301,7 +301,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				try {
 
 					ToDoItem item = getToDoItemById(id).getBody();
-					item.setStatus(false);
+					item.setStatus(0);
 					updateToDoItem(item, id);
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.ITEM_UNDONE.getMessage(), this);
 
@@ -324,8 +324,9 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				Integer id = Integer.valueOf(delete1);
 
 				try {
-
-					deleteToDoItem(id).getBody();
+					ToDoItem item = getToDoItemById(id).getBody();
+					item.setStatus(2);
+					updateToDoItem(item, id);
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.ITEM_DELETED.getMessage(), this);
 
 				} catch (Exception e) {
@@ -355,7 +356,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 							.filter(item -> item.getProjectID() == id)
 							.collect(Collectors.toList());
 					for (ToDoItem item : activeItems) {
-						item.setStatus(true);
+						item.setStatus(1);
 						updateToDoItem(item, item.getID());
 					}
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.PROJECT_DONE.getMessage(), this);
@@ -387,7 +388,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 							.filter(item -> item.getProjectID() == id)
 							.collect(Collectors.toList());
 					for (ToDoItem item : activeItems) {
-						item.setStatus(false);
+						item.setStatus(0);
 						updateToDoItem(item, item.getID());
 					}
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.PROJECT_UNDONE.getMessage(), this);
@@ -441,7 +442,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				keyboard.add(firstRow);
 
 				List<ToDoItem> activeItems = allItems.stream()
-						.filter(item -> item.getStatus() == false)
+						.filter(item -> item.getStatus() == 0)
 						.collect(Collectors.toList());
 
 				for (ToDoItem item : activeItems) {
@@ -453,7 +454,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				}
 
 				List<ToDoItem> doneItems = allItems.stream()
-						.filter(item -> item.getStatus() == true)
+						.filter(item -> item.getStatus() == 1)
 						.collect(Collectors.toList());
 
 				for (ToDoItem item : doneItems) {
@@ -630,7 +631,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					secondScreenRowTop.add(BotLabels.EMOJI_PENDING.getLabel()+ BotLabels.TASKS_UNCOMPLETED.getLabel());
 					keyboard.add(secondScreenRowTop);
 
-					List<ToDoItem> activeItems = allTodoItems.stream().filter(item -> item.getStatus() == false).collect(Collectors.toList());
+					List<ToDoItem> activeItems = allTodoItems.stream().filter(item -> item.getStatus() == 0).collect(Collectors.toList());
 					for (ToDoItem item : activeItems) {
 						KeyboardRow currentRow = new KeyboardRow();
 						currentRow.add(item.getDescription());
@@ -643,7 +644,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					middleRowTop.add(BotLabels.EMOJI_DONE.getLabel() + BotLabels.TASKS_COMPLETED.getLabel());
 					keyboard.add(middleRowTop);
 
-					List<ToDoItem> doneItems = allTodoItems.stream().filter(item -> item.getStatus() == true).collect(Collectors.toList());
+					List<ToDoItem> doneItems = allTodoItems.stream().filter(item -> item.getStatus() == 1).collect(Collectors.toList());
 					for (ToDoItem item : doneItems) {
 						KeyboardRow currentRow = new KeyboardRow();
 						currentRow.add(item.getDescription());
@@ -720,7 +721,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					newItem.setName(nameTask);
 					newItem.setDescription(descriptionTask);
 					newItem.setDateCreated(new java.sql.Timestamp(System.currentTimeMillis()));
-					newItem.setStatus(false);
+					newItem.setStatus(0);
 					newItem.setDateLimit(datelimit);
 					newItem.setType(type);
 					newItem.setEmployeeID(currentEmployee.getID());
