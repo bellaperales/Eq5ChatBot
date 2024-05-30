@@ -447,7 +447,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				for (ToDoItem item : activeItems) {
 
 					KeyboardRow currentRow = new KeyboardRow();
-					currentRow.add( item.getID() + BotLabels.TASK_INDICATOR.getLabel() + item.getDescription());
+					currentRow.add(item.getID() + BotLabels.TASK_INDICATOR.getLabel() + item.getDescription());
 					currentRow.add(item.getDateLimit().toString());
 					currentRow.add(BotLabels.EMOJI_DONE.getLabel() + item.getID() + BotLabels.DONE_TASK.getLabel());
 					keyboard.add(currentRow);
@@ -459,7 +459,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 				for (ToDoItem item : doneItems) {
 					KeyboardRow currentRow = new KeyboardRow();
-					currentRow.add(item.getDescription());
+					currentRow.add(item.getID() + BotLabels.TASK_INDICATOR.getLabel() + item.getDescription());
 					currentRow.add(BotLabels.EMOJI_UNDO.getLabel() + item.getID() + BotLabels.UNDO_TASK.getLabel());
 					currentRow.add(BotLabels.EMOJI_DELETE.getLabel() + item.getID() + BotLabels.DELETE_TASK.getLabel());
 					keyboard.add(currentRow);
@@ -497,7 +497,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					BotHelper.sendMessageToTelegram(chatId, "Error.", this);
 				}
 
-			} else if (userRole == 2 && messageTextFromTelegram.equals(BotCommands.PROJECT_LIST.getCommand())
+			}else if (userRole == 2 && messageTextFromTelegram.equals(BotCommands.PROJECT_LIST.getCommand())
 					|| userRole == 2 && messageTextFromTelegram.equals(BotLabels.LIST_ALL_PROJECTS.getLabel())) {
 
 				List<ProjectItem> allProjects = getAllProjectItems();
@@ -629,7 +629,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 			}
 
-			else if (userRole == 2 && messageTextFromTelegram.equals(BotLabels.LIST_ALL_EMPLOYEES_ITEMS.getLabel())) {
+			else if (userRole == 2 && messageTextFromTelegram.equals(BotLabels.LIST_ALL_EMPLOYEES_ITEMS.getLabel()) || userRole == 2 && messageTextFromTelegram.equals(BotCommands.LIST_EMPLOYEES_ITEMS.getCommand()) ) {
 
 				if (currentEmployee.getProjectid() == 0) {
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.LIST_EMPLOYEES_ITEMS_ERROR.getMessage(), this);
@@ -652,7 +652,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					List<ToDoItem> activeItems = allTodoItems.stream().filter(item -> item.getStatus() == 0).collect(Collectors.toList());
 					for (ToDoItem item : activeItems) {
 						KeyboardRow currentRow = new KeyboardRow();
-						currentRow.add(item.getDescription());
+						currentRow.add(item.getID() + BotLabels.TASK_INDICATOR.getLabel() + item.getDescription());
 						//EmployeeItem employee = employeeItemService.getEmployeeItemByToDoItem(item);
 						//currentRow.add(employee.getName() + " " + employee.getLastname());
 						keyboard.add(currentRow);
@@ -665,7 +665,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					List<ToDoItem> doneItems = allTodoItems.stream().filter(item -> item.getStatus() == 1).collect(Collectors.toList());
 					for (ToDoItem item : doneItems) {
 						KeyboardRow currentRow = new KeyboardRow();
-						currentRow.add(item.getDescription());
+						currentRow.add(item.getID() + BotLabels.TASK_INDICATOR.getLabel() + item.getDescription());
 						//EmployeeItem employee = employeeItemService.getEmployeeItemByToDoItem(item);
 						//currentRow.add(employee.getName() + " " + employee.getLastname());
 						keyboard.add(currentRow);
@@ -684,6 +684,25 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					} catch (TelegramApiException e) {
 						logger.error(e.getLocalizedMessage(), e);
 					}
+				}
+			}
+
+			else if(userRole == 2 && messageTextFromTelegram.contains(BotLabels.TASK_INDICATOR.getLabel())) {
+				String[] parts = messageTextFromTelegram.split(BotLabels.TASK_INDICATOR.getLabel(), 2);
+				Integer id;
+				id = Integer.valueOf(parts[0].trim());
+				ToDoItem item = getToDoItemById(id).getBody();
+				if (item != null) {
+					String message = "Información de la tarea: " + "\n" +
+							"Nombre de la tarea: " + item.getName() + "\n" +
+							"Descripción: " + item.getDescription() + "\n" +
+							"Fecha Limite: " + item.getDateLimit() + "\n" +
+							"Tipo de Tarea: " + item.getType();
+					BotHelper.sendMessageToTelegram(chatId, message, this);
+					BotHelper.sendMessageToTelegram(chatId, BotMessages.TASK_INFORMATION_BACK_MANAGER.getMessage(), this);
+
+				} else {
+					BotHelper.sendMessageToTelegram(chatId, "Error.", this);
 				}
 			}
 

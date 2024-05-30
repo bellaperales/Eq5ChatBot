@@ -8,6 +8,7 @@ public enum BotCommands {
 	ADD_ITEM("/additem"),
 	ADD_PROJECT("/addproject"),
 	ADD_EMPLOYEE_TO_PROJECT("/addemployee"),
+	LIST_EMPLOYEES_ITEMS("/allemployeetasks"),
 	PROJECT_LIST("/projectlist"),
 	START("/iniciar"),
 	BACK_COMMAND("/mainscreen");
