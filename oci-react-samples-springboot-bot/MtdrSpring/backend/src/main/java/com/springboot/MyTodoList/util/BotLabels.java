@@ -11,13 +11,14 @@ public enum BotLabels {
 	ADD_NEW_PROJECT("Agregar Proyecto"),
 	ADD_EMPLOYEE_TO_PROJECT("Agregar Empleado a Proyecto"),
 	DONE_TASK(" COMPLETADA"),
-	TASK_INDICATOR(" "),
+	TASK_INDICATOR(" - "),
+	PROJECT_INFORMATION("Informacion del Proyecto"),
 	UNDO_TASK(" Reactivar tarea"),
 	DELETE_TASK(" Eliminar tarea"),
 	DONE_PROJECT(" COMPLETADO"),
 	UNDO_PROJECT(" Reactivar proyecto"),
 	DELETE_PROJECT(" Eliminar proyecto"),
-	MY_TODO_LIST("Mis Tareas de Hoy"),
+	MY_TODO_LIST("Mis Tareas (Orden Descendente de Fecha Límite)"),
 	MY_PROJECT_LIST("Mis Proyectos"),
 	LIST_EMPLOYEES("Lista de Empleados"),		
 	TASKS_COMPLETED("Tareas Completadas "),
@@ -29,6 +30,8 @@ public enum BotLabels {
 	EMOJI_UNDO("\uD83D\uDD04 "),
 	EMOJI_HOUSE("\uD83C\uDFE0 "),
 	EMOJI_PENDING("\uD83D\uDD34 "),
+	EMOJI_INFO("\u2139 "),
+
 	DASH("-");
 
 	private String label;

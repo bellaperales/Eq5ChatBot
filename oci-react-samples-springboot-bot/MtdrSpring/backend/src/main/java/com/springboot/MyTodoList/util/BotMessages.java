@@ -38,6 +38,7 @@ public enum BotMessages {
 			"Escribe la fecha límite para la tarea en el formato (yyyy-mm-dd hh:mm:ss) y presiona el botón para agregarla a la lista de tareas."),
 	TYPE_TYPE(
 			"Escribe el tipo de tarea (capacitacion o desarrollo) y presiona el botón para agregarla a la lista de tareas."),
+	MAIN_SCREEN_BACK("Selecciona /mainscreen para ir a la pantalla principal."),
 	BYE("¡Hasta pronto! Selecciona /start para empezar de nuevo.");
 
 	private String message;
