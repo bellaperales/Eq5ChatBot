@@ -410,7 +410,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					|| userRole == 1 && messageTextFromTelegram.equals(BotLabels.LIST_ALL_ITEMS.getLabel())
 					|| userRole == 1 && messageTextFromTelegram.equals(BotLabels.MY_TODO_LIST.getLabel())) {
 
-				List<ToDoItem> allItems = getAllToDoItems(currentEmployee.getID());
+				List<ToDoItem> allItems = toDoItemService.findByEmployeeidOrderByDatelimitDesc(currentEmployee.getID());
 				ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 				List<KeyboardRow> keyboard = new ArrayList<>();
 
