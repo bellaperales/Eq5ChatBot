@@ -30,6 +30,10 @@ public class ToDoItemService {
         return toDoItemRepository.findByProjectid(projectid);
     }
 
+    public List<ToDoItem> findByEmployeeidOrderByDatelimitDesc(int employeeid) {
+        return toDoItemRepository.findByEmployeeidOrderByDatelimitDesc(employeeid);
+    }
+
     public ResponseEntity<ToDoItem> getItemById(int id) {
         Optional<ToDoItem> todoData = toDoItemRepository.findById(id);
         if (todoData.isPresent()) {
