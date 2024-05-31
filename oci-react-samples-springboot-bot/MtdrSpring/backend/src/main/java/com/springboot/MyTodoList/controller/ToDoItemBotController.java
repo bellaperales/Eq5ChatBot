@@ -790,8 +790,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 	}
 
 	// GET /todolist
-	public List<ToDoItem> getAllToDoItems(int employeeid) {
-		return toDoItemService.findByEmployeeid(employeeid);
+	public List<ToDoItem> getAllToDoItems() { 
+		return toDoItemService.findAll();
 	}
 
 	public List<EmployeeItem> findByProjectid(int projectid) {
