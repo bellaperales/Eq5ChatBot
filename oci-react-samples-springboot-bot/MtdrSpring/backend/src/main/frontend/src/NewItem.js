@@ -46,7 +46,6 @@ function NewItem(props) {
           }
         }}
       />
-      <span>&nbsp;&nbsp;</span>
       <Button
         className="AddButton"
         variant="contained"

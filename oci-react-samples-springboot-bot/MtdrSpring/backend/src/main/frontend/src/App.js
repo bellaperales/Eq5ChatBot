@@ -168,7 +168,7 @@ function App() {
         <div className="left-content-wrapper">
           <div className="left-content">
             <div className="heading-container">
-              <h1>MY TODO LIST</h1>
+              <h1>MY TO DO LIST</h1>
             </div>
             <div className="App">
               <NewItem addItem={addItem} isInserting={isInserting} />
@@ -210,7 +210,7 @@ function App() {
       <div className="container__right">
       <div className="left-content">
             <div className="heading-container">
-            <h1 id="donelist">Done items</h1>
+            <h1 id="donelist">DONE ITEMS</h1>
             </div>
         <div className="App">
           <table id="itemlistDone" className="itemlist">
