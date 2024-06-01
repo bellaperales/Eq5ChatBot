@@ -624,7 +624,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 			else if (userRole == 1 && messageTextFromTelegram.equals(BotCommands.ADD_ITEM.getCommand())
 					|| userRole == 1 && messageTextFromTelegram.equals(BotLabels.ADD_NEW_ITEM.getLabel())) {
-						logger.info("ADD ITEM 1 ");
+				logger.info("ADD ITEM 1 ");
 				try {
 					isWaitingForTask = true;
 					SendMessage messageToTelegram = new SendMessage();
@@ -867,7 +867,6 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 			else if (isWaitingForTask && step == 4) {
 				logger.info("W8 4 ");
 				try {
-					// Check if the input matches the expected format
 					if (messageTextFromTelegram.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
 						datelimit = Timestamp.valueOf(messageTextFromTelegram);
 						SendMessage messageToTelegram = new SendMessage();
@@ -876,7 +875,6 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 						execute(messageToTelegram);
 						step = 5;
 					} else {
-						// Input is invalid, prompt the user again
 						SendMessage messageToTelegram = new SendMessage();
 						messageToTelegram.setChatId(chatId);
 						messageToTelegram.setText("Invalid date format. Please enter the date limit in the format yyyy-mm-dd hh:mm:ss");
@@ -908,9 +906,13 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 					SendMessage messageToTelegram = new SendMessage();
 					messageToTelegram.setChatId(chatId);
-					messageToTelegram.setText(BotMessages.NEW_ITEM_ADDED.getMessage()
-							+ "\n\nLa siguiente tarea fue agregada: " + nameTask + "\n\ncon la siguiente descripción: "
-							+ descriptionTask);
+					messageToTelegram.setText(BotMessages.NEW_ITEM_ADDED.getMessage()+ "\n\n" +
+							BotLabels.EMOJI_INFO.getLabel() + "Información de la Tarea: " + "\n" + "\n" +
+							"Nombre de la tarea: " + nameTask + "\n" +
+							"Descripción: " + descriptionTask + "\n" +
+							"Fecha Limite: " + datelimit + "\n" +
+							"Tipo de Tarea: " + type);
+
 
 					execute(messageToTelegram);
 				} catch (Exception e) {

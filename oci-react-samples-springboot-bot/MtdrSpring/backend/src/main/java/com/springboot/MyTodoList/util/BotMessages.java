@@ -30,7 +30,7 @@ public enum BotMessages {
 	LIST_EMPLOYEES_ITEMS_ERROR("Error. No puedes ver la lista de tareas de los empleados. No tienes un proyecto activo. Selecciona /mainscreen para ir a la pantalla principal."),
 	TYPE_NEW_TODO_ITEM("Escribe el nombre de la tarea y presiona el botón para agregarla a la lista de tareas."),
 	TYPE_NEW_PROJECT("Escribe un nuevo proyecto y presiona el botón para agregarlo a la lista de proyectos."),
-	NEW_ITEM_ADDED("¡Nueva tarea agregada! Selecciona /mainscreen para ir a la pantalla principal."),
+	NEW_ITEM_ADDED("¡Nueva tarea agregada! Selecciona /mainscreen para ir a la pantalla principal o /todolist para ver las tareas."),
 	NEW_PROJECT_ADDED("¡Nuevo proyecto agregado! Selecciona /addemployee para agregar personas al proyecto."),
 	ERROR("¡Ups! Algo salió mal. Por favor, inténtalo de nuevo. Seleccione /start para comenzar de nuevo."),
 	TYPE_DESCRIPTION("Escribe una descripción para la tarea y presiona el botón para agregarla a la lista de tareas."),
