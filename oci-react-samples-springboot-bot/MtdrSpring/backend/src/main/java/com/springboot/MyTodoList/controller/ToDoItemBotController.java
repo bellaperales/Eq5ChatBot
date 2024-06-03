@@ -747,7 +747,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 					SendMessage messageToTelegram = new SendMessage();
 					messageToTelegram.setChatId(chatId);
-					messageToTelegram.setText(BotLabels.LIST_ALL_EMPLOYEES_ITEMS.getLabel());
+					messageToTelegram.setText(BotLabels.EMPLOYEE_TASKS.getLabel());
 					messageToTelegram.setReplyMarkup(keyboardMarkup);
 
 					try {
@@ -812,7 +812,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 				SendMessage messageToTelegram = new SendMessage();
 				messageToTelegram.setChatId(chatId);
-				messageToTelegram.setText(BotLabels.LIST_ALL_EMPLOYEES_ITEMS.getLabel());
+				messageToTelegram.setText(BotLabels.EMPLOYEE_TASKS.getLabel());
 				messageToTelegram.setReplyMarkup(keyboardMarkup);
 
 				try {
