@@ -46,7 +46,6 @@ public class EmployeeItemService {
         }
     }
     
-
     public Optional<EmployeeItem> getEmployeeItemByMynumber(int mynumber) {
         return employeeItemRepository.findByMynumber(mynumber);
     }
@@ -58,12 +57,7 @@ public class EmployeeItemService {
     public List<EmployeeItem> findByProjectid(ProjectItem projectid) {
         return employeeItemRepository.findByProjectid(projectid);
     }
-    /* 
-    public EmployeeItem getEmployeeItemByToDoItem(ToDoItem toDoItem) {
-    return employeeItemRepository.findByID(toDoItem.getEmployeeID());
-    }*/
 
-    //fix this
     public EmployeeItem getEmployeeItemByToDoItem(int id) {
         return employeeItemRepository.findByID(id);
     }
