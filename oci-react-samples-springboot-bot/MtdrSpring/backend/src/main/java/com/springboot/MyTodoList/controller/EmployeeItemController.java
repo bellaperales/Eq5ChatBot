@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.MyTodoList.model.EmployeeItem;
+import com.springboot.MyTodoList.model.ProjectItem;
 import com.springboot.MyTodoList.service.EmployeeItemService;
 
 @RestController
@@ -93,7 +94,7 @@ public class EmployeeItemController {
 
     // @CrossOrigin
     @GetMapping(value = "/employeelist/{projectid}")
-    public List<EmployeeItem> findByProjectid(int projectid) {
+    public List<EmployeeItem> findByProjectid(ProjectItem projectid) {
         return employeeItemService.findByProjectid(projectid);
     }
 

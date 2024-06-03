@@ -18,11 +18,12 @@ public enum BotMessages {
 	ITEM_DELETED(
 			"¡Tarea eliminada! Selecciona /todolist para desplegar todas las tareas o selecciona /mainscreen para ir a la pantalla principal."),
 	PROJECT_DONE(
-			"¡Proyecto listo! Selecciona /projectlist para desplegar todos los proyectos o selecciona /mainscreen para ir a la pantalla principal."),
+			"¡Proyecto listo! Selecciona /mainscreen para ir a la pantalla principal."),
 	PROJECT_UNDONE(
-			"¡Proyecto deshecho! Selecciona /projectlist para desplegar todos los proyectos o selecciona /mainscreen para ir a la pantalla principal."),
+			"¡Proyecto deshecho! Selecciona /mainscreen para ir a la pantalla principal."),
 	PROJECT_DELETED(
-			"¡Proyecto eliminado! Selecciona /projectlist para desplegar todos los proyectos o selecciona /mainscreen para ir a la pantalla principal."),
+			"¡Proyecto eliminado! Selecciona /mainscreen para ir a la pantalla principal."),
+	PROJECT_INFORMATION_ERROR("Error. No puedes ver la información del proyecto. No tienes un proyecto activo. Selecciona /mainscreen para ir a la pantalla principal."),
 	PROJECT_ADD_ERROR("Error. No puedes agregar un nuevo proyecto. Ya tienes un proyecto activo. Selecciona /mainscreen para ir a la pantalla principal."),
 	TASK_INFORMATION_BACK("Selecciona /todolist para desplegar todas las tareas o selecciona /mainscreen para ir a la pantalla principal."),
 	TASK_INFORMATION_BACK_MANAGER("Selecciona /allemployeetasks para desplegar todas las tareas o selecciona /mainscreen para ir a la pantalla principal."),

@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.springboot.MyTodoList.model.EmployeeItem;
+import com.springboot.MyTodoList.model.ProjectItem;
 import com.springboot.MyTodoList.model.ToDoItem;
 
 @Repository
@@ -16,11 +18,13 @@ import com.springboot.MyTodoList.model.ToDoItem;
 public interface ToDoItemRepository extends JpaRepository<ToDoItem, Integer> {
     List<ToDoItem> findByEmployeeid(int employeeid);
 
-    List<ToDoItem> findByProjectid(int projectid);
+    List<ToDoItem> findByProjectid(ProjectItem projectItem);
 
-    List<ToDoItem> findByProjectidOrderByDatelimitDesc(int projectid);
+    List<ToDoItem> findByProjectidOrderByDatelimitDesc(ProjectItem projectid);
 
-    List<ToDoItem> findByEmployeeidOrderByDatelimitDesc(int employeeid);
+    List<ToDoItem> findByEmployeeidOrderByDatelimitAsc(EmployeeItem employeeid);
+
+
 
     
     

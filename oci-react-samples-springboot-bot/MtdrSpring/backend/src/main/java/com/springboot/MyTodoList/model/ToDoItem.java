@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /*
@@ -14,7 +16,7 @@ import javax.persistence.Table;
     in the autonomous database
  */
 @Entity
-@Table(name = "task")
+@Table(name = "tasks")
 public class ToDoItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,17 +33,20 @@ public class ToDoItem {
     Timestamp datelimit;
     @Column(name = "type")
     String type;
-    @Column(name = "employeeid")
-    int employeeid;
-    @Column(name = "projectid")
-    int projectid;
+    @ManyToOne
+    @JoinColumn(name = "employeeid", referencedColumnName = "id")
+    private EmployeeItem employeeid;
+
+    @ManyToOne
+    @JoinColumn(name = "projectid", referencedColumnName = "id")
+    private ProjectItem projectid;
 
     public ToDoItem() {
 
     }
 
     public ToDoItem(int ID, String name, String description, Timestamp datecreated, int status, Timestamp datelimit,
-            String type, int employeeid, int projectid) {
+            String type, EmployeeItem employeeid, ProjectItem projectid) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -109,19 +114,19 @@ public class ToDoItem {
         this.type = type;
     }
 
-    public int getEmployeeID() {
+    public EmployeeItem getEmployeeID() {
         return employeeid;
     }
 
-    public void setEmployeeID(int employeeid) {
+    public void setEmployeeID(EmployeeItem employeeid) {
         this.employeeid = employeeid;
     }
 
-    public int getProjectID() {
+    public ProjectItem getProjectID() {
         return projectid;
     }
 
-    public void setProjectID(int projectid) {
+    public void setProjectID(ProjectItem projectid) {
         this.projectid = projectid;
     }
 

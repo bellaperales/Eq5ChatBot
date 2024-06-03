@@ -21,6 +21,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRem
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import com.springboot.MyTodoList.model.DepartamentItem;
 import com.springboot.MyTodoList.model.EmployeeItem;
 import com.springboot.MyTodoList.model.ProjectItem;
 import com.springboot.MyTodoList.model.ToDoItem;
@@ -82,7 +83,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				try {
 					execute(messageToTelegram);
 				} catch (TelegramApiException e) {
-					logger.error("10000000"+ e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 			}
 
@@ -119,10 +120,10 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					try {
 						execute(messageToTelegram);
 					} catch (TelegramApiException ex) {
-						logger.error("20000000"+ ex.getLocalizedMessage(), ex);
+						logger.error(ex.getLocalizedMessage(), ex);
 					}
 				} catch (TelegramApiException e) {
-					logger.error("30000000"+ e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				} catch (Exception e) {
 					SendMessage messageToTelegram = new SendMessage();
 					messageToTelegram.setChatId(chatId);
@@ -130,7 +131,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					try {
 						execute(messageToTelegram);
 					} catch (TelegramApiException ex) {
-						logger.error("40000000"+ ex.getLocalizedMessage(), ex);
+						logger.error(ex.getLocalizedMessage(), ex);
 					}
 				}
 			}
@@ -224,7 +225,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				try {
 					execute(messageToTelegram);
 				} catch (TelegramApiException e) {
-					logger.error("60000000"+ e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 
 			} else if (userRole == 2 && messageTextFromTelegram.equals(BotCommands.BACK_COMMAND.getCommand())
@@ -285,7 +286,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					updateToDoItem(item, id);
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.ITEM_DONE.getMessage(), this);
 				} catch (Exception e) {
-					logger.error("80000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 
 			} else if (messageTextFromTelegram.indexOf(BotLabels.UNDO_TASK.getLabel()) != -1) {
@@ -310,7 +311,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.ITEM_UNDONE.getMessage(), this);
 
 				} catch (Exception e) {
-					logger.error("90000000"+ e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 
 			} else if (messageTextFromTelegram.indexOf(BotLabels.DELETE_TASK.getLabel()) != -1) {
@@ -357,18 +358,16 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					ProjectItem project = getProjectItemById(id).getBody();
 					project.setStatus(true);
 					updateProjectItem(project, id);
-					List<ToDoItem> allItems = getAllToDoItemsbyProjectid(id);
-					List<ToDoItem> activeItems = allItems.stream()
-							.filter(item -> item.getProjectID() == id)
-							.collect(Collectors.toList());
+					
+					List<ToDoItem> activeItems = getAllToDoItemsbyProjectId(id);
 					for (ToDoItem item : activeItems) {
 						item.setStatus(1);
 						updateToDoItem(item, item.getID());
 					}
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.PROJECT_DONE.getMessage(), this);
-
+			
 				} catch (Exception e) {
-					logger.error("110000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 
 			} else if (messageTextFromTelegram.indexOf(BotLabels.UNDO_PROJECT.getLabel()) != -1) {
@@ -392,7 +391,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					updateProjectItem(project, id);
 					List<ToDoItem> allItems = getAllToDoItemsbyProjectid(id);
 					List<ToDoItem> activeItems = allItems.stream()
-							.filter(item -> item.getProjectID() == id)
+							.filter(item -> item.getProjectID().getID() == id)
 							.collect(Collectors.toList());
 					for (ToDoItem item : activeItems) {
 						item.setStatus(0);
@@ -435,8 +434,9 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 			} else if (userRole == 1 && messageTextFromTelegram.equals(BotCommands.TODO_LIST.getCommand())
 					|| userRole == 1 && messageTextFromTelegram.equals(BotLabels.LIST_ALL_ITEMS.getLabel())
 					|| userRole == 1 && messageTextFromTelegram.equals(BotLabels.MY_TODO_LIST.getLabel())) {
-						logger.info("dEV tASKS");
-				List<ToDoItem> allItems = toDoItemService.findByEmployeeidOrderByDatelimitDesc(currentEmployee.getID());
+				logger.info("dEV tASKS");
+				//int employeeid = currentEmployee.getID();
+				List<ToDoItem> allItems = toDoItemService.findByEmployeeidOrderByDatelimitAsc(currentEmployee);
 				ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 				List<KeyboardRow> keyboard = new ArrayList<>();
 
@@ -483,7 +483,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				try {
 					execute(messageToTelegram);
 				} catch (TelegramApiException e) {
-					logger.error("140000000"+ e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 			}
 
@@ -505,7 +505,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					BotHelper.sendMessageToTelegram(chatId, "Error.", this);
 				}
 
-				List<ToDoItem> allItems = toDoItemService.findByEmployeeidOrderByDatelimitDesc(currentEmployee.getID());
+				List<ToDoItem> allItems = toDoItemService.findByEmployeeidOrderByDatelimitAsc(currentEmployee);
 				ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 				List<KeyboardRow> keyboard = new ArrayList<>();
 
@@ -552,7 +552,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				try {
 					execute(messageToTelegram);
 				} catch (TelegramApiException e) {
-					logger.error("150000000"+ e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 
 			} else if (userRole == 2 && messageTextFromTelegram.equals(BotCommands.PROJECT_LIST.getCommand())
@@ -600,24 +600,66 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				try {
 					execute(messageToTelegram);
 				} catch (TelegramApiException e) {
-					logger.error("160000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 			}
 
 			else if (userRole == 2 && messageTextFromTelegram.equals(BotLabels.PROJECT_INFORMATION.getLabel())) {
 				logger.info("PROJ INFO 2");
-				// get project information
-				if (currentEmployee.getProjectid() == 0) {
-					BotHelper.sendMessageToTelegram(chatId, BotMessages.PROJECT_ADD_ERROR.getMessage(), this);
+				if (currentEmployee.getProjectid() == null){
+					BotHelper.sendMessageToTelegram(chatId, BotMessages.PROJECT_INFORMATION_ERROR.getMessage(), this);
 				} else {
-					ProjectItem project = getProjectItemById(currentEmployee.getProjectid()).getBody();
-					String message = BotLabels.EMOJI_INFO.getLabel() + "Información del Proyecto: " + "\n" + "\n" + 
+					int projectId = currentEmployee.getProjectid().getID();
+					ProjectItem project = getProjectItemById(currentEmployee.getProjectid().getID()).getBody();
+					String message = BotLabels.EMOJI_INFO.getLabel() + "Información del Proyecto: " + "\n" + "\n" +
 							"Nombre del Proyecto: " + project.getName() + "\n" +
 							"Fecha de Inicio: " + project.getDateStart() + "\n" +
 							"Fecha de Fin: " + project.getDateEnd();
-					BotHelper.sendMessageToTelegram(chatId, message, this);
-					//BOT HELPER MESSAGE MAIN SCREEN BACK
-					BotHelper.sendMessageToTelegram(chatId, BotMessages.MAIN_SCREEN_BACK.getMessage(), this);
+					if (project.getStatus() == false) {
+						ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+						List<KeyboardRow> keyboard = new ArrayList<>();
+						KeyboardRow currentRow = new KeyboardRow();
+						currentRow.add(BotLabels.EMOJI_HOUSE.getLabel() + BotLabels.MAIN_SCREEN.getLabel());
+						keyboard.add(currentRow);
+	
+						KeyboardRow nextRow = new KeyboardRow();
+						nextRow.add(BotLabels.EMOJI_DONE.getLabel() + String.valueOf(projectId) + BotLabels.DONE_PROJECT.getLabel());
+						keyboard.add(nextRow);
+						keyboardMarkup.setKeyboard(keyboard);
+				
+						SendMessage messageToTelegram = new SendMessage();
+						messageToTelegram.setChatId(chatId);
+						messageToTelegram.setText(message);
+						messageToTelegram.setReplyMarkup(keyboardMarkup);
+
+						try {
+							execute(messageToTelegram);
+						} catch (TelegramApiException e) {
+							e.printStackTrace();
+						}
+					} else {
+						ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+						List<KeyboardRow> keyboard = new ArrayList<>();
+						KeyboardRow currentRow = new KeyboardRow();
+						currentRow.add(BotLabels.EMOJI_HOUSE.getLabel() + BotLabels.MAIN_SCREEN.getLabel());
+						keyboard.add(currentRow);
+	
+						KeyboardRow nextRow = new KeyboardRow();
+						nextRow.add(BotLabels.EMOJI_UNDO.getLabel() + String.valueOf(projectId) + BotLabels.UNDO_PROJECT.getLabel());
+						keyboard.add(nextRow);
+						keyboardMarkup.setKeyboard(keyboard);
+				
+						SendMessage messageToTelegram = new SendMessage();
+						messageToTelegram.setChatId(chatId);
+						messageToTelegram.setText(message);
+						messageToTelegram.setReplyMarkup(keyboardMarkup);
+
+						try {
+							execute(messageToTelegram);
+						} catch (TelegramApiException e) {
+							e.printStackTrace();
+						}
+					}
 				}
 			}
 
@@ -646,7 +688,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					|| userRole == 2 && messageTextFromTelegram.equals(BotLabels.ADD_NEW_PROJECT.getLabel())) {
 						logger.info("ADD PROJ 1");
 				try {
-					if (currentEmployee.getProjectid() == 0) {
+					if (currentEmployee.getProjectid() == null) {
 						isProject = true;
 						SendMessage messageToTelegram = new SendMessage();
 						messageToTelegram.setChatId(chatId);
@@ -669,7 +711,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 			else if (userRole == 2 && messageTextFromTelegram.equals(BotLabels.LIST_EMPLOYEES.getLabel())) {
 				logger.info("EMPL LIST 2");
-				if (currentEmployee.getProjectid() == 0) {
+
+				if (currentEmployee.getProjectid() == null){
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.LIST_EMPLOYEES_ERROR.getMessage(), this);
 				}
 
@@ -701,7 +744,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					try {
 						execute(messageToTelegram);
 					} catch (TelegramApiException e) {
-						logger.error("190000000"+e.getLocalizedMessage(), e);
+						logger.error(e.getLocalizedMessage(), e);
 					}
 				}
 
@@ -709,7 +752,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 			else if (userRole == 2 && messageTextFromTelegram.equals(BotLabels.LIST_ALL_EMPLOYEES_ITEMS.getLabel()) || userRole == 2 && messageTextFromTelegram.equals(BotCommands.LIST_EMPLOYEES_ITEMS.getCommand()) ) {
 				logger.info("ALL ITEMS 2");
-				if (currentEmployee.getProjectid() == 0) {
+				if (currentEmployee.getProjectid() == null){
 					BotHelper.sendMessageToTelegram(chatId, BotMessages.LIST_EMPLOYEES_ITEMS_ERROR.getMessage(), this);
 				}
 
@@ -731,8 +774,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					for (ToDoItem item : activeItems) {
 						KeyboardRow currentRow = new KeyboardRow();
 						currentRow.add(item.getID() + BotLabels.TASK_INDICATOR.getLabel() + item.getDescription());
-						//EmployeeItem employee = employeeItemService.getEmployeeItemByToDoItem(item);
-						//currentRow.add(employee.getName() + " " + employee.getLastname());
+						EmployeeItem employee = item.getEmployeeID();
+						currentRow.add(employee.getName() + " " + employee.getLastname());
 						keyboard.add(currentRow);
 					}
 
@@ -744,8 +787,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					for (ToDoItem item : doneItems) {
 						KeyboardRow currentRow = new KeyboardRow();
 						currentRow.add(item.getID() + BotLabels.TASK_INDICATOR.getLabel() + item.getDescription());
-						//EmployeeItem employee = employeeItemService.getEmployeeItemByToDoItem(item);
-						//currentRow.add(employee.getName() + " " + employee.getLastname());
+						EmployeeItem employee = item.getEmployeeID();
+						currentRow.add(employee.getName() + " " + employee.getLastname());
 						keyboard.add(currentRow);
 					}
 
@@ -760,7 +803,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					try {
 						execute(messageToTelegram);
 					} catch (TelegramApiException e) {
-						logger.error("200000000"+e.getLocalizedMessage(), e);
+						logger.error(e.getLocalizedMessage(), e);
 					}
 				}
 			}
@@ -829,7 +872,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				try {
 					execute(messageToTelegram);
 				} catch (TelegramApiException e) {
-					logger.error("210000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 				
 			}
@@ -845,7 +888,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					execute(messageToTelegram);
 					step = 3;
 				} catch (Exception e) {
-					logger.error("220000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 			}
 
@@ -860,7 +903,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					execute(messageToTelegram);
 					step = 4;
 				} catch (Exception e) {
-					logger.error("230000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 			}
 
@@ -877,11 +920,11 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					} else {
 						SendMessage messageToTelegram = new SendMessage();
 						messageToTelegram.setChatId(chatId);
-						messageToTelegram.setText("Invalid date format. Please enter the date limit in the format yyyy-mm-dd hh:mm:ss");
+						messageToTelegram.setText("Formato invalido. Por favor, ingrese la fecha en el formato correcto: yyyy-MM-dd HH:mm:ss");
 						execute(messageToTelegram);
 					}
 				} catch (Exception e) {
-					logger.error("240000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 			}
 
@@ -899,7 +942,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					newItem.setStatus(0);
 					newItem.setDateLimit(datelimit);
 					newItem.setType(type);
-					newItem.setEmployeeID(currentEmployee.getID());
+					newItem.setEmployeeID(currentEmployee);
 					newItem.setProjectID(currentEmployee.getProjectid());
 
 					ResponseEntity entity = addToDoItem(newItem);
@@ -916,7 +959,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 					execute(messageToTelegram);
 				} catch (Exception e) {
-					logger.error("250000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 			}
 
@@ -932,10 +975,10 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					newProject.setDepartamentID(currentEmployee.getDepartamentid());
 					step = 2;
 
-					currentEmployee.setProjectid(projectItemService.addProjectItem(newProject).getID());
+					ProjectItem savedProject = projectItemService.addProjectItem(newProject);
+					currentEmployee.setProjectid(savedProject); // Set the ProjectItem object
+			
 					employeeItemService.updateEmployeeItem(currentEmployee.getID(), currentEmployee);
-
-					ResponseEntity entity = addProjectItem(newProject);
 
 					SendMessage messageToTelegram = new SendMessage();
 					messageToTelegram.setChatId(chatId);
@@ -946,15 +989,18 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 					
 				} catch (Exception e) {
-					logger.error("260000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 			}
 			
 			else if (step == 2 && messageTextFromTelegram.equals(BotCommands.ADD_EMPLOYEE_TO_PROJECT.getCommand())) {
 				logger.info("ADD EMPL 2");
+				//add employee to the new project
 				List<EmployeeItem> allEmployees = findByDepartamentid(currentEmployee.getDepartamentid());
-				//exclude current employe
-				List<EmployeeItem> employeesNotInProject = allEmployees.stream().filter(item -> item.getID() != currentEmployee.getID() && item.getProjectid() != currentEmployee.getProjectid()).collect(Collectors.toList());		
+				allEmployees = allEmployees.stream()
+				.filter(item -> item.getID() != currentEmployee.getID() &&
+								(item.getProjectid() == null || item.getProjectid().getID() != currentEmployee.getProjectid().getID()))
+				.collect(Collectors.toList());		
 				ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 				List<KeyboardRow> keyboard = new ArrayList<>();
 
@@ -963,7 +1009,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				mainScreenRowTop.add(BotLabels.EMOJI_HOUSE.getLabel() + BotLabels.MAIN_SCREEN.getLabel());
 				keyboard.add(mainScreenRowTop);
 
-				for (EmployeeItem item : employeesNotInProject) {
+				for (EmployeeItem item : allEmployees) {
 					KeyboardRow currentRow = new KeyboardRow();
 					currentRow.add(item.getName() + " " + item.getLastname());
 					keyboard.add(currentRow);
@@ -971,23 +1017,23 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 				// command back to main screen
 				keyboardMarkup.setKeyboard(keyboard);
-
+				
 				SendMessage messageToTelegram = new SendMessage();
 				messageToTelegram.setChatId(chatId);
-				messageToTelegram.setText(BotLabels.LIST_EMPLOYEES.getLabel());
-				messageToTelegram.setReplyMarkup(keyboardMarkup);	
-
-				step = 3;
+				messageToTelegram.setText(BotLabels.ADD_EMPLOYEE_TO_PROJECT.getLabel());
+				messageToTelegram.setReplyMarkup(keyboardMarkup);
 
 				try {
 					execute(messageToTelegram);
 				} catch (TelegramApiException e) {
-					logger.error("270000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
+				
+				step = 3;
 			}
 
 			else if (step == 3) {
-				logger.info("S3 2");
+			logger.info("S3 2");
 				try {
 					String[] parts = messageTextFromTelegram.split(" ");
 					String name = parts[0];
@@ -1003,7 +1049,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					step = 2;
 					
 				} catch (Exception e) {
-					logger.error("280000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 			}
 
@@ -1015,7 +1061,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					messageToTelegram.setText(BotMessages.ERROR.getMessage());
 					execute(messageToTelegram);
 				} catch (Exception e) {
-					logger.error("290000000"+e.getLocalizedMessage(), e);
+					logger.error(e.getLocalizedMessage(), e);
 				}
 			}
 		}
@@ -1031,11 +1077,10 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
         return toDoItemService.findByProjectid(projectid);
     }
 
-	public List<EmployeeItem> findByProjectid(int projectid) {
+	public List<EmployeeItem> findByProjectid(ProjectItem projectid) {
 		return employeeItemService.findByProjectid(projectid);
 	}
-
-	public List<EmployeeItem> findByDepartamentid(int departamentid) {
+	public List<EmployeeItem> findByDepartamentid(DepartamentItem departamentid) {
 		return employeeItemService.findByDepartamentid(departamentid);
 	}
 
@@ -1048,6 +1093,11 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 			logger.error("300000000"+e.getLocalizedMessage(), e);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+
+	//getAllToDoItemsbyProjectId
+	public List<ToDoItem> getAllToDoItemsbyProjectId(int projectid) {
+		return toDoItemService.findByProjectid(projectid);
 	}
 
 	// PUT /todolist

@@ -1,16 +1,22 @@
 package com.springboot.MyTodoList.model;
 
-import javax.persistence.*;
-
 import java.sql.Timestamp;
-import java.time.OffsetDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /*
     representation of the TODOITEM table that exists already
     in the autonomous database
  */
 @Entity
-@Table(name = "project")
+@Table(name = "projects")
 public class ProjectItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +29,16 @@ public class ProjectItem {
     Timestamp dateend;
     @Column(name = "status")
     boolean status;
-    @Column(name = "departamentid")
-    int departamentid;
+
+    @ManyToOne
+    @JoinColumn(name = "departamentid", referencedColumnName = "id")
+    private DepartamentItem departamentid;
 
     public ProjectItem() {
 
     }
 
-    public ProjectItem(int ID, String name, Timestamp datestart, Timestamp dateend, boolean status, int departamentid) {
+    public ProjectItem(int ID, String name, Timestamp datestart, Timestamp dateend, boolean status, DepartamentItem departamentid) {
         this.ID = ID;
         this.name = name;
         this.datestart = datestart;
@@ -80,11 +88,11 @@ public class ProjectItem {
         this.status = status;
     }
 
-    public int getDepartamentID() {
+    public DepartamentItem getDepartamentID() {
         return departamentid;
     }
 
-    public void setDepartamentID(int departamentid) {
+    public void setDepartamentID(DepartamentItem departamentid) {
         this.departamentid = departamentid;
     }
 

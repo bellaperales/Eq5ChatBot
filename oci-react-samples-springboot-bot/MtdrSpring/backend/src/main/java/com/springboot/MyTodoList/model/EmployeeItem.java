@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /*
@@ -12,7 +14,7 @@ import javax.persistence.Table;
     in the autonomous database
  */
 @Entity
-@Table(name = "employee")
+@Table(name = "employees")
 public class EmployeeItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,17 +35,19 @@ public class EmployeeItem {
     boolean manager;
     @Column(name = "mynumber")
     int mynumber;
-    @Column(name = "departamentid")
-    int departamentid;
-    @Column(name = "projectid")
-    int projectid;
+    @ManyToOne
+    @JoinColumn(name = "departamentid", referencedColumnName = "id")
+    private DepartamentItem departamentid;
+    @ManyToOne
+    @JoinColumn(name = "projectid", referencedColumnName = "id")
+    private ProjectItem projectid;  
 
     public EmployeeItem() {
 
     }
 
     public EmployeeItem(int ID, String name, String lastname, String mail, String cellphone, String address,
-            boolean status, boolean manager, int mynumber, int departamentid, int projectid) {
+            boolean status, boolean manager, int mynumber, DepartamentItem departamentid, ProjectItem projectid) {
         this.ID = ID;
         this.name = name;
         this.lastname = lastname;
@@ -130,19 +134,19 @@ public class EmployeeItem {
         this.mynumber = mynumber;
     }
 
-    public int getDepartamentid() {
+    public DepartamentItem getDepartamentid() {
         return departamentid;
     }
 
-    public void setDepartamentid(int departamentid) {
+    public void setDepartamentid(DepartamentItem departamentid) {
         this.departamentid = departamentid;
     }
 
-    public int getProjectid() {
+    public ProjectItem getProjectid() {
         return projectid;
     }
 
-    public void setProjectid(int projectid) {
+    public void setProjectid(ProjectItem projectid) {
         this.projectid = projectid;
     }
 
