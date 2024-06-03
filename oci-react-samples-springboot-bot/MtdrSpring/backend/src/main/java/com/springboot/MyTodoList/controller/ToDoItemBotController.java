@@ -719,7 +719,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					keyboard.add(mainScreenRowTop);
 
 					KeyboardRow secondScreenRowTop = new KeyboardRow();
-					secondScreenRowTop.add(BotLabels.EMOJI_PENDING.getLabel()+ BotLabels.TASKS_UNCOMPLETED.getLabel());
+					secondScreenRowTop.add(BotLabels.EMOJI_ARROW.getLabel() + "----------" + BotLabels.TASKS_UNCOMPLETED.getLabel()+ "----------" + BotLabels.EMOJI_ARROW.getLabel());
 					keyboard.add(secondScreenRowTop);
 
 					List<ToDoItem> activeItems = allTodoItems.stream().filter(item -> item.getStatus() == 0).collect(Collectors.toList());
@@ -732,7 +732,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					}
 
 					KeyboardRow middleRowTop = new KeyboardRow();
-					middleRowTop.add(BotLabels.EMOJI_DONE.getLabel() + BotLabels.TASKS_COMPLETED.getLabel());
+					middleRowTop.add(BotLabels.EMOJI_ARROW.getLabel() + "----------" + BotLabels.TASKS_COMPLETED.getLabel() + "----------" + BotLabels.EMOJI_ARROW.getLabel());
 					keyboard.add(middleRowTop);
 
 					List<ToDoItem> doneItems = allTodoItems.stream().filter(item -> item.getStatus() == 1).collect(Collectors.toList());
