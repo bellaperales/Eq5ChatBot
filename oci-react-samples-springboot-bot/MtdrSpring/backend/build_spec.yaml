@@ -1,0 +1,34 @@
+version: 0.1
+component: build
+timeoutInSeconds: 100
+shell: bash
+failImmediatelyOnError: true
+
+
+phases:
+  pre_build:
+    commands:
+      - echo Pulling latest changes from the main branch
+      - git checkout main
+      - git pull origin main
+      - echo Navigating to backend directory
+      - cd Eq5ChatBot/oci-react-samples-springboot-bot/MtdrSpring/backend
+      - echo Running undeploy script
+      - chmod +x undeploy.sh
+      - ./undeploy.sh
+
+  build:
+    commands:
+      - echo Running build script
+      - chmod +x build.sh
+      - ./build.sh
+
+  post_build:
+    commands:
+      - echo Running deploy script
+      - chmod +x deploy.sh
+      - ./deploy.sh
+
+artifacts:
+  files:
+    - '**/*'
