@@ -25,9 +25,7 @@ steps:
 
   - type: Command
     name: "RunBuildScript"
-    command: |
-      cd oci-react-samples-springboot-bot/MtdrSpring/backend
-      source build.sh
+    command: (source oci-react-samples-springboot-bot/MtdrSpring/env.sh;cd backend;source build.sh)
 
   - type: Command
     name: "RunUndeployScript"
