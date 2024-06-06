@@ -21,7 +21,7 @@ steps:
 
   - type: Command
     name: "NavigateToBackend"
-    command: cd Eq5ChatBot/oci-react-samples-springboot-bot/MtdrSpring/backend
+    command: cd oci-react-samples-springboot-bot/MtdrSpring/backend
     
   - type: Command
     name: "RunUndeployScript"
