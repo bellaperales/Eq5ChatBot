@@ -14,6 +14,12 @@ steps:
     command: git pull origin main
 
   - type: Command
+    name: "ListRootDirectory"
+    command: |
+      echo "Listing contents of the root directory"
+      ls -la
+
+  - type: Command
     name: "NavigateToBackend"
     command: cd Eq5ChatBot/oci-react-samples-springboot-bot/MtdrSpring/backend
     
