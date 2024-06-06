@@ -5,8 +5,6 @@ shell: bash
 failImmediatelyOnError: true
 
 
-version: 0.2
-
 steps:
   - type: Command
     name: "PreBuild"
