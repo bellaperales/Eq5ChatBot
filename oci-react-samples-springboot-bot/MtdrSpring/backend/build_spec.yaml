@@ -5,29 +5,34 @@ shell: bash
 failImmediatelyOnError: true
 
 
-phases:
-  pre_build:
-    commands:
-      - echo Pulling latest changes from the main branch
-      - git checkout main
-      - git pull origin main
-      - echo Navigating to backend directory
-      - cd Eq5ChatBot/oci-react-samples-springboot-bot/MtdrSpring/backend
-      - echo Running undeploy script
-      - chmod +x undeploy.sh
-      - ./undeploy.sh
+version: 0.2
 
-  build:
-    commands:
-      - echo Running build script
-      - chmod +x build.sh
-      - ./build.sh
+steps:
+  - type: Command
+    name: "PreBuild"
+    command: |
+      echo Pulling latest changes from the main branch
+      git checkout main
+      git pull origin main
+      echo Navigating to backend directory
+      cd Eq5ChatBot/oci-react-samples-springboot-bot/MtdrSpring/backend
+      echo Running undeploy script
+      chmod +x undeploy.sh
+      ./undeploy.sh
 
-  post_build:
-    commands:
-      - echo Running deploy script
-      - chmod +x deploy.sh
-      - ./deploy.sh
+  - type: Command
+    name: "Build"
+    command: |
+      echo Running build script
+      chmod +x build.sh
+      ./build.sh
+
+  - type: Command
+    name: "PostBuild"
+    command: |
+      echo Running deploy script
+      chmod +x deploy.sh
+      ./deploy.sh
 
 artifacts:
   files:
