@@ -1,8 +1,15 @@
 version: 0.1
 component: build
-timeoutInSeconds: 100
+timeoutInSeconds: 1200
 shell: bash
 failImmediatelyOnError: true
+
+env:
+  variables:
+    JAVA_HOME: /usr/lib64/graalvm/graalvm22-ee-java17
+
+  exportedVariables:
+    - BuildServiceDemoVersion
 
 steps:
   - type: Command
@@ -18,6 +25,18 @@ steps:
     command: |
       echo "Listing contents of the root directory"
       ls -la
+
+  - type: Command
+    name: "Install GraalVM Enterprise 22.x Native Image for Java17"
+    command: yum -y install graalvm22-ee-17-native-image
+
+  - type: Command
+    name: "Set PATH variable"
+    command: export PATH=$JAVA_HOME/bin:$PATH
+
+  - type: Command
+    name: "echo test"
+    command: (echo $JAVA_HOME)
 
   - type: Command
     name: "NavigateToBackend"
