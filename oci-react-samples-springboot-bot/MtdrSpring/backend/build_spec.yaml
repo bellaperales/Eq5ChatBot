@@ -4,30 +4,27 @@ timeoutInSeconds: 100
 shell: bash
 failImmediatelyOnError: true
 
-
 steps:
   - type: Command
-    name: "PreBuild"
-    command: |
-      echo Pulling latest changes from the main branch
-      git checkout main
-      git pull origin main
-      echo Navigating to backend directory
-      cd Eq5ChatBot/oci-react-samples-springboot-bot/MtdrSpring/backend
-      echo Running undeploy script
-      chmod +x undeploy.sh
-      ./undeploy.sh
+    name: "CheckoutMainBranch"
+    command: git checkout main
 
   - type: Command
-    name: "Build"
-    command: |
-      echo Running build script
-      chmod +x build.sh
-      ./build.sh
+    name: "PullChanges"
+    command: git pull origin main
 
   - type: Command
-    name: "PostBuild"
-    command: |
-      echo Running deploy script
-      chmod +x deploy.sh
-      ./deploy.sh
+    name: "NavigateToBackend"
+    command: cd Eq5ChatBot/oci-react-samples-springboot-bot/MtdrSpring/backend
+    
+  - type: Command
+    name: "RunUndeployScript"
+    command: source undeploy.sh 
+
+  - type: Command
+    name: "RunBuildScript"
+    command: source build.sh 
+      
+  - type: Command
+    name: "RunDeployScript"
+    command: source deploy.sh 
