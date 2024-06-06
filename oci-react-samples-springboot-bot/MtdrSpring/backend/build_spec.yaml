@@ -31,7 +31,3 @@ steps:
       echo Running deploy script
       chmod +x deploy.sh
       ./deploy.sh
-
-artifacts:
-  files:
-    - '**/*'
