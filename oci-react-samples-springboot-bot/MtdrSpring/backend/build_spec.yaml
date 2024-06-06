@@ -25,12 +25,18 @@ steps:
     
   - type: Command
     name: "RunUndeployScript"
-    command: source undeploy.sh 
+    command: |
+      cd oci-react-samples-springboot-bot/MtdrSpring/backend
+      source undeploy.sh
 
   - type: Command
     name: "RunBuildScript"
-    command: source build.sh 
-      
+    command: |
+      cd oci-react-samples-springboot-bot/MtdrSpring/backend
+      source build.sh
+
   - type: Command
     name: "RunDeployScript"
-    command: source deploy.sh 
+    command: |
+      cd oci-react-samples-springboot-bot/MtdrSpring/backend
+      source deploy.sh
