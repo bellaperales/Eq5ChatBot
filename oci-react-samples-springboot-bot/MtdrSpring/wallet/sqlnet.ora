@@ -1,0 +1,2 @@
+WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="/home/a00815371/reacttodo/Eq5ChatBot/oci-react-samples-springboot-bot/MtdrSpring/wallet")))
+SSL_SERVER_DN_MATCH=yes
