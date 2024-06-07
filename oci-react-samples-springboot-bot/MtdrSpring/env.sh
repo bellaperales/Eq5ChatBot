@@ -62,3 +62,16 @@ alias deployments='kubectl get deployments --all-namespaces'
 alias mtdrworkshop='echo deployments... ; deployments|grep mtdrworkshop ; echo pods... ; pods|grep mtdrworkshop ; echo services... ; services | grep mtdrworkshop ; echo secrets... ; secrets|grep mtdrworkshop ; echo "other shortcut commands... most can take partial podname as argument, such as [logpod front] or [deletepod order]...  pods  services secrets deployments " ; ls $MTDRWORKSHOP_LOCATION/utils/'
 
 export PATH=$PATH:$MTDRWORKSHOP_LOCATION/utils/
+
+# Set DOCKER_REGISTRY dynamically
+if [ -z "$DOCKER_REGISTRY" ]; then
+  echo "DOCKER_REGISTRY not set. Will get it with state_get"
+  export DOCKER_REGISTRY=$(state_get DOCKER_REGISTRY)
+fi
+
+if [ -z "$DOCKER_REGISTRY" ]; then
+  echo "Error: DOCKER_REGISTRY env variable needs to be set!"
+  exit 1
+fi
+
+echo "DOCKER_REGISTRY set to: $DOCKER_REGISTRY"
