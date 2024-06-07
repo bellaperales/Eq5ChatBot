@@ -27,6 +27,18 @@ steps:
       ls -la
 
   - type: Command
+    name: "ListSourceDirectory"
+    command: |
+      echo "Listing contents of the source directory"
+      ls -la /workspace/Source1
+
+  - type: Command
+    name: "ListProjectDirectory"
+    command: |
+      echo "Listing contents of the project directory"
+      ls -la /workspace/Source1/oci-react-samples-springboot-bot
+
+  - type: Command
     name: "Install GraalVM Enterprise 22.x Native Image for Java17"
     command: yum -y install graalvm22-ee-17-native-image
 
