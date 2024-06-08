@@ -7,7 +7,7 @@ export JAVA_HOME="/usr/lib64/graalvm/graalvm22-ee-java17"
 
 
 #echo "Logging in to Docker registry"
-docker login -u "axvfutv1sy8e/a00815371@tec.mx" --password-stdin "mx-queretaro-1.ocir.io"
+echo "3VMLLvkIjJQn(bUXSMfQ" | docker login -u "axvfutv1sy8e/a00815371@tec.mx" --password-stdin "mx-queretaro-1.ocir.io"
 
 
 # Set DOCKER_REGISTRY directly
