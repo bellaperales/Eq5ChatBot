@@ -67,23 +67,6 @@ alias mtdrworkshop='echo deployments... ; deployments|grep mtdrworkshop ; echo p
 
 export PATH=$PATH:$MTDRWORKSHOP_LOCATION/utils/
 
-# Debugging: Check if state file exists
-if test -f $MTDRWORKSHOP_STATE_HOME/state/DOCKER_REGISTRY; then
-  echo "State file for DOCKER_REGISTRY exists."
-  cat $MTDRWORKSHOP_STATE_HOME/state/DOCKER_REGISTRY
-else
-  echo "State file for DOCKER_REGISTRY does not exist."
-fi
-
-# Set DOCKER_REGISTRY dynamically
-if [ -z "$DOCKER_REGISTRY" ]; then
-  echo "DOCKER_REGISTRY not set. Will get it with state_get"
-  export DOCKER_REGISTRY=$(state_get DOCKER_REGISTRY)
-fi
-
-if [ -z "$DOCKER_REGISTRY" ]; then
-  echo "Error: DOCKER_REGISTRY env variable needs to be set!"
-  exit 1
-fi
-
+# Set DOCKER_REGISTRY directly
+export DOCKER_REGISTRY="mx-queretaro-1.ocir.io/axvfutv1sy8e/eq5chatbot/wu5ru"
 echo "DOCKER_REGISTRY set to: $DOCKER_REGISTRY"
