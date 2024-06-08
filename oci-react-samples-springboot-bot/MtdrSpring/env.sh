@@ -21,12 +21,10 @@ function sed_i(){
 }
 export -f sed_i
 
-
 #set mtdrworkshop_location
 export MTDRWORKSHOP_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd $MTDRWORKSHOP_LOCATION
 echo "MTDRWORKSHOP_LOCATION: $MTDRWORKSHOP_LOCATION"
-
 
 # Java Home
 # -d true if file is a directory, so it's testing if this directory exists, if it does
@@ -46,7 +44,8 @@ if test -d ~/mtdrworkshop-state; then
 else
   export MTDRWORKSHOP_STATE_HOME=$MTDRWORKSHOP_LOCATION
 fi
-echo "MTDRWORKSOP_STATE_HOME: $MTDRWORKSHOP_STATE_HOME"
+echo "MTDRWORKSHOP_STATE_HOME: $MTDRWORKSHOP_STATE_HOME"
+
 #Log Directory
 export MTDRWORKSHOP_LOG=$MTDRWORKSHOP_STATE_HOME/log
 mkdir -p $MTDRWORKSHOP_LOG
