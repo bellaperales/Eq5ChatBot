@@ -21,12 +21,6 @@ steps:
     command: git pull origin main
 
   - type: Command
-    name: "RunMainSetup"
-    command: |
-      chmod +x /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/utils/main-setup.sh
-      source /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/utils/main-setup.sh
-
-  - type: Command
     name: "ListRootDirectory"
     command: |
       echo "Listing contents of the root directory"
@@ -67,6 +61,12 @@ steps:
       source /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/env.sh
       echo "MTDRWORKSHOP_LOCATION: $MTDRWORKSHOP_LOCATION"
       echo "DOCKER_REGISTRY: $DOCKER_REGISTRY"
+
+  - type: Command
+    name: "RunMainSetup"
+    command: |
+      chmod +x /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/utils/main-setup.sh
+      source /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/utils/main-setup.sh
 
   - type: Command
     name: "VerifyLoginVariables"
