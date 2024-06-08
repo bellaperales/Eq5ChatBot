@@ -57,18 +57,16 @@ steps:
   - type: Command
     name: "SourceEnvScript"
     command: |
-      export MTDRWORKSHOP_LOCATION=/workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring
       echo "Starting to source env.sh"
-      source $MTDRWORKSHOP_LOCATION/env.sh
+      source /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/env.sh
       echo "MTDRWORKSHOP_LOCATION: $MTDRWORKSHOP_LOCATION"
       echo "DOCKER_REGISTRY: $DOCKER_REGISTRY"
 
   - type: Command
     name: "RunMainSetup"
     command: |
-      export MTDRWORKSHOP_LOCATION=/workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring
-      chmod +x $MTDRWORKSHOP_LOCATION/utils/main-setup.sh
-      source $MTDRWORKSHOP_LOCATION/utils/main-setup.sh
+      chmod +x /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/utils/main-setup.sh
+      source /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/utils/main-setup.sh
 
   - type: Command
     name: "VerifyLoginVariables"
