@@ -68,7 +68,7 @@ steps:
       echo "MTDRWORKSHOP_LOCATION: $MTDRWORKSHOP_LOCATION"
       echo "DOCKER_REGISTRY: $DOCKER_REGISTRY"
 
-    - type: Command
+  - type: Command
     name: "VerifyLoginVariables"
     command: |
       echo "Verifying login variables"
