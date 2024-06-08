@@ -75,10 +75,10 @@ while ! state_done NAMESPACE; do
   state_set NAMESPACE "$NAMESPACE"
 done
 
-# Login to Docker
+# Use existing auth token for Docker login
 while ! state_done DOCKER_REGISTRY; do
-  if ! TOKEN=$(oci iam auth-token create --user-id "$(state_get USER_OCID)" --description 'mtdr docker login' --query 'data.token' --raw-output 2>/dev/null); then
-    echo "Error creating auth token. Exiting."
+  if ! TOKEN=$(oci iam auth-token list --user-id "$(state_get USER_OCID)" --query 'data[0].token' --raw-output 2>/dev/null); then
+    echo "Error retrieving auth token. Exiting."
     exit 1
   fi
 
