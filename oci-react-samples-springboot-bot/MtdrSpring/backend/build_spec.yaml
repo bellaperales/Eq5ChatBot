@@ -7,9 +7,14 @@ failImmediatelyOnError: true
 env:
   variables:
     JAVA_HOME: /usr/lib64/graalvm/graalvm22-ee-java17
+    MTDRWORKSHOP_LOCATION: /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring
+    MTDRWORKSHOP_STATE_HOME: /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring
 
   exportedVariables:
     - BuildServiceDemoVersion
+    - JAVA_HOME
+    - MTDRWORKSHOP_LOCATION
+    - MTDRWORKSHOP_STATE_HOME
 
 steps:
   - type: Command
