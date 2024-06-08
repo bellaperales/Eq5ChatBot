@@ -12,7 +12,7 @@ echo "DOCKER_REGISTRY (build.sh) set to: $DOCKER_REGISTRY"
 export IMAGE=${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_VERSION}
 
 mvn clean package spring-boot:repackage
-docker build -f Dockerfile -t $IMAGE --platform=linux/arm64/v8.
+docker build -f Dockerfile -t $IMAGE --platform=linux/arm64/v8 .
 
 #echo "Logging in to Docker registry"
 echo "3VMLLvkIjJQn(bUXSMfQ" | docker login -u "axvfutv1sy8e/a00815371@tec.mx" --password-stdin "mx-queretaro-1.ocir.io"
