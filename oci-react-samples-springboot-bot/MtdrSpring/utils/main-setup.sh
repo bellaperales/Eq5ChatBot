@@ -5,11 +5,6 @@
 # Fail on error
 set -e
 
-# Set MTDRWORKSHOP_STATE_HOME if not already set
-if test -z "$MTDRWORKSHOP_STATE_HOME"; then
-  export MTDRWORKSHOP_STATE_HOME=$MTDRWORKSHOP_LOCATION
-fi
-
 # Source state-functions.sh to use state_* functions
 source $MTDRWORKSHOP_LOCATION/utils/state-functions.sh
 
@@ -17,6 +12,11 @@ source $MTDRWORKSHOP_LOCATION/utils/state-functions.sh
 if test -z "$MTDRWORKSHOP_LOCATION"; then
   echo "ERROR: this script requires MTDRWORKSHOP_LOCATION to be set"
   exit
+fi
+
+# Set MTDRWORKSHOP_STATE_HOME if not already set
+if test -z "$MTDRWORKSHOP_STATE_HOME"; then
+  export MTDRWORKSHOP_STATE_HOME=$MTDRWORKSHOP_LOCATION
 fi
 
 # Exit if we are already done
@@ -168,7 +168,7 @@ while ! state_done DOCKER_REGISTRY; do
     if ! TOKEN=`oci iam auth-token create  --user-id "$(state_get USER_OCID)" --description 'mtdr docker login' --query 'data.token' --raw-output 2>$MTDRWORKSHOP_LOG/docker_registry_err`; then
       if grep UserCapacityExceeded $MTDRWORKSHOP_LOG/docker_registry_err >/dev/null; then
         # The key already exists
-        echo 'ERROR: Failed to create auth token.  Please delete an old token from the OCI Console (Profile -> User Settings -> Auth Tokens).'
+        echo 'ERROR: Failed to create auth token. Please delete an old token from the OCI Console (Profile -> User Settings -> Auth Tokens).'
         read -p "Hit return when you are ready to retry?"
         continue
       else
