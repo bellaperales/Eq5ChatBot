@@ -6,46 +6,92 @@ export IMAGE_VERSION=0.1
 export JAVA_HOME="/usr/lib64/graalvm/graalvm22-ee-java17"
 
 
-# Set your OCI user OCID
-USER_OCID="ocid1.user.oc1..aaaaaaaaxaiyxoz42fplddsx2m54huwuigvpbe6zjstsii6n7iquxiuggpuq"  # Replace with your actual user OCID
+# Check if MTDRWORKSHOP_LOCATION is set
+if test -z "$MTDRWORKSHOP_LOCATION"; then
+  echo "ERROR: this script requires MTDRWORKSHOP_LOCATION to be set"
+  exit 1
+fi
 
-# Function to retrieve existing auth token
-get_existing_token() {
-  oci iam auth-token list --user-id "$USER_OCID" --query 'data[?contains("description", `docker-login`)].token' --raw-output
+# Function to check if a state is done
+state_done() {
+  test -f "$MTDRWORKSHOP_LOCATION/state/$1"
 }
 
-# Use the existing auth token
-TOKEN=$(get_existing_token)
-if [ -z "$TOKEN" ]; then
-  echo "Error: No existing auth token found. Exiting."
-  exit 1
-fi
-echo "Using existing auth token."
-echo "Auth Token: $TOKEN"
+# Function to set a state as done
+state_set_done() {
+  touch "$MTDRWORKSHOP_LOCATION/state/$1"
+}
 
-# Get your OCI username
-USERNAME=$(oci iam user get --user-id "$USER_OCID" --query "data.name" --raw-output)
-if [ $? -ne 0 ]; then
-  echo "Error retrieving OCI username. Exiting."
-  exit 1
-fi
-echo "OCI Username: $USERNAME"
+# Function to set a state with a value
+state_set() {
+  echo "$2" > "$MTDRWORKSHOP_LOCATION/state/$1"
+}
 
-# Get the namespace
-NAMESPACE=$(oci os ns get --query "data" --raw-output)
-if [ $? -ne 0 ]; then
-  echo "Error retrieving namespace. Exiting."
-  exit 1
-fi
-echo "Namespace: $NAMESPACE"
+# Function to get a state value
+state_get() {
+  if state_done "$1"; then
+    cat "$MTDRWORKSHOP_LOCATION/state/$1"
+  fi
+}
 
-# Docker login
-echo "$TOKEN" | docker login -u "$NAMESPACE/$USERNAME" --password-stdin "mx-queretaro-1.ocir.io"
-if [ $? -ne 0 ]; then
-  echo "Error logging in to Docker. Exiting."
-  exit 1
-fi
-echo "Docker login successful."
+# Identify Run Type
+while ! state_done RUN_TYPE; do
+  state_set RUN_TYPE "1"
+done
+
+# Get the User OCID
+while ! state_done USER_OCID; do
+  if test -z "$TEST_USER_OCID"; then
+    read -p "Please enter your OCI user's OCID: " USER_OCID
+  else
+    USER_OCID=$TEST_USER_OCID
+  fi
+  if test "$(oci iam user get --user-id "$USER_OCID" --query 'data."lifecycle-state"' --raw-output 2>/dev/null)" == 'ACTIVE'; then
+    state_set USER_OCID "$USER_OCID"
+  else
+    echo "That user OCID could not be validated"
+    exit 1
+  fi
+done
+
+while ! state_done USER_NAME; do
+  USER_NAME=$(oci iam user get --user-id "$(state_get USER_OCID)" --query "data.name" --raw-output)
+  state_set USER_NAME "$USER_NAME"
+done
+
+# Get the tenancy OCID
+while ! state_done TENANCY_OCID; do
+  state_set TENANCY_OCID "$OCI_TENANCY"
+done
+
+# Set the region
+while ! state_done REGION; do
+  state_set REGION "$OCI_REGION"
+done
+
+# Get Namespace
+while ! state_done NAMESPACE; do
+  NAMESPACE=$(oci os ns get --query "data" --raw-output)
+  state_set NAMESPACE "$NAMESPACE"
+done
+
+# Login to Docker
+while ! state_done DOCKER_REGISTRY; do
+  if ! TOKEN=$(oci iam auth-token create --user-id "$(state_get USER_OCID)" --description 'mtdr docker login' --query 'data.token' --raw-output 2>/dev/null); then
+    echo "Error creating auth token. Exiting."
+    exit 1
+  fi
+
+  if echo "$TOKEN" | docker login -u "$(state_get NAMESPACE)/$(state_get USER_NAME)" --password-stdin "$(state_get REGION).ocir.io"; then
+    echo "Docker login completed"
+    state_set DOCKER_REGISTRY "$(state_get REGION).ocir.io/$(state_get NAMESPACE)/$(state_get RUN_NAME)"
+    export OCI_CLI_PROFILE=$(state_get REGION)
+    break
+  else
+    echo "Docker login failed. Exiting."
+    exit 1
+  fi
+done
 
 #echo "Logging in to Docker registry"
 #docker login -u "axvfutv1sy8e/a00815371@tec.mx" --password-stdin "mx-queretaro-1.ocir.io"
