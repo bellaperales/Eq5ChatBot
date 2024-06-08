@@ -59,7 +59,6 @@ steps:
     command: |
       echo "Starting to source env.sh"
       source $MTDRWORKSHOP_LOCATION/env.sh
-      export MTDRWORKSHOP_LOCATION=/workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring
       echo "MTDRWORKSHOP_LOCATION: $MTDRWORKSHOP_LOCATION"
       echo "DOCKER_REGISTRY: $DOCKER_REGISTRY"
 
