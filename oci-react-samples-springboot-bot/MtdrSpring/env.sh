@@ -67,6 +67,14 @@ alias mtdrworkshop='echo deployments... ; deployments|grep mtdrworkshop ; echo p
 
 export PATH=$PATH:$MTDRWORKSHOP_LOCATION/utils/
 
+# Debugging: Check if state file exists
+if test -f $MTDRWORKSHOP_STATE_HOME/state/DOCKER_REGISTRY; then
+  echo "State file for DOCKER_REGISTRY exists."
+  cat $MTDRWORKSHOP_STATE_HOME/state/DOCKER_REGISTRY
+else
+  echo "State file for DOCKER_REGISTRY does not exist."
+fi
+
 # Set DOCKER_REGISTRY dynamically
 if [ -z "$DOCKER_REGISTRY" ]; then
   echo "DOCKER_REGISTRY not set. Will get it with state_get"
