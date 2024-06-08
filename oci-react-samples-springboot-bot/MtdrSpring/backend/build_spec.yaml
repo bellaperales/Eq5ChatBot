@@ -57,6 +57,7 @@ steps:
   - type: Command
     name: "SourceEnvScript"
     command: |
+      echo "Starting to source env.sh"
       source /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/env.sh
       echo "MTDRWORKSHOP_LOCATION: $MTDRWORKSHOP_LOCATION"
       echo "DOCKER_REGISTRY: $DOCKER_REGISTRY"
