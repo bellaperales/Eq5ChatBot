@@ -12,5 +12,6 @@ import com.springboot.MyTodoList.model.ProjectItem;
 @Transactional
 @EnableTransactionManagement
 public interface ProjectItemRepository extends JpaRepository<ProjectItem, Integer> {
+    
 
 }

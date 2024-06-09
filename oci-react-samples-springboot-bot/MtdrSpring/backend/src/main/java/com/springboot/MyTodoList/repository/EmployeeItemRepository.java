@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.springboot.MyTodoList.model.DepartamentItem;
 import com.springboot.MyTodoList.model.EmployeeItem;
+import com.springboot.MyTodoList.model.ProjectItem;
 
 @Repository
 @Transactional
@@ -18,6 +20,13 @@ public interface EmployeeItemRepository extends JpaRepository<EmployeeItem, Inte
 
     Optional<EmployeeItem> findByMynumber(int mynumber);
 
-    List<EmployeeItem> findByProjectid(int projectid);
+    EmployeeItem findByNameAndLastname(String name, String lastname);
+
+    List<EmployeeItem> findByProjectid(ProjectItem projectid);
+
+    EmployeeItem findByID (int id);
+
+    List<EmployeeItem> findByDepartamentid (DepartamentItem departamentid);
+
 
 }

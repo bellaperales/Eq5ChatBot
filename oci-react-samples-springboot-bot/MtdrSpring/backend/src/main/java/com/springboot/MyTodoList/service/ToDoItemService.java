@@ -8,7 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.springboot.MyTodoList.model.EmployeeItem;
+import com.springboot.MyTodoList.model.ProjectItem;
 import com.springboot.MyTodoList.model.ToDoItem;
+import com.springboot.MyTodoList.repository.ProjectItemRepository;
 import com.springboot.MyTodoList.repository.ToDoItemRepository;
 
 @Service
@@ -17,9 +20,21 @@ public class ToDoItemService {
     @Autowired
     private ToDoItemRepository toDoItemRepository;
 
+    @Autowired
+    private ProjectItemRepository projectItemRepository;
+
     public List<ToDoItem> findAll() {
         List<ToDoItem> todoItems = toDoItemRepository.findAll();
         return todoItems;
+    }
+
+    public ToDoItem findById(int id) {
+        Optional<ToDoItem> todoData = toDoItemRepository.findById(id);
+        if (todoData.isPresent()) {
+            return todoData.get();
+        } else {
+            return null;
+        }
     }
 
     public List<ToDoItem> findByEmployeeid(int employeeid) {
@@ -27,11 +42,16 @@ public class ToDoItemService {
     }
 
     public List<ToDoItem> findByProjectid(int projectid) {
-        return toDoItemRepository.findByProjectid(projectid);
+       ProjectItem projectItem = projectItemRepository.findById(projectid).orElseThrow(() -> new RuntimeException("Project not found"));
+        return toDoItemRepository.findByProjectid(projectItem);
     }
 
-    public List<ToDoItem> findByEmployeeidOrderByDatelimitDesc(int employeeid) {
-        return toDoItemRepository.findByEmployeeidOrderByDatelimitDesc(employeeid);
+    public List<ToDoItem> findByProjectidOrderByDatelimitDesc(ProjectItem projectid) {
+        return toDoItemRepository.findByProjectidOrderByDatelimitDesc(projectid);
+    }
+
+    public List<ToDoItem> findByEmployeeidOrderByDatelimitAsc(EmployeeItem employeeid) {
+        return toDoItemRepository.findByEmployeeidOrderByDatelimitAsc(employeeid);
     }
 
     public ResponseEntity<ToDoItem> getItemById(int id) {
@@ -40,6 +60,16 @@ public class ToDoItemService {
             return new ResponseEntity<>(todoData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //getItemById
+    public ToDoItem getToDoItemById(int id) {
+        Optional<ToDoItem> todoData = toDoItemRepository.findById(id);
+        if (todoData.isPresent()) {
+            return todoData.get();
+        } else {
+            return null;
         }
     }
 

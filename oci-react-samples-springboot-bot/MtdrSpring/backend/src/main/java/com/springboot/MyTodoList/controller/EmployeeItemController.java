@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.MyTodoList.model.EmployeeItem;
+import com.springboot.MyTodoList.model.ProjectItem;
 import com.springboot.MyTodoList.service.EmployeeItemService;
 
 @RestController
@@ -83,9 +84,17 @@ public class EmployeeItemController {
         return new ResponseEntity<>(employeeItem, HttpStatus.OK);
     }
 
+
+    // @CrossOrigin
+    @GetMapping(value = "/employeelist/{name}/{lastname}")
+    public ResponseEntity<EmployeeItem> getEmployeeItemByNameAndLastname(@PathVariable String name, @PathVariable String lastname) {
+        EmployeeItem employeeItem = employeeItemService.getEmployeeItemByNameAndLastname(name, lastname);
+        return new ResponseEntity<>(employeeItem, HttpStatus.OK);
+    }
+
     // @CrossOrigin
     @GetMapping(value = "/employeelist/{projectid}")
-    public List<EmployeeItem> findByProjectid(int projectid) {
+    public List<EmployeeItem> findByProjectid(ProjectItem projectid) {
         return employeeItemService.findByProjectid(projectid);
     }
 

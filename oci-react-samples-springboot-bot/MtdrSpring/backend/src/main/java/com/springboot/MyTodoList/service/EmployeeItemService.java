@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.springboot.MyTodoList.model.DepartamentItem;
 import com.springboot.MyTodoList.model.EmployeeItem;
+import com.springboot.MyTodoList.model.ProjectItem;
 import com.springboot.MyTodoList.repository.EmployeeItemRepository;
 
 @Service
@@ -43,14 +45,28 @@ public class EmployeeItemService {
             return false;
         }
     }
-
+    
     public Optional<EmployeeItem> getEmployeeItemByMynumber(int mynumber) {
         return employeeItemRepository.findByMynumber(mynumber);
     }
 
-    public List<EmployeeItem> findByProjectid(int projectid) {
+    public EmployeeItem  getEmployeeItemByNameAndLastname(String name, String lastname) {
+        return employeeItemRepository.findByNameAndLastname(name, lastname);
+    }
+
+    public List<EmployeeItem> findByProjectid(ProjectItem projectid) {
         return employeeItemRepository.findByProjectid(projectid);
     }
+
+    public EmployeeItem getEmployeeItemByToDoItem(int id) {
+        return employeeItemRepository.findByID(id);
+    }
+
+    //findByDepartamentid(int)
+    public List<EmployeeItem> findByDepartamentid(DepartamentItem departamentid) {
+        return employeeItemRepository.findByDepartamentid(departamentid);
+    }
+
 
     public EmployeeItem updateEmployeeItem(int id, EmployeeItem td) {
         Optional<EmployeeItem> employeeItemData = employeeItemRepository.findById(id);
