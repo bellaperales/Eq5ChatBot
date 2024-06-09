@@ -5,19 +5,27 @@
 # Fail on error
 set -e
 
-#Check if home is set
+# Source state-functions.sh to use state_* functions
+source $MTDRWORKSHOP_LOCATION/utils/state-functions.sh
+
+# Check if home is set
 if test -z "$MTDRWORKSHOP_LOCATION"; then
   echo "ERROR: this script requires MTDRWORKSHOP_LOCATION to be set"
   exit
 fi
 
-#Exit if we are already done
+# Set MTDRWORKSHOP_STATE_HOME if not already set
+if test -z "$MTDRWORKSHOP_STATE_HOME"; then
+  export MTDRWORKSHOP_STATE_HOME=$MTDRWORKSHOP_LOCATION
+fi
+
+# Exit if we are already done
 if state_done SETUP_VERIFIED; then
   echo "SETUP_VERIFIED completed"
   exit
 fi
 
-#Identify Run Type
+# Identify Run Type
 while ! state_done RUN_TYPE; do
   if [[ "$HOME" =~ /home/ll[0-9]{1,5}_us ]]; then
     echo "We are in green button"
@@ -45,7 +53,6 @@ while ! state_done RUN_TYPE; do
   fi
 done
 
-
 # Get the User OCID
 while ! state_done USER_OCID; do
   if test -z "$TEST_USER_OCID"; then
@@ -72,24 +79,23 @@ while ! state_done MTDR_KEY; do
   state_set MTDR_KEY $(python "$MTDRWORKSHOP_LOCATION/utils/python-scripts/generate-unique-key.py")
 done
 
-
-#Get Run Name from directory name
+# Get Run Name from directory name
 while ! state_done RUN_NAME; do
   cd $MTDRWORKSHOP_LOCATION
   cd ../..
-  # Validate that a folder was creared
+  # Validate that a folder was created
   if test "$PWD" == ~; then
     echo "ERROR: The workshop is not installed in a separate folder."
     exit
   fi
   DN=`basename "$PWD"`
-  # Validate run name.  Must be between 1 and 13 characters, only letters or numbers, starting with letter
+  # Validate run name. Must be between 1 and 13 characters, only letters or numbers, starting with letter
   if [[ "$DN" =~ ^[a-zA-Z][a-zA-Z0-9]{0,12}$ ]]; then
     state_set RUN_NAME `echo "$DN" | awk '{print tolower($0)}'`
     state_set MTDR_DB_NAME "$(state_get RUN_NAME)$(state_get MTDR_KEY)"
   else
-    echo "Error: Invalid directory name $RN.  The directory name must be between 1 and 13 characters,"
-    echo "containing only letters or numbers, starting with a letter.  Please restart the workshop with a valid directory name."
+    echo "Error: Invalid directory name $RN. The directory name must be between 1 and 13 characters,"
+    echo "containing only letters or numbers, starting with a letter. Please restart the workshop with a valid directory name."
     exit
   fi
   cd $MTDRWORKSHOP_LOCATION
@@ -108,7 +114,6 @@ while ! state_done REGION; do
   fi
   state_set REGION "$OCI_REGION" # Set in cloud shell env
 done
-
 
 #create the compartment
 ##newest code added later
@@ -140,7 +145,6 @@ if ! state_get JAVA_BUILDS; then
   fi
 fi
 
-
 ## Run the terraform.sh in the background
 if ! state_get PROVISIONING; then
   if ps -ef | grep "$MTDRWORKSHOP_LOCATION/utils/terraform.sh" | grep -v grep; then
@@ -164,7 +168,7 @@ while ! state_done DOCKER_REGISTRY; do
     if ! TOKEN=`oci iam auth-token create  --user-id "$(state_get USER_OCID)" --description 'mtdr docker login' --query 'data.token' --raw-output 2>$MTDRWORKSHOP_LOG/docker_registry_err`; then
       if grep UserCapacityExceeded $MTDRWORKSHOP_LOG/docker_registry_err >/dev/null; then
         # The key already exists
-        echo 'ERROR: Failed to create auth token.  Please delete an old token from the OCI Console (Profile -> User Settings -> Auth Tokens).'
+        echo 'ERROR: Failed to create auth token. Please delete an old token from the OCI Console (Profile -> User Settings -> Auth Tokens).'
         read -p "Hit return when you are ready to retry?"
         continue
       else
@@ -177,7 +181,7 @@ while ! state_done DOCKER_REGISTRY; do
   else
     read -s -r -p "Please generate an Auth Token and enter the value: " TOKEN
     echo
-    echo "Auth Token entry accepted.  Attempting docker login."
+    echo "Auth Token entry accepted. Attempting docker login."
   fi
 
   RETRIES=0
@@ -188,12 +192,13 @@ while ! state_done DOCKER_REGISTRY; do
       export OCI_CLI_PROFILE=$(state_get REGION)
       break
     else
-      # echo "Docker login failed.  Retrying"
+      # echo "Docker login failed. Retrying"
       RETRIES=$((RETRIES+1))
       sleep 5
     fi
   done
 done
+
 # run oke-setup.sh in background
 if ! state_get OKE_SETUP; then
   if ps -ef | grep "$MTDRWORKSHOP_LOCATION/utils/oke-setup.sh" | grep -v grep; then
@@ -282,7 +287,6 @@ if ! state_done PROVISIONING; then
   echo
 fi
 
-
 # Get MTDR_DB OCID
 while ! state_done MTDR_DB_OCID; do
   MTDR_DB_OCID=`oci db autonomous-database list --compartment-id "$(cat state/COMPARTMENT_OCID)" --query 'join('"' '"',data[?"display-name"=='"'MTDRDB'"'].id)' --raw-output`
@@ -293,7 +297,6 @@ while ! state_done MTDR_DB_OCID; do
     exit
   fi
 done
-
 
 # Wait for kubectl Setup
 if ! state_done OKE_NAMESPACE; then
@@ -314,7 +317,7 @@ while ! state_done DB_PASSWORD; do
       state_set_done DB_PASSWORD
       break
     else
-      echo 'Error: Creating DB Password Secret Failed.  Retrying...'
+      echo 'Error: Creating DB Password Secret Failed. Retrying...'
       sleep 10
     fi <<!
 {
@@ -331,7 +334,6 @@ while ! state_done DB_PASSWORD; do
   done
 done
 
-
 # Set admin password in order database
 while ! state_done MTDR_DB_PASSWORD_SET; do
   echo "setting admin password in mtdr_db"
@@ -344,8 +346,6 @@ while ! state_done MTDR_DB_PASSWORD_SET; do
   rm temp_params
   state_set_done MTDR_DB_PASSWORD_SET
 done
-
-
 
 # Wait for OKE Setup
 while ! state_done OKE_SETUP; do
@@ -360,7 +360,7 @@ while ! state_done UI_PASSWORD; do
       state_set_done UI_PASSWORD
       break
     else
-      echo 'Error: Creating UI Password Secret Failed.  Retrying...'
+      echo 'Error: Creating UI Password Secret Failed. Retrying...'
       sleep 10
     fi <<!
 {
@@ -376,7 +376,6 @@ while ! state_done UI_PASSWORD; do
 !
   done
 done
-
 
 ps -ef | grep "$MTDRWORKSHOP_LOCATION/utils" | grep -v grep
 
