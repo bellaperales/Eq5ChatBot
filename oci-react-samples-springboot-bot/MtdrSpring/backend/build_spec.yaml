@@ -104,12 +104,3 @@ steps:
     command: |
       echo "Listing contents of the target directory"
       ls -la /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/backend/target/
-
-outputArtifacts:
-  - name: build-artifacts
-    type: BINARY
-    location: /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/backend/target/
-
-  - name: docker-image
-    type: DOCKER_IMAGE
-    location: ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_VERSION}
