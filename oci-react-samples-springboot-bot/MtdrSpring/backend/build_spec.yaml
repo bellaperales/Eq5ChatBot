@@ -7,6 +7,9 @@ failImmediatelyOnError: true
 env:
   variables:
     JAVA_HOME: /usr/lib64/graalvm/graalvm22-ee-java17
+    IMAGE_NAME: "todolistapp-springboot"
+    IMAGE_VERSION: "0.1"
+    DOCKER_REGISTRY: "mx-queretaro-1.ocir.io/axvfutv1sy8e/eq5chatbot/wu5ru"
 
   exportedVariables:
     - BuildServiceDemoVersion
@@ -15,6 +18,7 @@ env:
     - MTDRWORKSHOP_STATE_HOME
     - DOCKER_REGISTRY
     - OCI_CLI_PROFILE
+    - IMAGE
 
 steps:
   - type: Command
@@ -50,14 +54,6 @@ steps:
   - type: Command
     name: "Set PATH variable"
     command: export PATH=$JAVA_HOME/bin:$PATH
-
-  - type: Command
-    name: "echo test"
-    command: (echo $JAVA_HOME)
-
-  - type: Command
-    name: "NavigateToBackend"
-    command: cd oci-react-samples-springboot-bot/MtdrSpring/backend
 
   - type: Command
     name: "SourceEnvScript"
@@ -104,13 +100,16 @@ steps:
       source build.sh
 
   - type: Command
-    name: "RunUndeployScript"
+    name: "ListTargetDirectory"
     command: |
-      cd oci-react-samples-springboot-bot/MtdrSpring/backend
-      source undeploy.sh
+      echo "Listing contents of the target directory"
+      ls -la /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/backend/target/
 
-  - type: Command
-    name: "RunDeployScript"
-    command: |
-      cd oci-react-samples-springboot-bot/MtdrSpring/backend
-      source deploy.sh
+outputArtifacts:
+  - name: build-artifacts
+    type: BINARY
+    location: /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/backend/target/
+
+  - name: docker-image
+    type: DOCKER_IMAGE
+    location: ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_VERSION}
