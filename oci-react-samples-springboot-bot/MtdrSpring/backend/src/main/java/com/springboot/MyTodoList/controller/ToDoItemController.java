@@ -23,6 +23,12 @@ public class ToDoItemController {
     private ToDoItemService toDoItemService;
 
     // @CrossOrigin
+    @GetMapping(value = "/todolist")
+    public List<ToDoItem> getAllToDoItems() {
+        return toDoItemService.findAll();
+    }
+
+    // @CrossOrigin
     @GetMapping(value = "/todolist/project/{projectid}")
     public List<ToDoItem> getAllToDoItemsbyProjectid(int projectid) {
         return toDoItemService.findByProjectid(projectid);
