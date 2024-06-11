@@ -8,9 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.springboot.MyTodoList.model.DepartamentItem;
 import com.springboot.MyTodoList.model.EmployeeItem;
-import com.springboot.MyTodoList.model.ProjectItem;
 import com.springboot.MyTodoList.repository.EmployeeItemRepository;
 
 @Service
@@ -54,7 +52,7 @@ public class EmployeeItemService {
         return employeeItemRepository.findByNameAndLastname(name, lastname);
     }
 
-    public List<EmployeeItem> findByProjectid(ProjectItem projectid) {
+    public List<EmployeeItem> findByProjectid(int projectid) {
         return employeeItemRepository.findByProjectid(projectid);
     }
 
@@ -63,7 +61,7 @@ public class EmployeeItemService {
     }
 
     //findByDepartamentid(int)
-    public List<EmployeeItem> findByDepartamentid(DepartamentItem departamentid) {
+    public List<EmployeeItem> findByDepartamentid(int departamentid) {
         return employeeItemRepository.findByDepartamentid(departamentid);
     }
 

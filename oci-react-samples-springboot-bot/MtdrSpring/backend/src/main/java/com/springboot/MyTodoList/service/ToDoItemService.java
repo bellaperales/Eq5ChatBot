@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.springboot.MyTodoList.model.EmployeeItem;
-import com.springboot.MyTodoList.model.ProjectItem;
 import com.springboot.MyTodoList.model.ToDoItem;
 import com.springboot.MyTodoList.repository.ProjectItemRepository;
 import com.springboot.MyTodoList.repository.ToDoItemRepository;
@@ -41,16 +39,21 @@ public class ToDoItemService {
         return toDoItemRepository.findByEmployeeid(employeeid);
     }
 
+    /*
     public List<ToDoItem> findByProjectid(int projectid) {
        ProjectItem projectItem = projectItemRepository.findById(projectid).orElseThrow(() -> new RuntimeException("Project not found"));
         return toDoItemRepository.findByProjectid(projectItem);
+    }*/
+
+    public List<ToDoItem> findByProjectid(int projectid) {
+        return toDoItemRepository.findByProjectid(projectid);
     }
 
-    public List<ToDoItem> findByProjectidOrderByDatelimitDesc(ProjectItem projectid) {
+    public List<ToDoItem> findByProjectidOrderByDatelimitDesc(int projectid) {
         return toDoItemRepository.findByProjectidOrderByDatelimitDesc(projectid);
     }
 
-    public List<ToDoItem> findByEmployeeidOrderByDatelimitAsc(EmployeeItem employeeid) {
+    public List<ToDoItem> findByEmployeeidOrderByDatelimitAsc(int employeeid) {
         return toDoItemRepository.findByEmployeeidOrderByDatelimitAsc(employeeid);
     }
 
