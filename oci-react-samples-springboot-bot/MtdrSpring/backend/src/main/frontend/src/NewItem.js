@@ -9,54 +9,106 @@
  * @author  jean.de.lavarene@oracle.com
  */
 
-import React, { useState } from "react";
 import Button from '@mui/material/Button';
+import React, { useState } from "react";
 
 
 function NewItem(props) {
-  const [item, setItem] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [dateLimit, setDateLimit] = useState('');
+  const [type, setType] = useState('');
+  
   function handleSubmit(e) {
     // console.log("NewItem.handleSubmit("+e+")");
-    if (!item.trim()) {
+    /* if (!item.trim()) {
       return;
-    }
+    }*/
     // addItem makes the REST API call:
-    props.addItem(item);
-    setItem("");
+    props.addItem(name, description, dateLimit, type);
+    setName("");
+    setDescription("");
+    setDateLimit("");
+    setType("");
     e.preventDefault();
   }
+  /*
   function handleChange(e) {
     setItem(e.target.value);
-  }
+  }*/
+
   return (
     <div id="newinputform">
-    <form>
-      <input
-        id="newiteminput"
-        placeholder="New item"
-        type="text"
-        autoComplete="off"
-        value={item}
-        onChange={handleChange}
-        // No need to click on the "ADD" button to add a todo item. You
-        // can simply press "Enter":
-        onKeyDown={event => {
-          if (event.key === 'Enter') {
-            handleSubmit(event);
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (name.trim() && description.trim() && type.trim() && dateLimit.trim()) {
+            handleSubmit();
           }
         }}
-      />
-      <span>&nbsp;&nbsp;</span>
-      <Button
-        className="AddButton"
-        variant="contained"
-        disabled={props.isInserting}
-        onClick={!props.isInserting ? handleSubmit : null}
-        size="small"
       >
-        {props.isInserting ? 'Adding…' : 'Add'}
-      </Button>
-    </form>
+        <input
+          id="newiteminput"
+          placeholder="Name"
+          type="text"
+          autoComplete="off"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && name.trim() && description.trim() && type.trim() && dateLimit.trim()) {
+              handleSubmit();
+            }
+          }}
+        />
+        <input
+          id="descriptioninput"
+          placeholder="Description"
+          type="text"
+          autoComplete="off"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && name.trim() && description.trim() && type.trim() && dateLimit.trim()) {
+              handleSubmit();
+            }
+          }}
+        />
+        <input
+          id="datelimitinput"
+          placeholder="Date Limit"
+          type="date"
+          value={dateLimit}
+          onChange={(e) => setDateLimit(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && name.trim() && description.trim() && type.trim() && dateLimit.trim()) {
+              handleSubmit();
+            }
+          }}
+        />
+        <input
+          id="typeinput"
+          placeholder="Type"
+          type="text"
+          autoComplete="off"
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && name.trim() && description.trim() && type.trim() && dateLimit.trim()) {
+              handleSubmit();
+            }
+          }}
+        />
+        <span>&nbsp;&nbsp;</span>
+        <Button
+          className="AddButton"
+          variant="contained"
+          disabled={props.isInserting}
+          type="submit"
+          size="small"
+        >
+          {props.isInserting ? 'Adding…' : 'Add'}
+        </Button>
+      </form>
     </div>
   );
 }

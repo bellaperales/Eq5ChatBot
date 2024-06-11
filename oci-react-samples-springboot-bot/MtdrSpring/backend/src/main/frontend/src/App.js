@@ -10,12 +10,13 @@
  * consistency.
  * @author  jean.de.lavarene@oracle.com
  */
-import React, { useState, useEffect } from 'react';
-import NewItem from './NewItem';
-import API_LIST from './API';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Button, TableBody, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, TableBody } from '@mui/material';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 import Moment from 'react-moment';
+import API_LIST from './API';
+import NewItem from './NewItem';
 
 /* In this application we're using Function Components with the State Hooks
  * to manage the states. See the doc: https://reactjs.org/docs/hooks-state.html
@@ -48,7 +49,7 @@ function App() {
           // console.log("deleteItem FETCH call is ok");
           return response;
         } else {
-          throw new Error('Something went wrong ...');
+          throw new Error('ERROR 1Something went wrong ...');
         }
       })
       .then(
@@ -74,7 +75,7 @@ function App() {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error('Something went wrong ...');
+            throw new Error('ERROR 2Something went wrong ...');
           }
         })
         .then(
@@ -108,7 +109,7 @@ function App() {
           // console.log("deleteItem FETCH call is ok");
           return response;
         } else {
-          throw new Error('Something went wrong ...');
+          throw new Error('3 ERROR Something went wrong ...');
         }
       });
     }
@@ -126,7 +127,7 @@ function App() {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error('Something went wrong ...');
+            throw new Error('4 ERROR Something went wrong ...');
           }
         })
         .then(
@@ -146,12 +147,21 @@ function App() {
        // this useEffect will run once
        // similar to componentDidMount()
     );
-    function addItem(text){
-      console.log("addItem("+text+")")
+    function addItem(name, description, dateLimit, type){
+      //console.log("addItem("+text+")")
       setInserting(true);
-      var data = {};
-      console.log(data);
-      data.description = text;
+      const datecreated = moment().toISOString();
+      const datelimit = moment(`${dateLimit} 00:00:00`).toISOString();
+      const data = {
+        name,
+        description,
+        datecreated, // Convert the date to ISO string format
+        status: 0, // Set the initial status to 0
+        datelimit,
+        type,
+        employeeid: Number(1), // Set the employeeid to 1
+        projectid: Number(1) // Set the projectid to 1
+      };
       fetch(API_LIST, {
         method: 'POST',
         // We convert the React state to JSON and send it as the POST body
@@ -168,12 +178,12 @@ function App() {
         if (response.ok) {
           return response;
         } else {
-          throw new Error('Something went wrong ...');
+          throw new Error('5 ERRORSomething went wrong ...');
         }
       }).then(
         (result) => {
           var id = result.headers.get('location');
-          var newItem = {"id": id, "description": text}
+          var newItem = {"id": id, "description": description}
           setItems([newItem, ...items]);
           setInserting(false);
         },
