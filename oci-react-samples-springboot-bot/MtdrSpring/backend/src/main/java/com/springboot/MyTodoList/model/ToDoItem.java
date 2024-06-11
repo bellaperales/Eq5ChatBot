@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /*
@@ -33,20 +31,28 @@ public class ToDoItem {
     Timestamp datelimit;
     @Column(name = "type")
     String type;
+
+    @Column(name = "employeeid")
+    int employeeid;
+
+    @Column(name = "projectid")
+    int projectid;
+
+    /*
     @ManyToOne
     @JoinColumn(name = "employeeid", referencedColumnName = "id")
     private EmployeeItem employeeid;
 
     @ManyToOne
     @JoinColumn(name = "projectid", referencedColumnName = "id")
-    private ProjectItem projectid;
+    private ProjectItem projectid; */
 
     public ToDoItem() {
 
     }
 
     public ToDoItem(int ID, String name, String description, Timestamp datecreated, int status, Timestamp datelimit,
-            String type, EmployeeItem employeeid, ProjectItem projectid) {
+            String type, int employeeid, int projectid) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -113,7 +119,7 @@ public class ToDoItem {
     public void setType(String type) {
         this.type = type;
     }
-
+    /* 
     public EmployeeItem getEmployeeID() {
         return employeeid;
     }
@@ -127,6 +133,22 @@ public class ToDoItem {
     }
 
     public void setProjectID(ProjectItem projectid) {
+        this.projectid = projectid;
+    }*/
+
+    public int getEmployeeID() {
+        return employeeid;
+    }
+
+    public void setEmployeeID(int employeeid) {
+        this.employeeid = employeeid;
+    }
+
+    public int getProjectID() {
+        return projectid;
+    }
+
+    public void setProjectID(int projectid) {
         this.projectid = projectid;
     }
 

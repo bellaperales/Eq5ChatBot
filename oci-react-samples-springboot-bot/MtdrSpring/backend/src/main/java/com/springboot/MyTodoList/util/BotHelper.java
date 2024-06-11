@@ -29,5 +29,4 @@ public class BotHelper {
 			logger.error(e.getLocalizedMessage(), e);
 		}
 	}
-
 }

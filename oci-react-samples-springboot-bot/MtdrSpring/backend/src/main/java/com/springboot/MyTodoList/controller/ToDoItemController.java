@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,12 +16,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.MyTodoList.model.ToDoItem;
+import com.springboot.MyTodoList.repository.EmployeeItemRepository;
+import com.springboot.MyTodoList.repository.ProjectItemRepository;
 import com.springboot.MyTodoList.service.ToDoItemService;
 
 @RestController
 public class ToDoItemController {
     @Autowired
     private ToDoItemService toDoItemService;
+    private EmployeeItemRepository employeeItemRepository;
+    private ProjectItemRepository projectItemRepository;
+
+    // @CrossOrigin
+    @GetMapping(value = "/todolist")
+    public List<ToDoItem> getAllToDoItems() {
+        return toDoItemService.findAll();
+    }
 
     // @CrossOrigin
     @GetMapping(value = "/todolist/project/{projectid}")
@@ -39,9 +50,10 @@ public class ToDoItemController {
         }
     }
 
-    // @CrossOrigin
+    @CrossOrigin
     @PostMapping(value = "/todolist")
     public ResponseEntity addToDoItem(@RequestBody ToDoItem todoItem) throws Exception {
+
         ToDoItem td = toDoItemService.addToDoItem(todoItem);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("location", "" + td.getID());

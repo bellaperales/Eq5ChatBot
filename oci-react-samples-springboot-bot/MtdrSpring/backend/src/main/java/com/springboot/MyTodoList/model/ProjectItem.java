@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /*
@@ -29,16 +27,19 @@ public class ProjectItem {
     Timestamp dateend;
     @Column(name = "status")
     boolean status;
-
+    /*
     @ManyToOne
     @JoinColumn(name = "departamentid", referencedColumnName = "id")
-    private DepartamentItem departamentid;
+    private DepartamentItem departamentid;*/
+
+    @Column(name = "departamentid")
+    int departamentid;
 
     public ProjectItem() {
 
     }
 
-    public ProjectItem(int ID, String name, Timestamp datestart, Timestamp dateend, boolean status, DepartamentItem departamentid) {
+    public ProjectItem(int ID, String name, Timestamp datestart, Timestamp dateend, boolean status, int departamentid) {
         this.ID = ID;
         this.name = name;
         this.datestart = datestart;
@@ -88,11 +89,20 @@ public class ProjectItem {
         this.status = status;
     }
 
+    /*
     public DepartamentItem getDepartamentID() {
         return departamentid;
     }
 
     public void setDepartamentID(DepartamentItem departamentid) {
+        this.departamentid = departamentid;
+    }*/
+
+    public int getDepartamentID() {
+        return departamentid;
+    }
+
+    public void setDepartamentID(int departamentid) {
         this.departamentid = departamentid;
     }
 
