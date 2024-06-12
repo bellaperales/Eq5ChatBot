@@ -2,7 +2,7 @@ spring:
   datasource:
     driver_class_name: oracle.jdbc.OracleDriver
     password: Contrasena_123
-    url: jdbc:oracle:thin:@eq5chatbotwu5ru_tp?TNS_ADMIN=/oci-react-samples-springboot-bot/MtdrSpring/wallet
+    url: jdbc:oracle:thin:@adb.mx-queretaro-1.oraclecloud.com:1522/g96e4d799cd2684_eq5chatbotwu5ru_tp.adb.oraclecloud.com?TNS_ADMIN=/oci-react-samples-springboot-bot/MtdrSpring/wallet
     username: TODOUSER
   jpa:
     database: ORACLE
