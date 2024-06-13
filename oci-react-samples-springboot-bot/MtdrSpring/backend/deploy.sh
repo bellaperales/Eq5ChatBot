@@ -1,4 +1,11 @@
 #!/bin/bash
+
+export DOCKER_REGISTRY="mx-queretaro-1.ocir.io/axvfutv1sy8e/eq5chatbot/wu5ru"
+export TODO_PDB_NAME=$(state_get MTDR_DB_NAME | tr -d '\n')
+export OCI_REGION="mx-queretaro-1"
+export UI_USERNAME=$(state_get UI_USERNAME | tr -d '\n')
+
+
 SCRIPT_DIR=$(pwd)
 if [ -z "$TODO_PDB_NAME" ]; then
     echo "TODO_PDB_NAME not set. Will get it with state_get"
