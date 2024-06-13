@@ -1,113 +1,21 @@
-version: 0.1
+version: 0.1 
 component: build
 timeoutInSeconds: 1200
 shell: bash
-failImmediatelyOnError: true
 
 env:
   variables:
     JAVA_HOME: /usr/lib64/graalvm/graalvm22-ee-java17
-    IMAGE_NAME: "todolistapp-springboot"
-    IMAGE_VERSION: "0.1"
-    DOCKER_REGISTRY: "mx-queretaro-1.ocir.io/axvfutv1sy8e/eq5chatbot/wu5ru"
-
-  exportedVariables:
-    - BuildServiceDemoVersion
-    - JAVA_HOME
-    - MTDRWORKSHOP_LOCATION
-    - MTDRWORKSHOP_STATE_HOME
-    - DOCKER_REGISTRY
-    - OCI_CLI_PROFILE
-    - IMAGE
 
 steps:
-  - type: Command
-    name: "CheckoutMainBranch"
-    command: git checkout main
-
-  - type: Command
-    name: "PullChanges"
-    command: git pull origin main
-
-  - type: Command
-    name: "ListRootDirectory"
-    command: |
-      echo "Listing contents of the root directory"
-      ls -la
-
-  - type: Command
-    name: "ListSourceDirectory"
-    command: |
-      echo "Listing contents of the source directory"
-      ls -la /workspace/Source1
-
-  - type: Command
-    name: "ListProjectDirectory"
-    command: |
-      echo "Listing contents of the project directory"
-      ls -la /workspace/Source1/oci-react-samples-springboot-bot
-
   - type: Command
     name: "Install GraalVM Enterprise 22.x Native Image for Java17"
     command: yum -y install graalvm22-ee-17-native-image
 
   - type: Command
-    name: "Set PATH variable"
+    name: "Set PATH Variable"
     command: export PATH=$JAVA_HOME/bin:$PATH
 
   - type: Command
-    name: "SourceEnvScript"
-    command: |
-      echo "Starting to source env.sh"
-      source /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/env.sh
-      export MTDRWORKSHOP_LOCATION=$MTDRWORKSHOP_LOCATION
-      export MTDRWORKSHOP_STATE_HOME=$MTDRWORKSHOP_STATE_HOME
-      export DOCKER_REGISTRY=$DOCKER_REGISTRY
-      echo "MTDRWORKSHOP_LOCATION: $MTDRWORKSHOP_LOCATION"
-      echo "MTDRWORKSHOP_STATE_HOME: $MTDRWORKSHOP_STATE_HOME"
-      echo "DOCKER_REGISTRY: $DOCKER_REGISTRY"
-
-  - type: Command
-    name: "RunMainSetup"
-    command: |
-      export MTDRWORKSHOP_LOCATION=$MTDRWORKSHOP_LOCATION
-      export MTDRWORKSHOP_STATE_HOME=$MTDRWORKSHOP_STATE_HOME
-      export DOCKER_REGISTRY=$DOCKER_REGISTRY
-      export OCI_CLI_PROFILE=$OCI_CLI_PROFILE
-      chmod +x /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/utils/main-setup.sh
-      source /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/utils/main-setup.sh
-
-  - type: Command
-    name: "VerifyLoginVariables"
-    command: |
-      export MTDRWORKSHOP_LOCATION=$MTDRWORKSHOP_LOCATION
-      export MTDRWORKSHOP_STATE_HOME=$MTDRWORKSHOP_STATE_HOME
-      export DOCKER_REGISTRY=$DOCKER_REGISTRY
-      export OCI_CLI_PROFILE=$OCI_CLI_PROFILE
-      echo "Verifying login variables"
-      echo "DOCKER_REGISTRY: $DOCKER_REGISTRY"
-      echo "OCI_CLI_PROFILE: $OCI_CLI_PROFILE"
-      echo "NAMESPACE: $(state_get NAMESPACE)"
-      echo "USER_NAME: $(state_get USER_NAME)"
-      echo "REGION: $(state_get REGION)"
-
-  - type: Command
-    name: "Set TNS_ADMIN Environment Variable"
-    command: |
-      export TNS_ADMIN=/workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/wallet
-      echo "TNS_ADMIN is set to: $TNS_ADMIN"
-      ls -la $TNS_ADMIN  # List the contents of the wallet directory for debugging
-
-  - type: Command
-    name: "RunBuildScript"
-    command: |
-      source /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/env.sh
-      cd /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/backend
-      echo "DOCKER_REGISTRY: $DOCKER_REGISTRY"
-      source build.sh
-
-  - type: Command
-    name: "ListTargetDirectory"
-    command: |
-      echo "Listing contents of the target directory"
-      ls -la /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/backend/target/
+    name: compile-dockerize-deliver
+    command: (source MtdrSpring/env.sh;cd backend;source build.sh)
