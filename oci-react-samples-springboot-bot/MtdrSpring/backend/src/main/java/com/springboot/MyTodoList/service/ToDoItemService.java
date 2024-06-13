@@ -1,3 +1,4 @@
+
 package com.springboot.MyTodoList.service;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.springboot.MyTodoList.model.ToDoItem;
+import com.springboot.MyTodoList.repository.ProjectItemRepository;
 import com.springboot.MyTodoList.repository.ToDoItemRepository;
 
 @Service
@@ -16,6 +18,9 @@ public class ToDoItemService {
 
     @Autowired
     private ToDoItemRepository toDoItemRepository;
+    
+    @Autowired
+    private ProjectItemRepository projectItemRepository;
 
     public List<ToDoItem> findAll() {
         List<ToDoItem> todoItems = toDoItemRepository.findAll();
@@ -35,6 +40,12 @@ public class ToDoItemService {
         return toDoItemRepository.findByEmployeeid(employeeid);
     }
 
+    /*
+    public List<ToDoItem> findByProjectid(int projectid) {
+       ProjectItem projectItem = projectItemRepository.findById(projectid).orElseThrow(() -> new RuntimeException("Project not found"));
+        return toDoItemRepository.findByProjectid(projectItem);
+    }*/
+
     public List<ToDoItem> findByProjectid(int projectid) {
         return toDoItemRepository.findByProjectid(projectid);
     }
@@ -43,8 +54,8 @@ public class ToDoItemService {
         return toDoItemRepository.findByProjectidOrderByDatelimitDesc(projectid);
     }
 
-    public List<ToDoItem> findByEmployeeidOrderByDatelimitDesc(int employeeid) {
-        return toDoItemRepository.findByEmployeeidOrderByDatelimitDesc(employeeid);
+    public List<ToDoItem> findByEmployeeidOrderByDatelimitAsc(int employeeid) {
+        return toDoItemRepository.findByEmployeeidOrderByDatelimitAsc(employeeid);
     }
 
     public ResponseEntity<ToDoItem> getItemById(int id) {
