@@ -1,7 +1,9 @@
 #!/bin/bash
 
-export IMAGE_NAME=todolistapp-springboot
-export IMAGE_VERSION=0.1
+export DOCKER_REGISTRY="mx-queretaro-1.ocir.io/axvfutv1sy8e/eq5chatbot/wu5ru"
+export IMAGE_NAME="todolistapp-springboot"
+export IMAGE_VERSION="0.1"
+export IMAGE="${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_VERSION}"
 
 
 if [ -z "$DOCKER_REGISTRY" ]; then
