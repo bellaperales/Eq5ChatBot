@@ -100,7 +100,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 						SendMessage messageToTelegram = new SendMessage();
 						messageToTelegram.setChatId(chatId);
 						messageToTelegram.setText(
-								"Bienvenido gerente al Chat Bot de Oracle. Selecciona /start para comenzar.");
+								"Bienvenido gerente al Chat Bot de Oracle. Selecciona /mainscreen para comenzar.");
 						execute(messageToTelegram);
 					} else if (!isManager){
 						userRole = 1;
@@ -108,13 +108,14 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 						SendMessage messageToTelegram = new SendMessage();
 						messageToTelegram.setChatId(chatId);
 						messageToTelegram.setText(
-								"Bienvenido desarrollador al Chat Bot de Oracle. Selecciona /start para comenzar.");
+								"Bienvenido desarrollador al Chat Bot de Oracle. Selecciona /mainscreen para comenzar.");
 						execute(messageToTelegram);
 					}
 				} catch (NumberFormatException e) {
 					SendMessage messageToTelegram = new SendMessage();
 					messageToTelegram.setChatId(chatId);
-					messageToTelegram.setText("Formato inválido.");
+					messageToTelegram.setText("Formato inválido. Por favor, coloca /iniciar para comenzar de nuevo.");
+					isWaitingForRole = false;
 					try {
 						execute(messageToTelegram);
 					} catch (TelegramApiException ex) {
@@ -125,7 +126,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				} catch (Exception e) {
 					SendMessage messageToTelegram = new SendMessage();
 					messageToTelegram.setChatId(chatId);
-					messageToTelegram.setText("Usuario no encontrado.");
+					messageToTelegram.setText("Usuario no encontrado. Por favor, coloca /iniciar para comenzar de nuevo.");
+					isWaitingForRole = false;
 					try {
 						execute(messageToTelegram);
 					} catch (TelegramApiException ex) {

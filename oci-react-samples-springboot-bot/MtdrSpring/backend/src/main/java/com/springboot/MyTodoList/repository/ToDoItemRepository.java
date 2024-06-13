@@ -21,11 +21,4 @@ public interface ToDoItemRepository extends JpaRepository<ToDoItem, Integer> {
     List<ToDoItem> findByProjectidOrderByDatelimitDesc(int projectid);
 
     List<ToDoItem> findByEmployeeidOrderByDatelimitAsc(int employeeid);
-
-
-
-    
-    
-
-
 }
