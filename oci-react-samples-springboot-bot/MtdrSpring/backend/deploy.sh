@@ -32,6 +32,12 @@ export CURRENTTIME=$( date '+%F_%H:%M:%S' )
 echo CURRENTTIME is $CURRENTTIME  ...this will be appended to generated deployment yaml
 cp src/main/resources/todolistapp-springboot.yaml todolistapp-springboot-$CURRENTTIME.yaml
 
+echo "DOCKER_REGISTRY: $DOCKER_REGISTRY"
+echo "TODO_PDB_NAME: $TODO_PDB_NAME"
+echo "OCI_REGION: $OCI_REGION"
+echo "UI_USERNAME: $UI_USERNAME"
+echo "CURRENTTIME: $CURRENTTIME"
+
 sed -i "s|%DOCKER_REGISTRY%|${DOCKER_REGISTRY}|g" todolistapp-springboot-$CURRENTTIME.yaml
 
 sed -e "s|%DOCKER_REGISTRY%|${DOCKER_REGISTRY}|g" todolistapp-springboot-${CURRENTTIME}.yaml > /tmp/todolistapp-springboot-${CURRENTTIME}.yaml
