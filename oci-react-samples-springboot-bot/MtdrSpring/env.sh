@@ -2,15 +2,11 @@
 # Copyright (c) 2022 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
-echo "Starting env.sh..."
-
 # Make sure this is run via source or .
 if ! (return 0 2>/dev/null); then
   echo "ERROR: Usage 'source env.sh'"
   exit
 fi
-
-echo "Passed sourcing check..."
 
 # POSIX compliant find and replace
 function sed_i(){
@@ -21,22 +17,24 @@ function sed_i(){
 }
 export -f sed_i
 
+
 #set mtdrworkshop_location
 export MTDRWORKSHOP_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd $MTDRWORKSHOP_LOCATION
 echo "MTDRWORKSHOP_LOCATION: $MTDRWORKSHOP_LOCATION"
 
+
 # Java Home
 # -d true if file is a directory, so it's testing if this directory exists, if it does
 # we are on Mac doing local dev
-if test -d ~/graalvm-ce-java11-20.1.0/Contents/Home/bin; then
-  # We are on Mac doing local dev
-  export JAVA_HOME=~/graalvm-ce-java11-20.1.0/Contents/Home;
-else
-  # Assume linux
-  export JAVA_HOME=~/graalvm-ce-java11-20.1.0
-fi
-export PATH=$JAVA_HOME/bin:$PATH
+# if test -d ~/graalvm-ce-java11-20.1.0/Contents/Home/bin; then           ########## DESCOMENTAR PARA CLOUND SHELL SI ES NECESARIO
+#   # We are on Mac doing local dev
+#   export JAVA_HOME=~/graalvm-ce-java11-20.1.0/Contents/Home;
+# else
+#   # Assume linux
+#   export JAVA_HOME=~/graalvm-ce-java11-20.1.0
+# fi
+# export PATH=$JAVA_HOME/bin:$PATH
 
 #state directory
 if test -d ~/mtdrworkshop-state; then
@@ -44,8 +42,7 @@ if test -d ~/mtdrworkshop-state; then
 else
   export MTDRWORKSHOP_STATE_HOME=$MTDRWORKSHOP_LOCATION
 fi
-echo "MTDRWORKSHOP_STATE_HOME: $MTDRWORKSHOP_STATE_HOME"
-
+echo "MTDRWORKSOP_STATE_HOME: $MTDRWORKSHOP_STATE_HOME"
 #Log Directory
 export MTDRWORKSHOP_LOG=$MTDRWORKSHOP_STATE_HOME/log
 mkdir -p $MTDRWORKSHOP_LOG
@@ -65,7 +62,3 @@ alias deployments='kubectl get deployments --all-namespaces'
 alias mtdrworkshop='echo deployments... ; deployments|grep mtdrworkshop ; echo pods... ; pods|grep mtdrworkshop ; echo services... ; services | grep mtdrworkshop ; echo secrets... ; secrets|grep mtdrworkshop ; echo "other shortcut commands... most can take partial podname as argument, such as [logpod front] or [deletepod order]...  pods  services secrets deployments " ; ls $MTDRWORKSHOP_LOCATION/utils/'
 
 export PATH=$PATH:$MTDRWORKSHOP_LOCATION/utils/
-
-# Set DOCKER_REGISTRY directly
-export DOCKER_REGISTRY="mx-queretaro-1.ocir.io/axvfutv1sy8e/eq5chatbot/wu5ru"
-echo "DOCKER_REGISTRY set to: $DOCKER_REGISTRY"
