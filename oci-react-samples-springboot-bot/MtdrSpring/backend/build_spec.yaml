@@ -92,6 +92,13 @@ steps:
       echo "REGION: $(state_get REGION)"
 
   - type: Command
+    name: "Set TNS_ADMIN Environment Variable"
+    command: |
+      export TNS_ADMIN=/workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/wallet
+      echo "TNS_ADMIN is set to: $TNS_ADMIN"
+      ls -la $TNS_ADMIN  # List the contents of the wallet directory for debugging
+
+  - type: Command
     name: "RunBuildScript"
     command: |
       source /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/env.sh
