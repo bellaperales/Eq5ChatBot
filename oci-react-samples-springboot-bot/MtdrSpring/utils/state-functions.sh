@@ -4,12 +4,12 @@
 
 # Make sure this is run via source or .
 if ! (return 0 2>/dev/null); then
-  echo "ERROR: Usage: 'source state-functions.sh'"
+  echo "ERROR: Usage: 'source state-functions.sh"
   exit
 fi
 
 if test -z "$MTDRWORKSHOP_STATE_HOME"; then
-  echo "ERROR: The mtdrworkshop state home folder was not set"
+  echo "ERROR: The mtdrworkshopt state home folder was not set"
 else
   mkdir -p $MTDRWORKSHOP_STATE_HOME/state
 fi
@@ -25,7 +25,7 @@ function state_set_done() {
   echo "$1 completed"
 }
 
-# Set the state to done and its value
+# Set the state to done and it's value
 function state_set() {
   echo "$2" > $MTDRWORKSHOP_STATE_HOME/state/"$1"
   echo "`date`: $1: $2" >>$MTDRWORKSHOP_LOG/state.log
@@ -40,12 +40,9 @@ function state_reset() {
 # Get state value
 function state_get() {
     if ! state_done "$1"; then
-        echo "state_get: $1 not found"  # Debugging statement
         return 1
     fi
-    local value=$(cat $MTDRWORKSHOP_STATE_HOME/state/"$1")
-    echo "state_get: $1 found with value $value"  # Debugging statement
-    echo $value
+    cat $MTDRWORKSHOP_STATE_HOME/state/"$1"
 }
 
 # Export the functions so that they are available to subshells
