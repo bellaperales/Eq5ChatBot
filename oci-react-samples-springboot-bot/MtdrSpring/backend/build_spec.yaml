@@ -18,4 +18,4 @@ steps:
 
   - type: Command
     name: compile-dockerize-deliver
-    command: (source MtdrSpring/env.sh;cd backend;source build.sh)
+    command: (source /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/env.sh;cd /workspace/Source1/oci-react-samples-springboot-bot/MtdrSpring/backend;source build.sh)
