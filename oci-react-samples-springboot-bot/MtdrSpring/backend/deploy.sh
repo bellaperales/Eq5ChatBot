@@ -1,9 +1,9 @@
 #!/bin/bash
 
 export DOCKER_REGISTRY="mx-queretaro-1.ocir.io/axvfutv1sy8e/eq5chatbot/wu5ru"
-export TODO_PDB_NAME=$(state_get MTDR_DB_NAME | tr -d '\n')
+export TODO_PDB_NAME="eq5chatbotwu5ru"
 export OCI_REGION="mx-queretaro-1"
-export UI_USERNAME=$(state_get UI_USERNAME | tr -d '\n')
+export UI_USERNAME="TODOUSER"
 
 
 SCRIPT_DIR=$(pwd)
