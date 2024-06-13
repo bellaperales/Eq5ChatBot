@@ -17,5 +17,9 @@ steps:
     command: export PATH=$JAVA_HOME/bin:$PATH
 
   - type: Command
+    name: "Permissions"
+    command: chmod +x /workspace/Eq5ChatBot/oci-react-samples-springboot-bot/MtdrSpring/utils/kube_token_cache.sh
+
+  - type: Command
     name: compile-dockerize-deliver
     command: (source /workspace/Eq5ChatBot/oci-react-samples-springboot-bot/MtdrSpring/env.sh;cd /workspace/Eq5ChatBot/oci-react-samples-springboot-bot/MtdrSpring/backend;source build.sh)
