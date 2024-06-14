@@ -39,7 +39,7 @@ jobs:
         VALIDATE_JAVASCRIPT_STANDARD: false
         VALIDATE_JSCPD: false
         VALIDATE_KUBERNETES_KUBEVAL: false
-        VALIDATE_MARKDOWN: false
+        VALIDATE_MARKDOWN: false  # Disable Markdown linting
         VALIDATE_PYTHON_BLACK: false
         VALIDATE_PYTHON_PYLINT: false
         VALIDATE_PYTHON_FLAKE8: false
@@ -60,4 +60,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: test-results
-        path: target/surefire-reports 
+        path: target/surefire-reports
