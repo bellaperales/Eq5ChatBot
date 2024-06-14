@@ -170,7 +170,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 				KeyboardRow row = new KeyboardRow();
 				row.add(BotLabels.PROJECT_INFORMATION.getLabel());
-				row.add(BotLabels.ADD_NEW_PROJECT.getLabel());
+				//row.add(BotLabels.ADD_NEW_PROJECT.getLabel());
 				keyboard.add(row);
 
 				row = new KeyboardRow();
@@ -224,7 +224,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 				KeyboardRow row = new KeyboardRow();
 				row.add(BotLabels.PROJECT_INFORMATION.getLabel());
-				row.add(BotLabels.ADD_NEW_PROJECT.getLabel());
+				//row.add(BotLabels.ADD_NEW_PROJECT.getLabel());
 				keyboard.add(row);
 				row = new KeyboardRow();
 				row.add(BotLabels.LIST_EMPLOYEES.getLabel());
