@@ -26,7 +26,14 @@ import com.springboot.MyTodoList.util.BotCommands;
  */
 class ToDoItemBotControllerTest {
 
+    /**
+     * Chat ID for test messages.
+     */
     private static final long CHAT_ID = 123456789L;
+
+    /**
+     * User ID for test messages.
+     */
     private static final int USER_ID = 12345;
 
     @Test
@@ -40,7 +47,8 @@ class ToDoItemBotControllerTest {
             "a00815371_bot", toDoService, projectService, employeeService);
 
         TelegramLongPollingBot telegramBot = mock(TelegramLongPollingBot.class);
-        when(telegramBot.execute(any(SendMessage.class))).thenReturn(new Message());
+        when(telegramBot.execute(any(SendMessage.class)))
+            .thenReturn(new Message());
 
         User user = new User();
         user.setId((long) USER_ID);
