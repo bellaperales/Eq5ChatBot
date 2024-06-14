@@ -364,7 +364,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					ProjectItem project = getProjectItemById(id).getBody();
 					project.setStatus(false);
 					updateProjectItem(project, id);
-					List<ToDoItem> allItems = getAllToDoItemsbyProjectid(id);
+					List<ToDoItem> allItems = getAllToDoItemsbyProjectId(id);
 					List<ToDoItem> activeItems = allItems.stream()
 							//.filter(item -> item.getStatus() == 1)
 							.filter(item -> item.getProjectID() == id)
