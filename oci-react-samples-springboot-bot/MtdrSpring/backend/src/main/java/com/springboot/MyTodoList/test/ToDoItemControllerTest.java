@@ -12,8 +12,8 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 import com.springboot.MyTodoList.controller.ToDoItemBotController;
 import com.springboot.MyTodoList.service.EmployeeItemService;
@@ -26,7 +26,14 @@ import com.springboot.MyTodoList.util.BotCommands;
  */
 class ToDoItemBotControllerTest {
 
+    /**
+     * Chat ID for testing.
+     */
     private static final long CHAT_ID = 123456789L;
+
+    /**
+     * User ID for testing.
+     */
     private static final int USER_ID = 12345;
 
     /**
@@ -39,11 +46,13 @@ class ToDoItemBotControllerTest {
         EmployeeItemService employeeItemServiceMock = mock(EmployeeItemService.class);
 
         ToDoItemBotController bot = new ToDoItemBotController(
-            "7198383080:AAF1YvgOUUDbv7fmclRmEFn3DXGaoJGA3rM", "a00815371_bot",
-            toDoItemServiceMock, projectItemServiceMock, employeeItemServiceMock);
+            "7198383080:AAF1YvgOUUDbv7fmclRmEFn3DXGaoJGA3rM",
+            "a00815371_bot", toDoItemServiceMock,
+            projectItemServiceMock, employeeItemServiceMock);
 
         TelegramLongPollingBot telegramBotMock = mock(TelegramLongPollingBot.class);
-        when(telegramBotMock.execute(any(SendMessage.class))).thenReturn(new Message());
+        when(telegramBotMock.execute(any(SendMessage.class)))
+            .thenReturn(new Message());
 
         User user = new User();
         user.setId((long) USER_ID);
@@ -74,11 +83,13 @@ class ToDoItemBotControllerTest {
         EmployeeItemService employeeItemServiceMock = mock(EmployeeItemService.class);
 
         ToDoItemBotController bot = new ToDoItemBotController(
-            "7198383080:AAF1YvgOUUDbv7fmclRmEFn3DXGaoJGA3rM", "a00815371_bot",
-            toDoItemServiceMock, projectItemServiceMock, employeeItemServiceMock);
+            "7198383080:AAF1YvgOUUDbv7fmclRmEFn3DXGaoJGA3rM",
+            "a00815371_bot", toDoItemServiceMock,
+            projectItemServiceMock, employeeItemServiceMock);
 
         TelegramLongPollingBot telegramBotMock = mock(TelegramLongPollingBot.class);
-        when(telegramBotMock.execute(any(SendMessage.class))).thenReturn(new Message());
+        when(telegramBotMock.execute(any(SendMessage.class)))
+            .thenReturn(new Message());
 
         User user = new User();
         user.setId((long) USER_ID);
@@ -97,7 +108,5 @@ class ToDoItemBotControllerTest {
         bot.onUpdateReceived(testUpdate);
 
         verify(telegramBotMock, times(1)).execute(any(SendMessage.class));
-        // Add verification for service method calls as necessary
-        // verify(toDoItemServiceMock, times(1)).findByEmployeeIdOrderByDateLimitAsc(USER_ID);
     }
 }
