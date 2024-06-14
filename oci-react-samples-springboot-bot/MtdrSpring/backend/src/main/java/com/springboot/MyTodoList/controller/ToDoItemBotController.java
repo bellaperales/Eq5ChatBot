@@ -170,7 +170,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 				KeyboardRow row = new KeyboardRow();
 				row.add(BotLabels.PROJECT_INFORMATION.getLabel());
-				row.add(BotLabels.ADD_NEW_PROJECT.getLabel());
+				//row.add(BotLabels.ADD_NEW_PROJECT.getLabel());
 				keyboard.add(row);
 
 				row = new KeyboardRow();
@@ -224,7 +224,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 				KeyboardRow row = new KeyboardRow();
 				row.add(BotLabels.PROJECT_INFORMATION.getLabel());
-				row.add(BotLabels.ADD_NEW_PROJECT.getLabel());
+				//row.add(BotLabels.ADD_NEW_PROJECT.getLabel());
 				keyboard.add(row);
 				row = new KeyboardRow();
 				row.add(BotLabels.LIST_EMPLOYEES.getLabel());
@@ -364,7 +364,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 					ProjectItem project = getProjectItemById(id).getBody();
 					project.setStatus(false);
 					updateProjectItem(project, id);
-					List<ToDoItem> allItems = getAllToDoItemsbyProjectid(id);
+					List<ToDoItem> allItems = getAllToDoItemsbyProjectId(id);
 					List<ToDoItem> activeItems = allItems.stream()
 							//.filter(item -> item.getStatus() == 1)
 							.filter(item -> item.getProjectID() == id)
