@@ -52,3 +52,12 @@ jobs:
         CHECKSTYLE_FILE: .checkstyle.xml
         VALIDATE_ALL_CODEBASE: false
         DEFAULT_BRANCH: Andres
+
+    - name: Run Bot Tests
+      run: mvn test -Dtest=com.springboot.MyTodoList.test.bot.ToDoItemBotControllerTest # Replace ToDoItemBotControllerTest with your test class name
+
+    - name: Report test results (Optional)
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: target/surefire-reports 
