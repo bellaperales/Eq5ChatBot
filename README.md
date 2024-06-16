@@ -1,7 +1,12 @@
 # Equipo5_OracleChatBot
 
 # Miembros del equipo
-- Bella Elisabet Perales Meléndez y Alcocer
+- Mariel Gisela Pérez Ferrusquía - A00832811
+- Andrés Fernando Garza Garcia - A01138704
+- Marcelo García Pablos Vélez - A00815371
+- Bella Elisabet Perales Meléndez y Alcocer - A00833423
+- Daniela Nuño Martinez - A01177702
+
 
 ## Tecnologías a utilizar:
 ### Back-end
